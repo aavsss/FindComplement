@@ -8,3 +8,4 @@ data class Message(
     val imageUrl: String? = null,
     val timeStamp: String? = null
 )
+
