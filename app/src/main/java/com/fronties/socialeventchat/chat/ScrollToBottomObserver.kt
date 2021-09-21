@@ -4,6 +4,7 @@ import android.widget.Adapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+//test for webhook
 class ScrollToBottomObserver(
     private val recyclerView: RecyclerView,
     private val adapter: Adapter, // TODO: change to whichever adapter is added later
