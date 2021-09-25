@@ -18,16 +18,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        //region test
-        tempBinding = FragmentEventDetailBinding.inflate(layoutInflater)
-        val tempView = tempBinding.root
-
-//        setSupportActionBar(tempBinding.toolbar)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setDisplayShowHomeEnabled(true)
-//        tempBinding.toolbarLayout.title = title
-        //endregion
-
-        setContentView(tempView)
+        setContentView(view)
     }
 }
