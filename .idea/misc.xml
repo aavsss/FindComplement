@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_event_detail.xml" value="0.2057460611677479" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/content_layout_based_activity.xml" value="0.1203125" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_event_detail.xml" value="0.176" />
       </map>
     </option>
   </component>
