@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
+import com.fronties.socialeventchat.helperClasses.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -17,8 +18,8 @@ class EventDetailViewModel @Inject constructor(
     private val eventRepo: EventRepo
 ) : ViewModel() {
 
-    private val _eventDetail = MutableLiveData<SocialEvents>()
-    val eventDetail: LiveData<SocialEvents> = _eventDetail
+    private val _eventDetail = MutableLiveData<Resource<SocialEvents>>()
+    val eventDetail: LiveData<Resource<SocialEvents>> = _eventDetail
 
     fun getEventDetails(eventID: Int) {
         viewModelScope.launch {
@@ -28,7 +29,7 @@ class EventDetailViewModel @Inject constructor(
                 // TODO Show an empty view
                 return@launch
             }
-            _eventDetail.value = eventDetail
+            _eventDetail.value = Resource.success(eventDetail)
         }
     }
 }

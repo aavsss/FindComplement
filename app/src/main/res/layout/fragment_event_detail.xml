@@ -73,7 +73,7 @@
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.startDate}"
+                            android:text="@{viewmodel.eventDetail.data.startDate}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -81,7 +81,7 @@
                             android:id="@+id/location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.location}"
+                            android:text="@{viewmodel.eventDetail.data.location}"
                             app:layout_constraintTop_toBottomOf="@id/date"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -89,7 +89,7 @@
                             android:id="@+id/type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.type}"
+                            android:text="@{viewmodel.eventDetail.data.type}"
                             app:layout_constraintTop_toBottomOf="@id/location"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -97,7 +97,7 @@
                             android:id="@+id/host"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.host}"
+                            android:text="@{viewmodel.eventDetail.data.host}"
                             app:layout_constraintTop_toBottomOf="@id/type"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -105,7 +105,7 @@
                             android:id="@+id/contact_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{Integer.toString(viewmodel.eventDetail.contactNumber)}"
+                            android:text="@{Integer.toString(viewmodel.eventDetail.data.contactNumber)}"
                             app:layout_constraintTop_toBottomOf="@id/host"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -114,7 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
-                            android:text="@{viewmodel.eventDetail.description}"
+                            android:text="@{viewmodel.eventDetail.data.description}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/contact_number" />
