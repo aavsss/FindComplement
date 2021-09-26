@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.dependency
 
+import com.fronties.socialeventchat.event.repo.DummyRepoImpl
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.event.repo.EventRepoImpl
 import dagger.Binds
@@ -10,11 +11,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class BindingModule {
+abstract class EventBindingModule {
 
     @Singleton
     @Binds
     abstract fun bindEventRepo(
-        eventRepoImpl: EventRepoImpl
+        eventRepoImpl: DummyRepoImpl
     ): EventRepo
 }

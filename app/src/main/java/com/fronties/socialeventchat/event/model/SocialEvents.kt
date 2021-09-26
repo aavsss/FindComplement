@@ -1,12 +1,12 @@
 package com.fronties.socialeventchat.event.model
 
 data class SocialEvents(
-    val eid: Int,
-    val description: String?,
-    val type: String?,
-    val contactNumber: Int?,
-    val startDate: String?,
-    val endDate: String?,
-    val host: String?,
-    val location: String?
+    val eid: Int? = 1,
+    val description: String? = "Description",
+    val type: String? = "Type",
+    val contactNumber: Int? = 1,
+    val startDate: String? = "StartDate",
+    val endDate: String? = "EndDate",
+    val host: String? = "Host",
+    val location: String? = "Location"
 )
