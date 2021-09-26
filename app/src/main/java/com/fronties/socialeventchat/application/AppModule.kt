@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.application
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -26,5 +27,14 @@ object AppModule {
             .placeholder(R.drawable.ic_launcher_foreground) // TODO put different pics for placeholder and error
             .error(R.drawable.ic_launcher_foreground)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
+    )
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context
+    ): SharedPreferences = context.getSharedPreferences(
+        context.getString(R.string.app_name),
+        Context.MODE_PRIVATE
     )
 }
