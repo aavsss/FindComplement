@@ -17,27 +17,6 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/first_name_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Enter First Name"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:padding="10dp" />
-
-            <EditText
-                android:id="@+id/first_last_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Enter Last Name"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:gravity="center"
-                />
-
-            <EditText
                 android:id="@+id/register_username_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
