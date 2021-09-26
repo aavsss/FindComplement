@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentEventDetailBinding
+import com.fronties.socialeventchat.helperClasses.Extensions.gone
+import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,9 +41,19 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         eventDetailViewModel.getEventDetails(eventId)
 
         subscribeToEventDetail()
+        subscribeToErrorView()
     }
 
-    fun subscribeToEventDetail() {
+    private fun subscribeToErrorView() {
+        eventDetailViewModel.errorViewListener.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                binding.clErrorView.visible()
+                binding.clInfoView.gone()
+            }
+        }
+    }
+
+    private fun subscribeToEventDetail() {
         eventDetailViewModel.eventDetail.observe(viewLifecycleOwner) {
             binding.viewmodel = eventDetailViewModel
         }

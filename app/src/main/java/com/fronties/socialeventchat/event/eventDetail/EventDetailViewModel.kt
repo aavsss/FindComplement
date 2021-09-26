@@ -21,12 +21,15 @@ class EventDetailViewModel @Inject constructor(
     private val _eventDetail = MutableLiveData<Resource<SocialEvents>>()
     val eventDetail: LiveData<Resource<SocialEvents>> = _eventDetail
 
+    private val _errorViewListener = MutableLiveData<Event<Unit>>()
+    val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
+
     fun getEventDetails(eventID: Int) {
         viewModelScope.launch {
             val eventDetail = try {
                 eventRepo.getEventDetails(eventID)
             } catch (e: Exception) {
-                // TODO Show an empty view
+                _errorViewListener.value = Event(Unit)
                 return@launch
             }
             _eventDetail.value = Resource.success(eventDetail)
