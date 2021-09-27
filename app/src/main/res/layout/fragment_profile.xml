@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ProfileViewModel"
+            type="com.fronties.socialeventchat.authentication.profile.ProfileViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".LoginFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="skip >>"
+                android:paddingHorizontal="32dp"
+                android:id="@+id/skip_button_profile"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:background="#E1BEE7"
+                android:onClick="@{()-> ProfileViewModel.skipProfileButtonClicked()}"
+                />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="@color/black"
+                android:layout_marginVertical="20dp" />
+
+            <EditText
+                android:id="@+id/first_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="First Name"
+                android:text="@={ProfileViewModel.firstNameEtContent}"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/last_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Last Name"
+                android:text="@={ProfileViewModel.lastNameEtContent}"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/phone_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="Phone Number"
+                android:text="@={ProfileViewModel.phoneNumberEtContent}"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="save"
+                android:paddingHorizontal="80dp"
+                android:id="@+id/save_button_profile"
+                android:layout_gravity="center"
+                android:background="#E1BEE7"
+                android:onClick="@{()-> ProfileViewModel.saveProfileButtonClicked()}"
+                />
+
+
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

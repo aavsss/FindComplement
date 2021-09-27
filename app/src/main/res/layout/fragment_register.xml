@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="RegisterViewModel"
+            type="com.fronties.socialeventchat.authentication.register.RegisterViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RegisterFragment">
+        tools:context=".authentication.register.RegisterFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="Enter Username"
+                android:text="@={RegisterViewModel.usernameRegisterEtContent}"
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
@@ -33,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Enter Password"
+                android:text="@={RegisterViewModel.passwordRegisterEtContent}"
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
@@ -47,7 +51,7 @@
                 android:layout_gravity="center"
                 android:background="#E1BEE7"
                 android:gravity="center"
-
+                android:onClick="@{()-> RegisterViewModel.registerButtonClicked()}"
                 />
 
 

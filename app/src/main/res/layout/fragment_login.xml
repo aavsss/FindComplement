@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="LoginViewModel"
+            type="com.fronties.socialeventchat.authentication.login.LoginViewModel" />
     </data>
 
     <FrameLayout
@@ -22,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="Enter username"
+                android:text="@={LoginViewModel.usernameLoginEtContent}"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:padding="10dp" />
@@ -32,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Enter password"
+                android:text="@={LoginViewModel.passwordLoginEtContent}"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:padding="10dp" />
@@ -43,7 +47,9 @@
                 android:paddingHorizontal="80dp"
                 android:id="@+id/login_button"
                 android:layout_gravity="center"
-                android:background="#E1BEE7" />
+                android:background="#E1BEE7"
+                android:onClick="@{()-> LoginViewModel.loginButtonClicked()}"
+                />
 
             <TextView
                 android:id="@+id/textView"
@@ -61,7 +67,10 @@
                 android:paddingHorizontal="70dp"
                 android:id="@+id/register_button"
                 android:layout_gravity="center"
-                android:background="#E1BEE7" />
+                android:background="#E1BEE7"
+                android:onClick="@{()-> LoginViewModel.registerButtonClicked()}"
+
+                />
 
 
         </LinearLayout>
