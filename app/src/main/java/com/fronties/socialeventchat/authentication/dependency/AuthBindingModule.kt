@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.authentication.dependency
 
+import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
 import com.fronties.socialeventchat.authentication.repo.DummyAuthenticationRepo
 import com.fronties.socialeventchat.event.repo.EventRepo
 import dagger.Binds
@@ -16,5 +17,5 @@ abstract class AuthBindingModule {
     @Binds
     abstract fun bindAuthenticationRepo(
         authenticationRepo: DummyAuthenticationRepo
-    ): EventRepo
+    ): AuthenticationRepo
 }
