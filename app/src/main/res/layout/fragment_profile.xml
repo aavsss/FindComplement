@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="ProfileViewModel"
+            name="profileViewModel"
             type="com.fronties.socialeventchat.authentication.profile.ProfileViewModel" />
     </data>
 
@@ -27,7 +27,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="20dp"
                 android:background="#E1BEE7"
-                android:onClick="@{()-> ProfileViewModel.skipProfileButtonClicked()}"
+                android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 />
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="First Name"
-                android:text="@={ProfileViewModel.firstNameEtContent}"
+                android:text="@={profileViewModel.firstNameEtContent}"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:padding="10dp" />
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Last Name"
-                android:text="@={ProfileViewModel.lastNameEtContent}"
+                android:text="@={profileViewModel.lastNameEtContent}"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:padding="10dp" />
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:hint="Phone Number"
-                android:text="@={ProfileViewModel.phoneNumberEtContent}"
+                android:text="@={profileViewModel.phoneNumberEtContent}"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:padding="10dp"
@@ -82,7 +82,7 @@
                 android:id="@+id/save_button_profile"
                 android:layout_gravity="center"
                 android:background="#E1BEE7"
-                android:onClick="@{()-> ProfileViewModel.saveProfileButtonClicked()}"
+                android:onClick="@{()-> profileViewModel.saveProfileButtonClicked()}"
                 />
 
 

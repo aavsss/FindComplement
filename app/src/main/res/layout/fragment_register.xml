@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="RegisterViewModel"
+            name="registerViewModel"
             type="com.fronties.socialeventchat.authentication.register.RegisterViewModel" />
     </data>
 
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="Enter Username"
-                android:text="@={RegisterViewModel.usernameRegisterEtContent}"
+                android:text="@={registerViewModel.usernameRegisterEtContent}"
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Enter Password"
-                android:text="@={RegisterViewModel.passwordRegisterEtContent}"
+                android:text="@={registerViewModel.passwordRegisterEtContent}"
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
@@ -51,9 +51,8 @@
                 android:layout_gravity="center"
                 android:background="#E1BEE7"
                 android:gravity="center"
-                android:onClick="@{()-> RegisterViewModel.registerButtonClicked()}"
+                android:onClick="@{()-> registerViewModel.registerButtonClicked()}"
                 />
-
 
         </LinearLayout>
 

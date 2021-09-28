@@ -10,11 +10,17 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.MainActivity
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentRegisterBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class RegisterFragment : Fragment() {
+@AndroidEntryPoint
+class RegisterFragment : Fragment(R.layout.fragment_register) {
+
+    lateinit var binding: FragmentRegisterBinding
+    lateinit var registerViewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,18 +30,22 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        binding.registerViewModel = registerViewModel
 
-        DataBindingUtil.setContentView<FragmentRegisterBinding>(
-            context as Activity, R.layout.fragment_register
-        )
+        registerViewModel.listenerForNavToMainScreen.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
+            }
+        }
 
 //        registerViewModel.passwordRegisterEtContent.observe(viewLifecycleOwner, Observer {
 //
