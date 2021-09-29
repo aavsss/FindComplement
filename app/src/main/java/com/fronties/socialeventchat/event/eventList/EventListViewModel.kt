@@ -1,4 +1,6 @@
 package com.fronties.socialeventchat.event.eventList
 
-class EventListViewModel {
+import androidx.lifecycle.ViewModel
+
+class EventListViewModel: ViewModel() {
 }

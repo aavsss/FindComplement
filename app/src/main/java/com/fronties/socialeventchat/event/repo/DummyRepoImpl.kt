@@ -9,4 +9,8 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
             eid = eventId,
         )
     }
+
+    override fun getEventsList(): List<SocialEvents> {
+        // generate list of dummy events
+    }
 }

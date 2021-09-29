@@ -2,6 +2,7 @@ package com.fronties.socialeventchat.event.model
 
 data class SocialEvents(
     val eid: Int? = 1,
+    val name: String? = "",
     val description: String? = "Description",
     val type: String? = "Type",
     val contactNumber: Int? = 1,
