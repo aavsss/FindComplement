@@ -45,6 +45,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
+        loginViewModel.listenerForNavToEventFeed.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(R.id.action_loginFragment_to_eventDetailFragment)
+            }
+        }
+
 
     }
 }
