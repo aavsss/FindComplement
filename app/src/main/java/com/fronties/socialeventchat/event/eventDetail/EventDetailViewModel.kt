@@ -1,3 +1,4 @@
+
 package com.fronties.socialeventchat.event.eventDetail
 
 import androidx.lifecycle.LiveData

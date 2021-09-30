@@ -1,7 +1,7 @@
-package com.fronties.socialeventchat.chat.dependency
+package com.fronties.socialeventchat.profile.dependency
 
-import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.helperClasses.Constants.BASE_URL
+import com.fronties.socialeventchat.profile.api.ProfileApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,13 +12,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ChatModule {
+object ProfileModule {
 
     @Singleton
     @Provides
-    fun provideChatApiInstance(): ChatApi = Retrofit.Builder()
+    fun provideProfileApiInstance(): ProfileApi = Retrofit.Builder()
         .baseUrl(BASE_URL) // TODO put the url hosted
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(ChatApi::class.java)
+        .create(ProfileApi::class.java)
 }

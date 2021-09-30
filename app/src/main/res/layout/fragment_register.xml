@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="registerViewModel"
+            type="com.fronties.socialeventchat.authentication.register.RegisterViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".authentication.register.RegisterFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/register_username_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="Enter Username"
+                android:text="@={registerViewModel.usernameRegisterEtContent}"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/register_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Enter Password"
+                android:text="@={registerViewModel.passwordRegisterEtContent}"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:gravity="center"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:paddingHorizontal="70dp"
+                android:id="@+id/register_button"
+                android:layout_gravity="center"
+                android:background="#E1BEE7"
+                android:gravity="center"
+                android:onClick="@{()-> registerViewModel.registerButtonClicked()}"
+                />
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
