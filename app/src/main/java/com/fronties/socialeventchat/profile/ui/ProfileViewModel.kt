@@ -1,4 +1,4 @@
-package com.fronties.socialeventchat.authentication.profile
+package com.fronties.socialeventchat.profile.ui
 
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -6,8 +6,6 @@ import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
-import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.helperClasses.Event
 
 class ProfileViewModel : ViewModel(), Observable {
@@ -38,6 +36,7 @@ class ProfileViewModel : ViewModel(), Observable {
 
     @Bindable
     val phoneNumberEtContent = MutableLiveData<String>()
+
     private val _phoneNumberForProfile = MutableLiveData<String>()
     val phoneNumberForProfile: LiveData<String>
         get() = _phoneNumberForProfile
@@ -64,7 +63,7 @@ class ProfileViewModel : ViewModel(), Observable {
     }
 
     fun goToMainScreen(){
-        _listenerForNavToProfile.value = Event<Unit>(Unit)
+        _listenerForNavToProfile.value = Event(Unit)
     }
 }// class ends here
 

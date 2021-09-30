@@ -5,7 +5,7 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fronties.socialeventchat.authentication.profile.ProfileViewModel" />
+            type="com.fronties.socialeventchat.profile.ui.ProfileViewModel" />
     </data>
 
     <FrameLayout

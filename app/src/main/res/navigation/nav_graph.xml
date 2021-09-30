@@ -7,6 +7,12 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.fronties.socialeventchat.event.eventList.EventListFragment"
+        android:label="EventListFragment">
+    </fragment>
+
+    <fragment
         android:id="@+id/eventDetailFragment"
         android:name="com.fronties.socialeventchat.event.eventDetail.EventDetailFragment"
         android:label="EventDetailFragment">
@@ -15,6 +21,7 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.fronties.socialeventchat.authentication.login.LoginFragment"
@@ -23,6 +30,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment"/>
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -35,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.fronties.socialeventchat.authentication.profile.ProfileFragment"
+        android:name="com.fronties.socialeventchat.profile.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 

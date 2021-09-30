@@ -1,17 +1,12 @@
 package com.fronties.socialeventchat.authentication.register
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.fronties.socialeventchat.MainActivity
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +36,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         binding.registerViewModel = registerViewModel
 
-        registerViewModel.listenerForNavToMainScreen.observe(viewLifecycleOwner){
+        registerViewModel.listenerForNavToProfileSection.observe(viewLifecycleOwner){
             it.getContentIfNotHandled()?.let {
                 findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
             }
