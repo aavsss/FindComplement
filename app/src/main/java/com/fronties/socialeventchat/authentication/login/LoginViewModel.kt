@@ -72,6 +72,7 @@ class LoginViewModel @Inject constructor(
                         return@launch
                     } catch (e: HttpException) {
                         // TODO show some error screen
+                        return@launch
                     }
                 }
             }

@@ -6,11 +6,23 @@ import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
+import com.fronties.socialeventchat.authentication.validator.EmailValidator
 import com.fronties.socialeventchat.helperClasses.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
+import javax.inject.Inject
 
-class RegisterViewModel: ViewModel(), Observable {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val authenticationRepo: AuthenticationRepo,
+    private val emailValidator: EmailValidator
+) : ViewModel(), Observable {
 
-    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry()}
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.add(callback)
@@ -34,20 +46,34 @@ class RegisterViewModel: ViewModel(), Observable {
     val passwordForRegister: LiveData<String>
         get() = _passwordForRegister
 
-    private val _listenerForNavToMainScreen = MutableLiveData<Event<Unit>>()
-    val listenerForNavToMainScreen: LiveData<Event<Unit>>
-        get()=_listenerForNavToMainScreen
+    private val _listenerForNavToProfileSection = MutableLiveData<Event<Unit>>()
+    val listenerForNavToProfileSection: LiveData<Event<Unit>>
+        get() = _listenerForNavToProfileSection
 
-
-    fun registerButtonClicked(){
+    fun registerButtonClicked() {
         _usernameForRegister.value = usernameRegisterEtContent.value
         _passwordForRegister.value = passwordRegisterEtContent.value
-
+        _usernameForRegister.value?.let { email ->
+            if (emailValidator.validatePatriotsEmail(email)) {
+                viewModelScope.launch {
+                    try {
+                        if (authenticationRepo.loginUser(email, "password")) { // TODO for testing - remove later
+                            _listenerForNavToProfileSection.value = Event(Unit)
+                        }
+                    } catch (e: IOException) {
+                        // TODO show some error screen
+                        return@launch
+                    } catch (e: HttpException) {
+                        // TODO show some error screen
+                        return@launch
+                    }
+                }
+            }
+        }
 //        Register user
 //        *** Uncomment Below Method***
 //        registerUser(usernameForRegister.value,passwordForRegister.value)
 
 //        Take User to Profile Section
-        _listenerForNavToMainScreen.value = Event(Unit)
     }
 }

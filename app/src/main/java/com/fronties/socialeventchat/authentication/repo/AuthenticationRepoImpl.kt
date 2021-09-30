@@ -11,7 +11,7 @@ class AuthenticationRepoImpl @Inject constructor(
     private val authApi: AuthApi,
     private val sessionManager: SessionManager
 ) : AuthenticationRepo {
-    override fun registerUser(username: String, password: String): Boolean {
+    override suspend fun registerUser(username: String, password: String): Boolean {
         try {
             val authResponse = authApi.registerUser()
             if (authResponse.isSuccessful && authResponse.body() != null) {
@@ -29,7 +29,7 @@ class AuthenticationRepoImpl @Inject constructor(
         }
     }
 
-    override fun loginUser(username: String, password: String): Boolean {
+    override suspend fun loginUser(username: String, password: String): Boolean {
         return true
     }
 }

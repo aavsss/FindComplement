@@ -28,7 +28,6 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         viewModel = ViewModelProvider(requireActivity())
             .get(EventListViewModel::class.java)
 
-        val random =
     }
 
 }
