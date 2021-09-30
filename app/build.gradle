@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.fronties.socialeventchat"
-        minSdk 21
+        minSdk 24
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -95,5 +95,18 @@ dependencies {
 
     //region jwt validation
     implementation 'com.auth0.android:jwtdecode:2.0.0'
+    //endregion
+
+    //region emcrypted shared preferences
+    implementation "androidx.security:security-crypto:1.0.0"
+
+    // For Identity Credential APIs
+    implementation "androidx.security:security-identity-credential:1.0.0-alpha03"
+
+    // For App Authentication APIs
+    implementation "androidx.security:security-app-authenticator:1.0.0-alpha02"
+
+    // For App Authentication API testing
+    androidTestImplementation "androidx.security:security-app-authenticator:1.0.0-alpha02"
     //endregion
 }

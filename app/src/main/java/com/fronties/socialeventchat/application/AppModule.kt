@@ -2,6 +2,8 @@ package com.fronties.socialeventchat.application
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -31,10 +33,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(
+    fun provideEncryptedSharedPreferences(
         @ApplicationContext context: Context
-    ): SharedPreferences = context.getSharedPreferences(
+    ): SharedPreferences = EncryptedSharedPreferences.create(
         context.getString(R.string.app_name),
-        Context.MODE_PRIVATE
+        MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 }

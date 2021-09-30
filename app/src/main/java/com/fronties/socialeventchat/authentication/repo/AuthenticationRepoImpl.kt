@@ -16,7 +16,6 @@ class AuthenticationRepoImpl @Inject constructor(
             val authResponse = authApi.registerUser()
             if (authResponse.isSuccessful && authResponse.body() != null) {
                 val token = authResponse.body()!!.token!!
-//                val jwt = JWT(token)
                 sessionManager.saveAuthToken(token)
                 return true
             }
@@ -31,7 +30,6 @@ class AuthenticationRepoImpl @Inject constructor(
     }
 
     override fun loginUser(username: String, password: String): Boolean {
-        sessionManager.saveAuthToken("Bearer 123")
         return true
     }
 }
