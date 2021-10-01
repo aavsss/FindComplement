@@ -11,7 +11,7 @@ import javax.inject.Inject
 class DummyAuthenticationRepo @Inject constructor(
     private val sessionManager: SessionManager
 ) : AuthenticationRepo {
-    override suspend fun registerUser(username: String, password: String): Boolean {
+    override suspend fun registerUser(email: String, password: String): Boolean {
         try {
             val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
             sessionManager.saveAuthToken(token)
@@ -25,7 +25,7 @@ class DummyAuthenticationRepo @Inject constructor(
         }
     }
 
-    override suspend fun loginUser(username: String, password: String): Boolean {
+    override suspend fun loginUser(email: String, password: String): Boolean {
         try {
             val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
             sessionManager.saveAuthToken(token)
