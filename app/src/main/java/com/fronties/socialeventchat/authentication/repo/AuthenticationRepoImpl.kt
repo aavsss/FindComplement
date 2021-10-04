@@ -38,8 +38,8 @@ class AuthenticationRepoImpl @Inject constructor(
                 AuthRequest(email, password)
             )
             if (authResponse.isSuccessful && authResponse.body() != null) {
-                val token = authResponse.body()!!.token!!
-                sessionManager.saveAuthToken(token)
+//                val token = authResponse.body()!!.token!!
+//                sessionManager.saveAuthToken(token)
                 return true
             }
             return false

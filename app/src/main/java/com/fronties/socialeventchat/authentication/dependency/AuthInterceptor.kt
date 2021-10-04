@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.authentication.dependency
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class AuthInterceptor @Inject constructor() : Interceptor {
 

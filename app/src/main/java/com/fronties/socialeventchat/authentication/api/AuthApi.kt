@@ -5,15 +5,16 @@ import com.fronties.socialeventchat.authentication.model.AuthResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface AuthApi {
 
-    @GET("/api/users/")
+    @POST("/api/users/signup")
     suspend fun registerUser(
         @Body authRequest: AuthRequest
     ): Response<AuthResponse>
 
-    @GET("/api/users/login/")
+    @POST("/api/users/login/")
     suspend fun loginUser(
         @Body authRequest: AuthRequest
     ): Response<AuthResponse>
