@@ -1,7 +1,7 @@
 package com.fronties.socialeventchat.authentication.repo
 
 import com.fronties.socialeventchat.authentication.api.AuthApi
-import com.fronties.socialeventchat.authentication.dependency.SessionManager
+import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.authentication.model.AuthRequest
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
@@ -38,8 +38,8 @@ class AuthenticationRepoImpl @Inject constructor(
                 AuthRequest(email, password)
             )
             if (authResponse.isSuccessful && authResponse.body() != null) {
-//                val token = authResponse.body()!!.token!!
-//                sessionManager.saveAuthToken(token)
+                val token = authResponse.body()!!.token!!
+                sessionManager.saveAuthToken(token)
                 return true
             }
             return false
