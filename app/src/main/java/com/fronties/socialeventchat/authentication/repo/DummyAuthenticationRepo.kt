@@ -27,9 +27,9 @@ class DummyAuthenticationRepo @Inject constructor(
 
     override suspend fun loginUser(username: String, password: String): Boolean {
         try {
-            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
-            sessionManager.saveAuthToken(token)
-            return true
+//            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+//            sessionManager.saveAuthToken(token)
+            return false
         } catch (e: IOException) {
             Resource.error(e.localizedMessage ?: "IO Error", null)
             throw e
