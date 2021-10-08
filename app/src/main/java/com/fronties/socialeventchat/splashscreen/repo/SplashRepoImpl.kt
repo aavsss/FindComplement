@@ -2,7 +2,6 @@ package com.fronties.socialeventchat.splashscreen.repo
 
 import com.auth0.android.jwt.JWT
 import com.fronties.socialeventchat.application.session.SessionManager
-import com.google.android.play.core.internal.al
 import javax.inject.Inject
 
 class SplashRepoImpl @Inject constructor(

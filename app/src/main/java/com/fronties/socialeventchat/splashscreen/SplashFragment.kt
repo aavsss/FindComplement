@@ -30,10 +30,15 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
 
-        if (viewModel.isUserLoggedIn()) {
-            findNavController().navigate(R.id.action_splashFragment_to_eventListFragment)
-        } else {
-            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+        viewModel.checkLogInStatus()
+        viewModel.isLoggedIn.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { isLoggedIn ->
+                if (isLoggedIn) {
+                    findNavController().navigate(R.id.action_splashFragment_to_eventListFragment)
+                } else {
+                    findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                }
+            }
         }
     }
 }

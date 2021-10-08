@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentLoginBinding
+import com.fronties.socialeventchat.splashscreen.CDF
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,7 +51,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 findNavController().navigate(R.id.action_loginFragment_to_eventListFragment)
             }
         }
-
 
     }
 }
