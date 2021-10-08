@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.chat.dependency
 
+import com.fronties.socialeventchat.application.session.AuthInterceptor
 import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.helperClasses.Constants.BASE_URL
 import dagger.Module
@@ -16,9 +17,12 @@ object ChatModule {
 
     @Singleton
     @Provides
-    fun provideChatApiInstance(): ChatApi = Retrofit.Builder()
-        .baseUrl(BASE_URL) // TODO put the url hosted
+    fun provideChatApiInstance(
+        authInterceptor: AuthInterceptor
+    ): ChatApi = Retrofit.Builder()
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .client(authInterceptor.getOkHttpClientWithInterceptor())
         .build()
         .create(ChatApi::class.java)
 }

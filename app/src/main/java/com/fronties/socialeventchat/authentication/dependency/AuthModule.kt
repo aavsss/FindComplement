@@ -1,8 +1,7 @@
 package com.fronties.socialeventchat.authentication.dependency
 
-import android.content.Context
+import com.fronties.socialeventchat.application.session.AuthInterceptor
 import com.fronties.socialeventchat.authentication.api.AuthApi
-import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.helperClasses.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -19,16 +18,12 @@ object AuthModule {
 
     @Singleton
     @Provides
-    fun provideAuthApiInstance(): AuthApi = Retrofit.Builder()
-        .baseUrl(BASE_URL) // TODO put the url hosted
+    fun provideAuthApiInstance(
+        authInterceptor: AuthInterceptor
+    ): AuthApi = Retrofit.Builder()
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .client(getOkHttpClientWithInterceptor())
+        .client(authInterceptor.getOkHttpClientWithInterceptor())
         .build()
         .create(AuthApi::class.java)
-
-    private fun getOkHttpClientWithInterceptor(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor())
-            .build()
-    }
 }

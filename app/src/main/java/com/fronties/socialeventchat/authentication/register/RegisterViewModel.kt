@@ -57,7 +57,7 @@ class RegisterViewModel @Inject constructor(
             if (emailValidator.validatePatriotsEmail(email)) {
                 viewModelScope.launch {
                     try {
-                        if (authenticationRepo.loginUser(email, "password")) { // TODO for testing - remove later
+                        if (authenticationRepo.registerUser(email, "password")) { // TODO for testing - remove later
                             _listenerForNavToProfileSection.value = Event(Unit)
                         }
                     } catch (e: IOException) {
