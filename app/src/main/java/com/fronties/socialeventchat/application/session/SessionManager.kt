@@ -26,7 +26,7 @@ class SessionManager @Inject constructor(
 
     fun removeAuthToken() {
         val editor = sharedPreferences.edit()
-        editor.remove(fetchAuthToken())
+        editor.remove(USER_TOKEN)
         editor.apply()
     }
 }
