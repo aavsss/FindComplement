@@ -13,7 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialEventChat">
         <activity
-            android:name=".MainActivity"
+            android:name=".authentication.AuthActivity"
+            android:exported="true"
+            android:label="@string/title_activity_auth"
+            android:theme="@style/Theme.SocialEventChat.NoActionBar" />
+        <activity
+            android:name=".authentication.validator.AuthActivity"
+            android:exported="true" />
+        <activity
+            android:name=".splashscreen.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.fronties.socialeventchat
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.fronties.socialeventchat.databinding.ActivityMainBinding
 import com.fronties.socialeventchat.databinding.FragmentEventDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
