@@ -8,14 +8,14 @@ class SplashRepoImpl @Inject constructor(
     private val sessionManager: SessionManager
 ) : SplashRepo {
     override fun isUserLoggedIn(): Boolean {
-        val authToken = sessionManager.fetchAuthToken()
-        authToken?.let { token ->
-            val jwt = JWT(token)
-            if (!jwt.isExpired(0L)) {
-                return true
-            }
-            return false
-        }
+//        val authToken = sessionManager.fetchAuthToken()
+//        authToken?.let { token ->
+//            val jwt = JWT(token)
+//            if (!jwt.isExpired(0L)) {
+//                return true
+//            }
+//            return false
+//        }
 //        sessionManager.removeAuthToken()
         return false
     }
