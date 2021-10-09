@@ -1,8 +1,7 @@
 package com.fronties.socialeventchat.application.session
 
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Response
+import com.fronties.socialeventchat.helperClasses.AuthException
+import okhttp3.*
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor() : Interceptor {
@@ -23,6 +22,19 @@ class AuthInterceptor @Inject constructor() : Interceptor {
     fun getOkHttpClientWithInterceptor(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(this)
+            .authenticator(getOkHttpAuthenticator())
             .build()
+    }
+
+    private fun getOkHttpAuthenticator(): Authenticator {
+        return object : Authenticator {
+            override fun authenticate(route: Route?, response: Response): Request? {
+                if (response.code == 401) {
+                    throw AuthException("Auth Error")
+                } else {
+                    return response.request
+                }
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SessionManager @Inject constructor(
-    val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences
 ) {
 
     companion object {

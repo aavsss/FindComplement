@@ -23,7 +23,6 @@ object AuthModule {
     ): AuthApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .client(authInterceptor.getOkHttpClientWithInterceptor())
         .build()
         .create(AuthApi::class.java)
 }
