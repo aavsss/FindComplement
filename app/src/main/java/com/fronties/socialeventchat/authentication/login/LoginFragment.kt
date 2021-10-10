@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.application.CustomDialog
 import com.fronties.socialeventchat.databinding.FragmentLoginBinding
 import dagger.Provides
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +57,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         loginViewModel.listenerForError.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { error ->
 //                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-                OpenDialogBox(error)
+//                OpenDialogBox(error)
+                var dialog = CustomDialog("login")
+                dialog.show(activity?.supportFragmentManager!!,"customDialogFragment")
             }
         }
 
@@ -65,20 +68,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     //Open a dialog box to show the error message
 
-    fun OpenDialogBox(message: String){
-        val builder = AlertDialog.Builder(context)
-        val inflater = layoutInflater
-        val dialogLayout = inflater.inflate(R.layout.error_screen,null)
-
-
-        with(builder){
-            setTitle("$message unsuccessful!")
-            setPositiveButton("OK"){dialog, which ->
-
-            }
-//            setNegativeButton("Cancel"){dialog,which->}
-            setView(dialogLayout)
-            show()
-        }
-    }
+//    fun OpenDialogBox(message: String){
+//        val builder = AlertDialog.Builder(context)
+//        val inflater = layoutInflater
+//        val dialogLayout = inflater.inflate(R.layout.error_screen,null)
+//
+//
+//        with(builder){
+//            setTitle("$message unsuccessful!")
+//            setPositiveButton("OK"){dialog, which ->
+//
+//            }
+////            setNegativeButton("Cancel"){dialog,which->}
+//            setView(dialogLayout)
+//            show()
+//        }
+//    }
 }
