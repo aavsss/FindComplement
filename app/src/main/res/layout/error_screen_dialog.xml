@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/error_title_tv"
-        android:text=""
-        android:textSize="32sp"
-        android:textColor="@color/black"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        />
+    <data>
+        <variable
+            name="customDialog"
+            type="com.fronties.socialeventchat.application.CustomDialog" />
+    </data>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/error_ok_btn"
-        android:text="OK!"
-        android:layout_gravity="right"
-        android:layout_margin="10dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/error_title_tv"
+            android:text="@{customDialog.errorMessage}"
+            android:textSize="32sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:layout_margin="20dp" />
 
-</LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/error_ok_btn"
+            android:text="OK!"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:onClick="@{() -> customDialog.okButtonClicked()}"
+            />
+
+    </LinearLayout>
+</layout>

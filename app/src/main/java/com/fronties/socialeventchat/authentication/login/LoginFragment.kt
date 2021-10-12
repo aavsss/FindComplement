@@ -56,32 +56,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         loginViewModel.listenerForError.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { error ->
-//                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-//                OpenDialogBox(error)
                 var dialog = CustomDialog("login")
-                dialog.show(activity?.supportFragmentManager!!,"customDialogFragment")
+
+                dialog.show(
+                    childFragmentManager, "customDialogFragment")
             }
         }
 
-
     }
 
-    //Open a dialog box to show the error message
-
-//    fun OpenDialogBox(message: String){
-//        val builder = AlertDialog.Builder(context)
-//        val inflater = layoutInflater
-//        val dialogLayout = inflater.inflate(R.layout.error_screen,null)
-//
-//
-//        with(builder){
-//            setTitle("$message unsuccessful!")
-//            setPositiveButton("OK"){dialog, which ->
-//
-//            }
-////            setNegativeButton("Cancel"){dialog,which->}
-//            setView(dialogLayout)
-//            show()
-//        }
-//    }
 }
