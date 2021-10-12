@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.authentication.login
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.application.CustomDialog
 import com.fronties.socialeventchat.databinding.FragmentLoginBinding
+import dagger.Provides
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,6 +54,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
+        loginViewModel.listenerForError.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { error ->
+                var dialog = CustomDialog("login")
+
+                dialog.show(
+                    childFragmentManager, "customDialogFragment")
+            }
+        }
 
     }
+
 }

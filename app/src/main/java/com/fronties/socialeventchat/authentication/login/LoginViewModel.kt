@@ -56,6 +56,10 @@ class LoginViewModel @Inject constructor(
     val listenerForNavToEventFeed: LiveData<Event<Unit>>
         get() = _listenerForNavToEventFeed
 
+    private val _listenerForError = MutableLiveData<Event<String?>>()
+    val listenerForError: LiveData<Event<String?>>
+        get() = _listenerForError
+
     fun loginButtonClicked() {
 
         _usernameForLogin.value = usernameLoginEtContent.value
@@ -66,12 +70,16 @@ class LoginViewModel @Inject constructor(
                     try {
                         if (authenticationRepo.loginUser(email, "password")) {// TODO for testing = remove later
                             _listenerForNavToEventFeed.value = Event(Unit)
+                        } else{
+                            _listenerForError.value = Event("login")
                         }
                     } catch (e: IOException) {
                         // TODO show some error screen
+                        _listenerForError.value = Event(e.localizedMessage)
                         return@launch
                     } catch (e: HttpException) {
                         // TODO show some error screen
+                        _listenerForError.value = Event(e.localizedMessage)
                         return@launch
                     }
                 }
