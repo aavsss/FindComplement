@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.JWT
 import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
 import com.fronties.socialeventchat.authentication.validator.EmailValidator
+import com.fronties.socialeventchat.helperClasses.AuthException
 import com.fronties.socialeventchat.helperClasses.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -68,7 +69,11 @@ class LoginViewModel @Inject constructor(
             if (emailValidator.validatePatriotsEmail(email)) {
                 viewModelScope.launch {
                     try {
-                        if (authenticationRepo.loginUser(email, "password")) {// TODO for testing = remove later
+                        if (authenticationRepo.loginUser(
+                                email,
+                                "password"
+                            )
+                        ) {// TODO for testing = remove later
                             _listenerForNavToEventFeed.value = Event(Unit)
                         } else{
                             _listenerForError.value = Event("login")

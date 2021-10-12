@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SessionManager @Inject constructor(
-    val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences
 ) {
 
     companion object {
@@ -26,7 +26,7 @@ class SessionManager @Inject constructor(
 
     fun removeAuthToken() {
         val editor = sharedPreferences.edit()
-        editor.remove(fetchAuthToken())
+        editor.remove(USER_TOKEN)
         editor.apply()
     }
 }

@@ -7,25 +7,6 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/eventListFragment"
-        android:name="com.fronties.socialeventchat.event.eventList.EventListFragment"
-        android:label="EventListFragment">
-        <action
-            android:id="@+id/action_eventListFragment_to_eventDetailFragment"
-            app:destination="@id/eventDetailFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/eventDetailFragment"
-        android:name="com.fronties.socialeventchat.event.eventDetail.EventDetailFragment"
-        android:label="EventDetailFragment">
-        <argument
-            android:name="eventId"
-            app:argType="integer"
-            android:defaultValue="0" />
-    </fragment>
-
-    <fragment
         android:id="@+id/loginFragment"
         android:name="com.fronties.socialeventchat.authentication.login.LoginFragment"
         android:label="fragment_login"
