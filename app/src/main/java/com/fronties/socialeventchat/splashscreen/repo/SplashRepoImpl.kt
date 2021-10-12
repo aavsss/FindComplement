@@ -16,7 +16,7 @@ class SplashRepoImpl @Inject constructor(
             }
             return false
         }
-//        sessionManager.removeAuthToken()
+        sessionManager.removeAuthToken()
         return false
     }
 }

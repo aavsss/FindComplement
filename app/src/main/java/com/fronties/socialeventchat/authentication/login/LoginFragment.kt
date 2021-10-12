@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.authentication.login
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.fronties.socialeventchat.MainActivity
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.application.CustomDialog
 import com.fronties.socialeventchat.databinding.FragmentLoginBinding
@@ -48,7 +50,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         loginViewModel.listenerForNavToEventFeed.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                findNavController().navigate(R.id.action_loginFragment_to_eventListFragment)
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
             }
         }
 
