@@ -10,6 +10,9 @@
         android:id="@+id/eventListFragment"
         android:name="com.fronties.socialeventchat.event.eventList.EventListFragment"
         android:label="EventListFragment">
+        <action
+            android:id="@+id/action_eventListFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
     </fragment>
 
     <fragment

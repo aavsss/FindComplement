@@ -28,6 +28,24 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         viewModel = ViewModelProvider(requireActivity())
             .get(EventListViewModel::class.java)
 
+
+        val adapter = EventListAdapter()
+        viewModel.getEventList()        // setup event list in viewModel
+
+        binding.rvEventList.adapter = adapter
+
+        viewModel.eventList.observe(viewLifecycleOwner, {
+            adapter.submitList(it.data)
+        })
+
+        subscribeToErrorView()
     }
 
+    private fun subscribeToErrorView() {
+        viewModel.errorViewListener.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                // handle error views
+            }
+        }
+    }
 }
