@@ -36,7 +36,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         binding.registerViewModel = registerViewModel
 
-        registerViewModel.listenerForNavToProfileSection.observe(viewLifecycleOwner){
+        registerViewModel.listenerForNavToProfileSection.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
             }

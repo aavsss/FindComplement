@@ -1,4 +1,4 @@
-package com.fronties.socialeventchat.authentication.dependency
+package com.fronties.socialeventchat.application.session
 
 import android.content.SharedPreferences
 import javax.inject.Inject
@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SessionManager @Inject constructor(
-    private val sharedPreferences: SharedPreferences
+    val sharedPreferences: SharedPreferences
 ) {
 
     companion object {
@@ -22,5 +22,11 @@ class SessionManager @Inject constructor(
 
     fun fetchAuthToken(): String? {
         return sharedPreferences.getString(USER_TOKEN, null)
+    }
+
+    fun removeAuthToken() {
+        val editor = sharedPreferences.edit()
+        editor.remove(fetchAuthToken())
+        editor.apply()
     }
 }
