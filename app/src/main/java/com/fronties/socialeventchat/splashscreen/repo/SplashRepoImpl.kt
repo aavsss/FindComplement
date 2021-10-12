@@ -11,12 +11,15 @@ class SplashRepoImpl @Inject constructor(
         val authToken = sessionManager.fetchAuthToken()
         authToken?.let { token ->
             val jwt = JWT(token)
-            if (!jwt.isExpired(0L)) {
+            if (jwt.isNotExpired()) {
                 return true
             }
             return false
         }
-        sessionManager.removeAuthToken()
         return false
+    }
+
+    fun JWT.isNotExpired(): Boolean {
+        return !this.isExpired(0L)
     }
 }
