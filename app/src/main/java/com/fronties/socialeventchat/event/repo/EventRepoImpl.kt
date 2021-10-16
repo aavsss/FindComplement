@@ -20,7 +20,6 @@ class EventRepoImpl @Inject constructor(
 
     override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
         try {
-            socialEvents
             val eventResponse = eventApi.addEvent(socialEvents)
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
                 // TODO do smth
