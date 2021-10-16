@@ -3,6 +3,7 @@ package com.fronties.socialeventchat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.fronties.socialeventchat.databinding.ActivityMainBinding
 import com.fronties.socialeventchat.databinding.FragmentEventDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,5 +19,9 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
 
         setContentView(view)
+
+        // connect nav controller and our nav bar
+        val navController = findNavController(R.id.nav_host_fragment_main)
+        binding.bottomNavBar.setupWithNavController(navController)
     }
 }

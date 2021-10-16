@@ -38,7 +38,8 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
             adapter.submitList(it.data)
         })
 
-        subscribeToErrorView()
+        // TODO: this is throwing lifecycle owner problems
+//        subscribeToErrorView()
     }
 
     private fun subscribeToErrorView() {
