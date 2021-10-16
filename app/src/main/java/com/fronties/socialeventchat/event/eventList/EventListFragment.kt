@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
@@ -38,15 +39,10 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
             adapter.submitList(it.data)
         })
 
-        // TODO: this is throwing lifecycle owner problems
-//        subscribeToErrorView()
-    }
-
-    private fun subscribeToErrorView() {
-        viewModel.errorViewListener.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
-                // handle error views
+        viewModel.errorViewListener.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled().let {
+                Toast.makeText(context, "Error retrieving events!", Toast.LENGTH_LONG).show()
             }
-        }
+        })
     }
 }
