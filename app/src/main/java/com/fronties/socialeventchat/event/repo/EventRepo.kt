@@ -7,4 +7,6 @@ interface EventRepo {
 
     // to generate dummy data for now, actually gets list of events later
     suspend fun getEventsList(): List<SocialEvents>
+
+    suspend fun addEvent(socialEvents: SocialEvents)
 }

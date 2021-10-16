@@ -24,6 +24,10 @@ class EventListViewModel @Inject constructor(
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
     val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
 
+    private val _navToAddEvent = MutableLiveData<Event<Unit>>()
+    val navToAddEvent: LiveData<Event<Unit>>
+        get() = _navToAddEvent
+
     fun getEventList() {
         viewModelScope.launch {
             val eventsList = try {
@@ -34,5 +38,9 @@ class EventListViewModel @Inject constructor(
             }
             _eventList.value = Resource.success(eventsList)
         }
+    }
+
+    fun navigateToAddEvent() {
+        _navToAddEvent.value = Event(Unit)
     }
 }

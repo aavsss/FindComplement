@@ -74,7 +74,7 @@
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.data.startDate}"
+                            android:text="@{viewmodel.eventDetail.data.eventStartDate}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -90,7 +90,7 @@
                             android:id="@+id/type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.data.type}"
+                            android:text="@{viewmodel.eventDetail.data.eventType}"
                             app:layout_constraintTop_toBottomOf="@id/location"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -98,7 +98,7 @@
                             android:id="@+id/host"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewmodel.eventDetail.data.host}"
+                            android:text="@{viewmodel.eventDetail.data.eventHost}"
                             app:layout_constraintTop_toBottomOf="@id/type"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,7 +106,7 @@
                             android:id="@+id/contact_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{Integer.toString(viewmodel.eventDetail.data.contactNumber)}"
+                            android:text="@{Integer.toString(viewmodel.eventDetail.data.eventContactNumber)}"
                             app:layout_constraintTop_toBottomOf="@id/host"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -115,7 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
-                            android:text="@{viewmodel.eventDetail.data.description}"
+                            android:text="@{viewmodel.eventDetail.data.eventDescription}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/contact_number" />

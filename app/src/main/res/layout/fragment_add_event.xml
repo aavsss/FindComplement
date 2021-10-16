@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fronties.socialeventchat.event.addEvent.AddEventViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/eventName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Taco about your future"
+            android:text="@={viewModel.eventName}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/eventType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Career talk"
+            android:text="@={viewModel.eventType}"
+            app:layout_constraintTop_toBottomOf="@id/eventName"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/eventDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Know what you have to do get a job after graduation"
+            android:text="@={viewModel.eventDescription}"
+            app:layout_constraintTop_toBottomOf="@id/eventType"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="01/01/21"
+            app:layout_constraintTop_toBottomOf="@id/eventDescription"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="12/01/21"
+            app:layout_constraintTop_toBottomOf="@id/eventDescription"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/eventContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="9033456789"
+            android:text="@={viewModel.eventContactNumber}"
+            app:layout_constraintTop_toBottomOf="@id/eventStartDate"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/eventHost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Soules College of Business"
+            android:text="@={viewModel.eventHost}"
+            app:layout_constraintTop_toBottomOf="@id/eventContactNumber"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:onClick="@{() -> viewModel.addEvent()}"
+            app:layout_constraintTop_toBottomOf="@id/eventHost"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

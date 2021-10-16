@@ -13,8 +13,12 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
     override suspend fun getEventsList(): List<SocialEvents> {
         // generate list of dummy events
         return listOf(
-            SocialEvents(name = "First"),
-            SocialEvents(name = "Second")
+            SocialEvents(eventName = "First"),
+            SocialEvents(eventName = "Second")
         )
+    }
+
+    override suspend fun addEvent(socialEvents: SocialEvents) {
+        println("Added!")
     }
 }
