@@ -47,14 +47,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="01/01/21"
+            android:text="@={viewModel.eventStartDate}"
             app:layout_constraintTop_toBottomOf="@id/eventDescription"
             app:layout_constraintStart_toStartOf="parent" />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/eventEndDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="12/01/21"
+            android:text="@={viewModel.eventEndDate}"
             app:layout_constraintTop_toBottomOf="@id/eventDescription"
             app:layout_constraintEnd_toEndOf="parent"/>
 

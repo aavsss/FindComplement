@@ -18,7 +18,7 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
         )
     }
 
-    override suspend fun addEvent(socialEvents: SocialEvents) {
-        println("Added!")
+    override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
+        return true
     }
 }
