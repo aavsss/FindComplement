@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -14,16 +15,60 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{event.eventName}" />
+            android:layout_height="match_parent"
+            >
 
-        <Button
-            android:id="@+id/btn_view_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View Event"
-            android:layout_gravity="right" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{event.eventName}"
+                app:layout_constraintTop_toBottomOf="@id/imgEvent"
+                tools:text="Beulr"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/eventHost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/eventName"
+                tools:text="Host Name"
+                android:text="@{event.eventHost}"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_view_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/eventHost"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="View"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@{event.eventName}" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_view_event"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="View Event"-->
+<!--            android:layout_gravity="right" />-->
     </androidx.cardview.widget.CardView>
 </layout>

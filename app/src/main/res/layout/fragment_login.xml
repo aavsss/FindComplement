@@ -18,6 +18,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:gravity="center"
+                android:textSize="32sp"
+                android:textColor="@color/black"
+                android:layout_marginVertical="48dp" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/username_et_layout"
                 android:layout_width="match_parent"
@@ -55,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="login"
                 android:paddingHorizontal="80dp"
+                android:layout_marginTop="16dp"
                 android:id="@+id/login_button"
                 android:layout_gravity="center"
                 android:background="#E1BEE7"
