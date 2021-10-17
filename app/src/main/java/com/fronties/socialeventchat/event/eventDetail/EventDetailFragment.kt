@@ -12,6 +12,10 @@ import com.fronties.socialeventchat.databinding.FragmentEventDetailBinding
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.app.AppCompatActivity
+
+
+
 
 @AndroidEntryPoint
 class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
@@ -35,6 +39,10 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         val eventId = args.eventId
+//        setSupportActionBar(toolbar)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayShowHomeEnabled(true)
+//        toolbar_layout.title = title
 
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
