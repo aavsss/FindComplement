@@ -41,13 +41,15 @@ class SplashActivity : AppCompatActivity() {
             it.getContentIfNotHandled()?.let { isLoggedIn ->
                 Handler(Looper.getMainLooper()).postDelayed({
                     // Your Code
-                    if (isLoggedIn) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        val intent = Intent(this, AuthActivity::class.java)
-                        startActivity(intent)
-                    }
+//                    if (isLoggedIn) {
+//                        val intent = Intent(this, MainActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        val intent = Intent(this, AuthActivity::class.java)
+//                        startActivity(intent)
+//                    }
+                    val intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }, 1000)
             }
