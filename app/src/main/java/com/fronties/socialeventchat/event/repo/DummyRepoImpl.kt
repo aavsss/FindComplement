@@ -4,6 +4,12 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import javax.inject.Inject
 
 class DummyRepoImpl @Inject constructor() : EventRepo {
+
+    val eventList = mutableListOf(
+        SocialEvents(eventName = "First"),
+        SocialEvents(eventName = "Second")
+    )
+
     override suspend fun getEventDetails(eventId: Int): SocialEvents {
         return SocialEvents(
             eid = eventId,
@@ -12,13 +18,11 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
 
     override suspend fun getEventsList(): List<SocialEvents> {
         // generate list of dummy events
-        return listOf(
-            SocialEvents(eventName = "First"),
-            SocialEvents(eventName = "Second")
-        )
+        return eventList
     }
 
     override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
+        eventList.add(SocialEvents(eventName = "Added"))
         return true
     }
 }

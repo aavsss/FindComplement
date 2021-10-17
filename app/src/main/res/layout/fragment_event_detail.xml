@@ -23,7 +23,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="120dp"
                 android:fitsSystemWindows="true"
                 style="@style/AppTheme.AppBarOverlay">
 
@@ -32,17 +32,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    android:minHeight="60dp"
+                    android:minHeight="32dp"
                     app:contentScrim="?attr/colorPrimary"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:toolbarId="@+id/toolbar">
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fitsSystemWindows="true"
+                        android:text="Title"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_launcher_foreground"
                         app:layout_collapseMode="parallax" />
 
                     <androidx.appcompat.widget.Toolbar
@@ -74,7 +74,9 @@
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/H3"
                             android:text="@{viewmodel.eventDetail.data.eventStartDate}"
+                            tools:text="10/17/2021"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -82,7 +84,9 @@
                             android:id="@+id/location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/H4"
                             android:text="@{viewmodel.eventDetail.data.location}"
+                            tools:text="Today"
                             app:layout_constraintTop_toBottomOf="@id/date"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -90,15 +94,19 @@
                             android:id="@+id/type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/H5"
                             android:text="@{viewmodel.eventDetail.data.eventType}"
                             app:layout_constraintTop_toBottomOf="@id/location"
+                            tools:text="Tyler, TX"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/host"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/H6"
                             android:text="@{viewmodel.eventDetail.data.eventHost}"
+                            tools:text="Yapey"
                             app:layout_constraintTop_toBottomOf="@id/type"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,7 +114,9 @@
                             android:id="@+id/contact_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/H6"
                             android:text="@{Integer.toString(viewmodel.eventDetail.data.eventContactNumber)}"
+                            tools:text="90352145"
                             app:layout_constraintTop_toBottomOf="@id/host"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -115,8 +125,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
+                            style="@style/H6"
                             android:text="@{viewmodel.eventDetail.data.eventDescription}"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="Description"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/contact_number" />
 
