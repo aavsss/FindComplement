@@ -11,7 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 
@@ -34,7 +33,7 @@ class AddEventViewModel @Inject constructor(
 
     private val _listenerForEndDatePicker = MutableLiveData<Event<Unit>>()
     val listenerForEndDatePictureStyle: LiveData<Event<Unit>>
-        get() = _listenerForStartDatePicker
+        get() = _listenerForEndDatePicker
 
     private val _listenerForAddedEvent = MutableLiveData<Event<Unit>>()
     val listenerForAddedEvent: LiveData<Event<Unit>>
@@ -43,6 +42,14 @@ class AddEventViewModel @Inject constructor(
     fun initialSetup() {
         eventStartDate.value = Date().toString()
         eventEndDate.value = Date().toString()
+    }
+
+    fun setStartDate(year: Int, month: Int, day: Int) {
+        eventStartDate.value = "$year/$month/$day"
+    }
+
+    fun setEndDate(year: Int, month: Int, day: Int) {
+        eventEndDate.value = "$year/$month/$day"
     }
 
     fun setStartDate() {

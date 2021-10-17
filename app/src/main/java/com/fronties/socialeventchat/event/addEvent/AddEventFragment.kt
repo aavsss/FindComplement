@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.application.DatePickerFragment
 import com.fronties.socialeventchat.databinding.FragmentAddEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +35,22 @@ class AddEventFragment : Fragment(R.layout.fragment_add_event) {
         binding.viewModel = viewModel
         viewModel.listenerForStartDatePictureStyle.observe(viewLifecycleOwner) {
             // Show Date Picker
+            val datePickerFragment = DatePickerFragment { year: Int, month: Int, day: Int ->
+                viewModel.setStartDate(year, month, day)
+            }
+            datePickerFragment.show(
+                childFragmentManager, "datepicker"
+            )
+        }
+
+        viewModel.listenerForEndDatePictureStyle.observe(viewLifecycleOwner) {
+            // Show Date Picker
+            val datePickerFragment = DatePickerFragment { year: Int, month: Int, day: Int ->
+                viewModel.setEndDate(year, month, day)
+            }
+            datePickerFragment.show(
+                childFragmentManager, "datepicker"
+            )
         }
 
         viewModel.listenerForAddedEvent.observe(viewLifecycleOwner) {
