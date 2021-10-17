@@ -52,8 +52,4 @@
         <item name="android:textSize">10sp</item>
     </style>
 
-    <style name="BorderedTV" parent="Theme.AppCompat">
-
-    </style>
-
 </resources>
