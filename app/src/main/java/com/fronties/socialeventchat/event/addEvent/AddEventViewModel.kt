@@ -40,8 +40,8 @@ class AddEventViewModel @Inject constructor(
         get() = _listenerForAddedEvent
 
     fun initialSetup() {
-        eventStartDate.value = Date().toString()
-        eventEndDate.value = Date().toString()
+//        eventStartDate.value = Date().toString()
+//        eventEndDate.value = Date().toString()
     }
 
     fun setStartDate(year: Int, month: Int, day: Int) {

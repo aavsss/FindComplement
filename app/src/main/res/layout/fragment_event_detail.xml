@@ -71,13 +71,23 @@
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/date"
+                            android:id="@+id/title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/H3"
+                            android:text="@{viewmodel.eventDetail.data.eventName}"
+                            tools:text="Taco about your future"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/H4"
                             android:text="@{viewmodel.eventDetail.data.eventStartDate}"
                             tools:text="10/17/2021"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/title"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatTextView
