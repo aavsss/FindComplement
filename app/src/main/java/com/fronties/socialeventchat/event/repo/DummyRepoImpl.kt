@@ -22,7 +22,7 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
     }
 
     override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
-        eventList.add(SocialEvents(eventName = "Added"))
+        eventList.add(socialEvents)
         return true
     }
 }
