@@ -97,8 +97,11 @@ class AddEventViewModel @Inject constructor(
         val socialEvents = SocialEvents(
             eid = Random.nextInt(0, 10000),
             eventName = eventName.value,
-            eventType = eventType.value,
             eventDescription = eventDescription.value,
+            eventType = eventType.value,
+            eventContactNumber = eventContactNumber.value?.toDouble(),
+            eventStartDate = eventStartDate.value,
+            eventEndDate = eventEndDate.value,
             eventHost = eventHost.value // TODO use inverseBindingAdapter to get all remaining properties
         )
         viewModelScope.launch {

@@ -40,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/event_date_time_tv"
-                    android:text="THU, OCT 21 11:00 AM"
+                    android:hint="THU, OCT 21 11:00 AM"
+                    android:text="@{event.eventStartDate}"
                     android:gravity="center"
                     android:textColor="#c5c6d0"
                     android:layout_marginTop="10dp"
@@ -81,9 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/save"
-                        android:layout_marginHorizontal="10dp"
-
-                        />
+                        android:layout_marginHorizontal="10dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"

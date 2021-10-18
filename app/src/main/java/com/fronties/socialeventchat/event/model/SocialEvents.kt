@@ -5,7 +5,7 @@ data class SocialEvents(
     val eventName: String? = "",
     val eventDescription: String? = "Description",
     val eventType: String? = "Type",
-    val eventContactNumber: Int? = 1,
+    val eventContactNumber: Double? = 1.0,
     val eventStartDate: String? = "StartDate",
     val eventEndDate: String? = "EndDate",
     val eventHost: String? = "Host",
