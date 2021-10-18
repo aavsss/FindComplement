@@ -61,44 +61,56 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_event"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_launcher"
+                            android:layout_marginBottom="16dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_date"
-                            android:layout_width="0dp"
+                            android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/ic_calendar_24_24"
                             android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="16dp"
-                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginVertical="8dp"
+                            android:src="@drawable/ic_calendar_24_24"
                             app:layout_constraintBottom_toTopOf="@id/location"
                             app:layout_constraintEnd_toStartOf="@id/date"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/img_event"
+                            app:layout_constraintVertical_bias="0.5" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/date"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/Body1"
                             android:layout_marginHorizontal="16dp"
                             android:text="@{viewmodel.eventDetail.data.eventStartDate}"
                             tools:text="10/17/2021"
                             android:layout_marginVertical="16dp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toTopOf="@id/location"
+                            app:layout_constraintTop_toTopOf="@id/img_date"
+                            app:layout_constraintBottom_toBottomOf="@id/img_date"
                             app:layout_constraintStart_toEndOf="@id/img_date" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_location"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/ic_baseline_location_on_24"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/img_date"
+                            android:src="@drawable/ic_baseline_location_on_24"
                             app:layout_constraintBottom_toTopOf="@id/type"
                             app:layout_constraintEnd_toStartOf="@id/location"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/img_date"
+                            app:layout_constraintVertical_bias="1.0" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/location"
@@ -108,22 +120,22 @@
                             android:text="@{viewmodel.eventDetail.data.location}"
                             android:layout_marginVertical="16dp"
                             android:layout_marginHorizontal="16dp"
-                            app:layout_constraintBottom_toTopOf="@id/type"
+                            app:layout_constraintTop_toTopOf="@id/img_location"
                             tools:text="Today"
-                            app:layout_constraintTop_toBottomOf="@id/date"
+                            app:layout_constraintBottom_toBottomOf="@id/img_location"
                             app:layout_constraintStart_toEndOf="@id/img_location" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_type"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/ic_baseline_home_work_24"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/img_location"
+                            android:src="@drawable/ic_baseline_home_work_24"
                             app:layout_constraintBottom_toTopOf="@id/host"
                             app:layout_constraintEnd_toStartOf="@id/type"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/img_location" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/type"
@@ -133,8 +145,8 @@
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
                             android:text="@{viewmodel.eventDetail.data.eventType}"
-                            app:layout_constraintTop_toBottomOf="@id/location"
-                            app:layout_constraintBottom_toTopOf="@id/host"
+                            app:layout_constraintTop_toTopOf="@id/img_type"
+                            app:layout_constraintBottom_toBottomOf="@id/img_type"
                             tools:text="Type"
                             app:layout_constraintStart_toEndOf="@id/img_type" />
 
@@ -159,8 +171,8 @@
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
                             tools:text="Yapey"
-                            app:layout_constraintTop_toBottomOf="@id/type"
-                            app:layout_constraintBottom_toTopOf="@id/contact_number"
+                            app:layout_constraintTop_toTopOf="@id/img_host"
+                            app:layout_constraintBottom_toBottomOf="@id/img_host"
                             app:layout_constraintStart_toEndOf="@id/img_host" />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -171,7 +183,7 @@
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
                             app:layout_constraintTop_toBottomOf="@id/img_host"
-                            app:layout_constraintBottom_toTopOf="@id/tv_description"
+                            app:layout_constraintBottom_toTopOf="@id/tv_description_base"
                             app:layout_constraintEnd_toStartOf="@id/contact_number"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -183,9 +195,21 @@
                             android:text="@{Integer.toString(viewmodel.eventDetail.data.eventContactNumber)}"
                             tools:text="90352145"
                             android:layout_marginHorizontal="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/host"
-                            app:layout_constraintBottom_toTopOf="@id/tv_description"
+                            app:layout_constraintTop_toTopOf="@id/img_contact_number"
+                            app:layout_constraintBottom_toBottomOf="@id/img_contact_number"
                             app:layout_constraintStart_toEndOf="@id/img_contact_number" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_description_base"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginVertical="24dp"
+                            style="@style/H5"
+                            android:text="Description"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/contact_number" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_description"
@@ -196,10 +220,9 @@
                             android:text="@{viewmodel.eventDetail.data.eventDescription}"
                             tools:text="Description"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/contact_number" />
+                            app:layout_constraintTop_toBottomOf="@id/tv_description_base" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 </androidx.core.widget.NestedScrollView>
 
