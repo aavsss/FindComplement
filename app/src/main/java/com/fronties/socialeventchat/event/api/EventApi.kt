@@ -8,20 +8,20 @@ import retrofit2.http.*
 
 interface EventApi {
 
-    @GET()
+    @GET("/api/events/")
     suspend fun getEventsList(): Response<List<SocialEvents>>
 
-    @GET()
+    @GET("/api/events/{eid}")
     suspend fun getEventDetails(
         @Path("eid") eid: Int
     ): Response<SocialEvents>
 
-    @POST()
+    @POST("/api/events/")
     suspend fun addEvent(
         @Body event: SocialEvents
     ): Response<EventResponse>
 
-    @PUT()
+    @PUT("/api/events/")
     suspend fun editEvent(
         @Body event: SocialEvents
     ): Response<EventResponse>
@@ -31,8 +31,9 @@ interface EventApi {
         @Path("eid") eid: Int
     ): Response<EventResponse>
 
-    @POST()
+    @POST("/{eid}/join")
     suspend fun attendEvent(
+        @Path("eid") eid: Int,
         @Body attendEventRequestBody: AttendEventRequestBody
     ): Response<EventResponse>
 }

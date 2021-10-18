@@ -16,6 +16,6 @@ abstract class EventBindingModule {
     @Singleton
     @Binds
     abstract fun bindEventRepo(
-        eventRepoImpl: DummyRepoImpl
+        eventRepoImpl: EventRepoImpl
     ): EventRepo
 }

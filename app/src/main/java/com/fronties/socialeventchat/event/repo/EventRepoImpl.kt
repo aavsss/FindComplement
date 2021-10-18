@@ -11,18 +11,41 @@ class EventRepoImpl @Inject constructor(
     private val eventApi: EventApi
 ) : EventRepo {
     override suspend fun getEventDetails(eventId: Int): SocialEvents {
-        TODO("Not yet implemented")
+        try {
+            val eventResponse = eventApi.getEventDetails(eventId)
+            if (eventResponse.isSuccessful && eventResponse.body() != null) {
+                return eventResponse.body()!!
+            }
+            return SocialEvents()
+        } catch (e: IOException) {
+            Resource.error(e.localizedMessage ?: "IO Error", null)
+            throw e
+        } catch (e: HttpException) {
+            Resource.error(e.localizedMessage ?: "HTTP Error", null)
+            throw e
+        }
     }
 
     override suspend fun getEventsList(): List<SocialEvents> {
-        TODO("Not yet implemented")
+        try {
+            val eventListResponse = eventApi.getEventsList()
+            if (eventListResponse.isSuccessful && eventListResponse.body() != null) {
+                return eventListResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: IOException) {
+            Resource.error(e.localizedMessage ?: "IO Error", null)
+            throw e
+        } catch (e: HttpException) {
+            Resource.error(e.localizedMessage ?: "HTTP Error", null)
+            throw e
+        }
     }
 
     override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
         try {
             val eventResponse = eventApi.addEvent(socialEvents)
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
-                // TODO do smth
                 return true
             }
             return false

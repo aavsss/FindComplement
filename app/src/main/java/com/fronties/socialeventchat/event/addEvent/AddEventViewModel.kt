@@ -1,7 +1,5 @@
 package com.fronties.socialeventchat.event.addEvent
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
@@ -15,7 +13,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.Date
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -100,13 +97,13 @@ class AddEventViewModel @Inject constructor(
     fun addEvent() {
         val socialEvents = SocialEvents(
             eid = Random.nextInt(0, 10000),
-            eventName = eventName.value,
-            eventDescription = eventDescription.value,
-            eventType = eventType.value,
-            eventContactNumber = eventContactNumber.value?.toDouble(),
-            eventStartDate = eventStartDate.value,
-            eventEndDate = eventEndDate.value,
-            eventHost = eventHost.value // TODO use inverseBindingAdapter to get all remaining properties
+            name = eventName.value,
+            description = eventDescription.value,
+            eventtype = eventType.value,
+            contactnumber = eventContactNumber.value?.toDouble(),
+            starttime = eventStartDate.value,
+            endtime = eventEndDate.value,
+            hostname = eventHost.value // TODO use inverseBindingAdapter to get all remaining properties
         )
         viewModelScope.launch {
             try {
