@@ -12,6 +12,7 @@ import com.fronties.socialeventchat.databinding.FragmentEventDetailBinding
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.app.AppCompatActivity
 
 @AndroidEntryPoint
 class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
@@ -35,10 +36,17 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         val eventId = args.eventId
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.getEventDetails(eventId)
+
+        eventDetailViewModel.eventDetail.observe(viewLifecycleOwner) {
+            binding.toolbarLayout.title = it.data?.eventName ?: "Yapey"
+        }
 
         subscribeToEventDetail()
         subscribeToErrorView()

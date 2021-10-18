@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentEventListBinding
 
@@ -33,12 +34,25 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         val adapter = EventListAdapter()
         viewModel.getEventList()        // setup event list in viewModel
 
+        binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter
 
         viewModel.eventList.observe(viewLifecycleOwner, {
             adapter.submitList(it.data)
         })
 
+        viewModel.navToAddEvent.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(
+                    R.id.action_eventListFragment_to_addEventFragment
+                )
+            }
+        }
+
+        subscribeToErrorView()
+    }
+
+    private fun subscribeToErrorView() {
         viewModel.errorViewListener.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled().let {
                 Toast.makeText(context, "Error retrieving events!", Toast.LENGTH_LONG).show()

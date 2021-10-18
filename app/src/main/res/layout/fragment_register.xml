@@ -18,35 +18,54 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/register_username_et"
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Enter Username"
-                android:text="@={registerViewModel.usernameRegisterEtContent}"
-                android:layout_margin="10dp"
-                android:padding="10dp"
+                android:text="Register"
                 android:gravity="center"
-                />
+                android:textSize="32sp"
+                android:textColor="@color/black"
+                android:layout_marginVertical="48dp" />
 
-            <EditText
-                android:id="@+id/register_password_et"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_username_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Enter Password"
-                android:text="@={registerViewModel.passwordRegisterEtContent}"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:gravity="center"
-                />
+                android:hint="Enter email"
+                android:layout_margin="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/register_username_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="@={registerViewModel.usernameRegisterEtContent}"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_password_et_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter password"
+                android:layout_margin="10dp">
+
+                <EditText
+                    android:id="@+id/register_password_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@={registerViewModel.passwordRegisterEtContent}"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:paddingHorizontal="70dp"
+                android:layout_marginTop="16dp"
                 android:id="@+id/register_button"
                 android:layout_gravity="center"
                 android:background="#E1BEE7"

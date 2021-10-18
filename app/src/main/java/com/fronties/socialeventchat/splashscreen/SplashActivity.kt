@@ -40,7 +40,6 @@ class SplashActivity : AppCompatActivity() {
         viewModel.isLoggedIn.observe(this) {
             it.getContentIfNotHandled()?.let { isLoggedIn ->
                 Handler(Looper.getMainLooper()).postDelayed({
-                    // Your Code
                     if (isLoggedIn) {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)

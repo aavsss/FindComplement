@@ -40,27 +40,39 @@
                 android:textColor="@color/black"
                 android:layout_marginVertical="20dp" />
 
-            <EditText
-                android:id="@+id/first_name_et"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/first_name_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
                 android:hint="First Name"
-                android:text="@={profileViewModel.firstNameEtContent}"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:padding="10dp" />
+                android:layout_margin="10dp">
 
-            <EditText
-                android:id="@+id/last_name_et"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/first_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="@={profileViewModel.firstNameEtContent}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/last_name_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:hint="Last Name"
-                android:text="@={profileViewModel.lastNameEtContent}"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:padding="10dp" />
+                android:layout_margin="10dp">
+
+                <EditText
+                    android:id="@+id/last_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@={profileViewModel.lastNameEtContent}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <EditText
                 android:id="@+id/phone_number_et"

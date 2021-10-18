@@ -14,6 +14,7 @@ class ComplementApplication : Application() {
     lateinit var bindingComponentBuilder: Provider<BindingComponentBuilder>
 
     override fun onCreate() {
+
         super.onCreate()
         DataBindingUtil.setDefaultComponent(bindingComponentBuilder.get().build())
     }

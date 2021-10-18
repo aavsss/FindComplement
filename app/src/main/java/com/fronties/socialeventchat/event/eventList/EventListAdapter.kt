@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.authentication.login.LoginFragmentDirections
+import com.fronties.socialeventchat.databinding.EventCardBinding
 import com.fronties.socialeventchat.databinding.ItemEventListBinding
 import com.fronties.socialeventchat.event.model.SocialEvents
 
@@ -17,7 +18,7 @@ class EventListAdapter() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemEventListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            EventCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -25,7 +26,7 @@ class EventListAdapter() :
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: ItemEventListBinding) :
+    class ViewHolder(private val binding: EventCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: SocialEvents) {
             binding.event = event
