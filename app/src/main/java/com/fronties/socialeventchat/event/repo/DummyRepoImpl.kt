@@ -10,10 +10,10 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
         SocialEvents(eventName = "Second")
     )
 
-    override suspend fun getEventDetails(eventId: Int): SocialEvents {
-        return SocialEvents(
-            eid = eventId,
-        )
+    override suspend fun getEventDetails(eventId: Int): SocialEvents? {
+        return eventList.find {
+            it.eid == eventId
+        }
     }
 
     override suspend fun getEventsList(): List<SocialEvents> {

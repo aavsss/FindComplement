@@ -1,4 +1,4 @@
-package com.fronties.socialeventchat.application
+package com.fronties.socialeventchat.application.dialogs
 
 import android.app.DatePickerDialog
 import android.app.Dialog

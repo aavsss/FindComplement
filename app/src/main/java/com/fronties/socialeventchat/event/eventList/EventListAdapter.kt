@@ -29,6 +29,7 @@ class EventListAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: SocialEvents) {
             binding.event = event
+            event
             binding.btnViewEvent.setOnClickListener {
                 val action = EventListFragmentDirections.actionEventListFragmentToEventDetailFragment(event.eid!!)
                 it.findNavController().navigate(action)

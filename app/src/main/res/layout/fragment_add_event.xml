@@ -93,11 +93,25 @@
             android:padding="10dp"
             style="@style/Body1"
             android:text="@={viewModel.eventStartDate}"
-            android:onClick="@{() -> viewModel.setStartDate()}"
+            android:onClick="@{() -> viewModel.pickStartDate()}"
             android:background="@drawable/rounded_border"
             app:layout_constraintTop_toBottomOf="@id/eventDescriptionLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/eventEndDate"/>
+            app:layout_constraintEnd_toStartOf="@id/eventStartTime"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventStartTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="7:00pm"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:onClick="@{() -> viewModel.pickStartTime()}"
+            style="@style/Body1"
+            app:layout_constraintTop_toBottomOf="@id/eventDescriptionLayout"
+            app:layout_constraintStart_toEndOf="@id/eventStartDate"
+            android:background="@drawable/rounded_border"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -109,9 +123,23 @@
             android:padding="10dp"
             style="@style/Body1"
             android:text="@={viewModel.eventEndDate}"
-            android:onClick="@{() -> viewModel.setEndDate()}"
-            app:layout_constraintTop_toBottomOf="@id/eventDescriptionLayout"
-            app:layout_constraintStart_toEndOf="@id/eventStartDate"
+            android:onClick="@{() -> viewModel.pickEndDate()}"
+            app:layout_constraintTop_toBottomOf="@id/eventStartDate"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/rounded_border"
+            app:layout_constraintEnd_toStartOf="@id/eventEndTime"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="7:00pm"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:onClick="@{() -> viewModel.pickEndTime()}"
+            style="@style/Body1"
+            app:layout_constraintTop_toBottomOf="@id/eventStartTime"
+            app:layout_constraintStart_toEndOf="@id/eventEndDate"
             android:background="@drawable/rounded_border"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -121,7 +149,7 @@
             android:layout_height="wrap_content"
             android:hint="Enter Contact Number"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@id/eventStartDate"
+            app:layout_constraintTop_toBottomOf="@id/eventEndDate"
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
@@ -139,9 +167,9 @@
             android:id="@+id/eventHostLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Contact Number"
+            android:hint="Enter Host"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@id/eventStartDate"
+            app:layout_constraintTop_toBottomOf="@id/eventContactNumberLayout"
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText

@@ -14,9 +14,6 @@ import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.appcompat.app.AppCompatActivity
 
-
-
-
 @AndroidEntryPoint
 class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
