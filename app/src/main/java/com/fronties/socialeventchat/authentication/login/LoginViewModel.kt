@@ -78,9 +78,8 @@ class LoginViewModel @Inject constructor(
                                 "password"
                             )
                         ) {// TODO for testing = remove later
-//                            _listenerForNavToEventFeed.value = Event(Unit)
-                            _listenerForNavToProfile.value = Event(Unit)
-                        } else{
+                            _listenerForNavToEventFeed.value = Event(Unit)
+                        } else {
                             _listenerForError.value = Event("login")
                         }
                     } catch (e: IOException) {
