@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
-import com.fronties.socialeventchat.application.CustomDialog
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
