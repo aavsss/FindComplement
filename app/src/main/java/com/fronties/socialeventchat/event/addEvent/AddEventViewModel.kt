@@ -17,6 +17,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.util.Date
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class AddEventViewModel @Inject constructor(
@@ -94,6 +95,7 @@ class AddEventViewModel @Inject constructor(
 
     fun addEvent() {
         val socialEvents = SocialEvents(
+            eid = Random.nextInt(0, 10000),
             eventName = eventName.value,
             eventType = eventType.value,
             eventDescription = eventDescription.value,
