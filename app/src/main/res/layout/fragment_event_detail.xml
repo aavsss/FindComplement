@@ -222,6 +222,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_description_base" />
 
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_attend_event"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Attend Event"
+                            android:layout_marginHorizontal="48dp"
+                            android:layout_marginTop="32dp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_description"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.core.widget.NestedScrollView>

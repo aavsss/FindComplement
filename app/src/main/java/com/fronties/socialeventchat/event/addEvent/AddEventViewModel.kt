@@ -56,6 +56,10 @@ class AddEventViewModel @Inject constructor(
     val listenerForAddedEvent: LiveData<Event<Unit>>
         get() = _listenerForAddedEvent
 
+    private val _listenerForError = MutableLiveData<Event<String>>()
+    val listenerForError: LiveData<Event<String>>
+        get() = _listenerForError
+
     fun initialSetup() {
 //        eventStartDate.value = Date().toString()
 //        eventEndDate.value = Date().toString()
@@ -110,8 +114,10 @@ class AddEventViewModel @Inject constructor(
                     _listenerForAddedEvent.value = Event(Unit)
                 }
             } catch (e: IOException) {
+                _listenerForError.value = Event(e.localizedMessage ?: "Error")
                 return@launch
             } catch (e: HttpException) {
+                _listenerForError.value = Event(e.localizedMessage ?: "Error")
                 return@launch
             }
         }

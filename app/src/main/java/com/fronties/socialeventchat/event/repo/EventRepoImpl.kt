@@ -34,4 +34,8 @@ class EventRepoImpl @Inject constructor(
             throw e
         }
     }
+
+    override suspend fun attendEvent(eventId: Int): Boolean {
+        TODO("Not yet implemented")
+    }
 }

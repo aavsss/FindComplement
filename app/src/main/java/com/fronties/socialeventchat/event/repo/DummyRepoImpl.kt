@@ -25,4 +25,8 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
         eventList.add(socialEvents)
         return true
     }
+
+    override suspend fun attendEvent(eventId: Int): Boolean {
+        TODO("Not yet implemented")
+    }
 }

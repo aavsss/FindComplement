@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.api
 
+import com.fronties.socialeventchat.event.model.AttendEventRequestBody
 import com.fronties.socialeventchat.event.model.EventResponse
 import com.fronties.socialeventchat.event.model.SocialEvents
 import retrofit2.Response
@@ -28,5 +29,10 @@ interface EventApi {
     @DELETE()
     suspend fun deleteEvent(
         @Path("eid") eid: Int
+    ): Response<EventResponse>
+
+    @POST()
+    suspend fun attendEvent(
+        @Body attendEventRequestBody: AttendEventRequestBody
     ): Response<EventResponse>
 }
