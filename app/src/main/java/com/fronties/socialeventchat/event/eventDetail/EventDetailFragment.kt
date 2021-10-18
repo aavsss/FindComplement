@@ -37,15 +37,13 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
         val eventId = args.eventId
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.getEventDetails(eventId)
 
         eventDetailViewModel.eventDetail.observe(viewLifecycleOwner) {
-            binding.toolbarLayout.title = it.data?.eventName ?: "Yapey"
+            binding.toolbarLayout.title = it.data?.name ?: "Yapey"
         }
 
         subscribeToEventDetail()

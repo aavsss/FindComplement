@@ -25,7 +25,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                app:srcCompat="@android:drawable/ic_menu_gallery"
+                app:displayImage="@{event.imageurl}"
                 android:id="@+id/event_pic_iv" />
 
             <LinearLayout
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/event_date_time_tv"
                     android:hint="THU, OCT 21 11:00 AM"
-                    android:text="@{event.eventStartDate}"
+                    android:text="@{event.starttime}"
                     android:gravity="center"
                     android:textColor="#c5c6d0"
                     android:layout_marginTop="10dp"
@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/event_title_tv"
-                    android:text="@{event.eventName}"
+                    android:text="@{event.name}"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:layout_marginTop="10dp"

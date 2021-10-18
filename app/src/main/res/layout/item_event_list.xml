@@ -33,7 +33,7 @@
                 android:id="@+id/eventName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{event.eventName}"
+                android:text="@{event.name}"
                 app:layout_constraintTop_toBottomOf="@id/imgEvent"
                 tools:text="Beulr"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/eventName"
                 tools:text="Host Name"
-                android:text="@{event.eventHost}"
+                android:text="@{event.hostname}"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.button.MaterialButton

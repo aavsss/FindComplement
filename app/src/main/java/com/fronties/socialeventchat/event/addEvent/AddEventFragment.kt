@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.application.dialogs.CustomDialog
 import com.fronties.socialeventchat.application.dialogs.DatePickerFragment
 import com.fronties.socialeventchat.application.dialogs.TimePickerFragment
 import com.fronties.socialeventchat.databinding.FragmentAddEventBinding
@@ -77,6 +78,13 @@ class AddEventFragment : Fragment(R.layout.fragment_add_event) {
 
         viewModel.listenerForAddedEvent.observe(viewLifecycleOwner) {
             findNavController().popBackStack()
+        }
+
+        viewModel.listenerForError.observe(viewLifecycleOwner) {
+            val errorDialog = CustomDialog(it.getContentIfNotHandled() ?: "Error") // TODO string resource
+            errorDialog.show(
+                childFragmentManager, "Error Dialog"
+            )
         }
     }
 }

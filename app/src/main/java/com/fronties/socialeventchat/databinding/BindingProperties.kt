@@ -11,8 +11,10 @@ class BindingProperties @Inject constructor(
     val glide: RequestManager
 ) {
     @BindingAdapter("app:displayImage")
-    fun displayImage(view: ImageView, urlThumbnail: String) {
-        glide.load(urlThumbnail)
-            .into(view)
+    fun displayImage(view: ImageView, urlThumbnail: String?) {
+        urlThumbnail?.let {
+            glide.load(it)
+                .into(view)
+        }
     }
 }

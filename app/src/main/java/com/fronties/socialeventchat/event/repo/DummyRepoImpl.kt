@@ -6,8 +6,8 @@ import javax.inject.Inject
 class DummyRepoImpl @Inject constructor() : EventRepo {
 
     val eventList = mutableListOf(
-        SocialEvents(eid = 0, eventName = "First"),
-        SocialEvents(eid = 1, eventName = "Second")
+        SocialEvents(eid = 0, name = "First"),
+        SocialEvents(eid = 1, name = "Second")
     )
 
     override suspend fun getEventDetails(eventId: Int): SocialEvents? {
@@ -24,5 +24,9 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
     override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
         eventList.add(socialEvents)
         return true
+    }
+
+    override suspend fun attendEvent(eventId: Int): Boolean {
+        TODO("Not yet implemented")
     }
 }
