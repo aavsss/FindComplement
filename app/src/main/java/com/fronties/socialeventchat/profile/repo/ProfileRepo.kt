@@ -1,5 +1,8 @@
 package com.fronties.socialeventchat.profile.repo
 
+import androidx.lifecycle.LiveData
+import com.fronties.socialeventchat.profile.room.ProfileEntity
+
 interface ProfileRepo {
 
     suspend fun updateProfile(
@@ -7,4 +10,8 @@ interface ProfileRepo {
         lastName: String,
         phoneNumber: String
     )
+
+    fun saveUserProfile(profileEntity: ProfileEntity)
+
+    suspend fun loadAllProfile(): LiveData<List<ProfileEntity?>?>?
 }
