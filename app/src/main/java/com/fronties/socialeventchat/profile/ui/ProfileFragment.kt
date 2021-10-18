@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.application.CustomDialog
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +41,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         profileViewModel.listenerForNavToProfile.observe(viewLifecycleOwner){
             it.getContentIfNotHandled()?.let{
                 findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
+            }
+        }
+
+        profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { error ->
+//                findNavController().navigate(R.id.ac)
             }
         }
     }

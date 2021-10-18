@@ -2,6 +2,7 @@ package com.fronties.socialeventchat.application
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.bumptech.glide.Glide
@@ -9,6 +10,7 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.profile.room.ProfileDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +45,22 @@ object AppModule {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
+
+    @Singleton // Tell Dagger-Hilt to create a singleton accessible everywhere in ApplicationCompenent (i.e. everywhere in the application)
+    @Provides
+    fun provideYourDatabase(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        ProfileDatabase::class.java,
+        "profile"
+    )
+//        .addMigrations(ProfileDatabase.migrationOneToTwo)
+        .build() // The reason we can construct a database for the repo
+
+    @Singleton
+    @Provides
+    fun provideYourDao(db: ProfileDatabase) = db.profileDao()
 
 
 }
