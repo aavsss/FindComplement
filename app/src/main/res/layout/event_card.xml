@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="event"
+            type="com.fronties.socialeventchat.event.model.SocialEvents" />
+    </data>
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:id="@+id/each_card"
-        android:orientation="vertical"
-        android:background="@drawable/round_corners"
-        >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            app:srcCompat="@android:drawable/ic_menu_gallery"
-            android:id="@+id/event_pic_iv"
-            />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:gravity="center">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="#4c4c4c"
+            android:layout_width="360dp"
+            android:layout_height="400dp"
+            android:id="@+id/each_card"
             android:orientation="vertical"
+            android:background="@drawable/round_corners">
 
-            >
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/event_date_time_tv"
-                android:text="THU, OCT 21 11:00 AM"
-                android:gravity="center"
-                android:textColor="#c5c6d0"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp"
-
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/event_title_tv"
-                android:text="Mandarin Chinese - English Language Exchange"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginHorizontal="20dp"
-                />
+                android:layout_height="240dp"
+                app:srcCompat="@android:drawable/ic_menu_gallery"
+                android:id="@+id/event_pic_iv" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="bottom"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="160dp"
+                android:background="#4c4c4c"
+                android:orientation="vertical"
+
                 >
 
-                <Button
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="view"
-                    android:id="@+id/event_view_btn"
-                    android:backgroundTint="#9a8c98"
-                    android:layout_marginHorizontal="10dp"
-                    android:textColor="@color/black"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/save"
-                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/event_date_time_tv"
+                    android:text="THU, OCT 21 11:00 AM"
+                    android:gravity="center"
+                    android:textColor="#c5c6d0"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
 
-                   />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/star_border"
-                    android:layout_marginHorizontal="10dp"
                     />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/event_title_tv"
+                    android:text="@{event.eventName}"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginHorizontal="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="view"
+                        android:id="@+id/btn_view_event"
+                        android:backgroundTint="#9a8c98"
+                        android:layout_marginHorizontal="10dp"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/save"
+                        android:layout_marginHorizontal="10dp"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/star_border"
+                        android:layout_marginHorizontal="10dp" />
+                </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
 
-
-
-
-
-
     </LinearLayout>
-
-</LinearLayout>
+</layout>
