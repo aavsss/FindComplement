@@ -34,4 +34,9 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/viewProfileFragment"
+        android:name="com.fronties.socialeventchat.profile.ui.ViewProfileFragment"
+        android:label="ViewProfileFragment" />
+
 </navigation>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="profileViewModel"
             type="com.fronties.socialeventchat.profile.ui.ProfileViewModel" />
@@ -28,6 +29,7 @@
                 android:layout_margin="20dp"
                 android:background="#E1BEE7"
                 android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
+                android:visibility="@{profileViewModel.showSkipButton ? View.VISIBLE : View.GONE}"
                 />
 
             <TextView

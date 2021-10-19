@@ -23,6 +23,9 @@ class ProfileViewModel @Inject constructor(
     private val mProfileId = DEFAULT_GOAL_ID
 //    private val mProfileDatabase: ProfileDatabase? = ProfileDatabase.getInstance()
 
+    // toggle skip button off for when we just want to view profile
+    var showSkipButton = true
+
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry()}
 

@@ -1,17 +1,23 @@
 package com.fronties.socialeventchat.profile.room
 
+import android.content.Context
+import android.util.Log
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [ProfileEntity::class], version = 1, exportSchema = false)
-public abstract class ProfileDatabase : RoomDatabase()
-{
+public abstract class ProfileDatabase : RoomDatabase() {
 
-    companion object{
+    companion object {
         private val LOCK = Object()
+
+        // This is a singleton object that represents the database instance used throughout the app
+        @Volatile
         private var sInstance: ProfileDatabase? = null
+
         private val TAG = ProfileDatabase::class.java.simpleName
         private val DB_NAME = "profile"
 
@@ -21,26 +27,21 @@ public abstract class ProfileDatabase : RoomDatabase()
             }
         }
 
-//        fun getInstance(context: Context): ProfileDatabase? {
-//            if(sInstance == null){
-//                synchronized(LOCK) {
-//                    Log.d(
-//                        TAG,
-//                        "Creating new database instance"
-//                    )
-//                    sInstance = Room.databaseBuilder(
-//                        context.applicationContext,
-//                        ProfileDatabase::class.java,
-//                        DB_NAME
-//                    ).build()
-//                }
-//            }
-//            Log.d(TAG,"Getting the instance")
-//            return sInstance
-//        }
+        fun getInstance(context: Context): ProfileDatabase {
+            // return non-null INSTANCE, if INSTANCE is null then initialize it
+            return sInstance ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    ProfileDatabase::class.java,
+                    "word_database"
+                ).build()
+                sInstance = instance
+                instance
+            }
+        }
     }
 
 
     abstract fun profileDao(): ProfileDao
-    
+
 }
