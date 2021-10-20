@@ -11,7 +11,7 @@ interface ProfileRepo {
         phoneNumber: String
     )
 
-    fun saveUserProfile(profileEntity: ProfileEntity)
+    suspend fun saveUserProfile(profileEntity: ProfileEntity)
 
     suspend fun loadAllProfile(): LiveData<List<ProfileEntity?>?>?
 }

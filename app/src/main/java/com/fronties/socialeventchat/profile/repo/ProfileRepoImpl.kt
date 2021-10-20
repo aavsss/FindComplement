@@ -12,22 +12,11 @@ class ProfileRepoImpl @Inject constructor(
 ): ProfileRepo {
     override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
 //        TODO("Not yet implemented")
+        // Basic logic: need to match the id of the user with the id in the profile table.
     }
 
-    override fun saveUserProfile(profileEntity: ProfileEntity) {
-//        val eachProfile = ProfileEntity(firstName!!, lastName!!, phoneNumber!!)
-
-
+    override suspend fun saveUserProfile(profileEntity: ProfileEntity) {
         profileDao.insertProfile(profileEntity)
-//        ProfileExecutor.getInstance()?.diskIO()?.execute(Runnable {
-//            if (mProfileId == DEFAULT_GOAL_ID) {
-//                mProfileDatabase?.profileDao()?.insertProfile(eachProfile)
-//            } else {
-//                eachProfile.id = mProfileId
-//                mProfileDatabase?.profileDao()?.updateProfile(eachProfile)
-//            }
-//
-//        })
     }
 
     override suspend fun loadAllProfile(): LiveData<List<ProfileEntity?>?>? {

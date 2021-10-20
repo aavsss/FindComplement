@@ -9,7 +9,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [ProfileEntity::class], version = 1, exportSchema = false)
-public abstract class ProfileDatabase : RoomDatabase() {
+abstract class ProfileDatabase : RoomDatabase() {
+
+    abstract fun profileDao(): ProfileDao
 
     companion object {
         private val LOCK = Object()
@@ -40,8 +42,4 @@ public abstract class ProfileDatabase : RoomDatabase() {
             }
         }
     }
-
-
-    abstract fun profileDao(): ProfileDao
-
 }
