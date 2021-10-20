@@ -9,8 +9,8 @@ interface ProfileDao {
     @Query("SELECT * FROM profile ORDER BY firstName")
     fun loadAllProfile(): LiveData<List<ProfileEntity?>?>?
 
-    @Insert
-    fun insertProfile(eachProfile: ProfileEntity?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProfile(eachProfile: ProfileEntity?)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateProfile(eachProfile: ProfileEntity?)

@@ -78,7 +78,7 @@ class ProfileViewModel @Inject constructor(
             phoneNumberEtContent.value
         )
         _listenerForProfileToEventFeed.value = Event(Unit)
-//        *** Write Code to Take User to Main Screen***
+
     }
 
 

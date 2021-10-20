@@ -44,8 +44,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { error ->
-//                findNavController().navigate(R.id.ac)
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(R.id.action_profileFragment_to_main_graph)
             }
         }
     }
