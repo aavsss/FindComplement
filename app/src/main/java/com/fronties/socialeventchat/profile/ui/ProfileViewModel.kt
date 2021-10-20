@@ -24,7 +24,7 @@ class ProfileViewModel @Inject constructor(
     private val mProfileId = DEFAULT_GOAL_ID
 
     // toggle skip button off for when we just want to view profile
-    var showSkipButton = true
+    var showSkipButton = false
 
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
@@ -78,7 +78,6 @@ class ProfileViewModel @Inject constructor(
             phoneNumberEtContent.value
         )
         _listenerForProfileToEventFeed.value = Event(Unit)
-
     }
 
 

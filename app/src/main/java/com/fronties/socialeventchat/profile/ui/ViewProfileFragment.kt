@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
     lateinit var profileViewModel: ProfileViewModel
