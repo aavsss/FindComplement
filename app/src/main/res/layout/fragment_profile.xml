@@ -29,7 +29,7 @@
                 android:layout_margin="20dp"
                 android:background="#E1BEE7"
                 android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
-                android:visibility="@{profileViewModel.showSkipButton ? View.VISIBLE : View.GONE}"
+                android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
                 />
 
             <TextView

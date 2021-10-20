@@ -23,9 +23,8 @@ class ProfileViewModel @Inject constructor(
     private val DEFAULT_GOAL_ID = -1
     private val mProfileId = DEFAULT_GOAL_ID
 
-    // toggle skip button off for when we just want to view profile
-    var showSkipButton = false
-
+    // flag for if we are CREATING profile (editMode false) or UPDATING profile (editMode true)
+    var editMode = false
 
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
@@ -80,11 +79,15 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileToEventFeed.value = Event(Unit)
     }
 
+    fun loadAll() = profileRepo.loadAllProfile()
+
 
     private fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?) {
         val eachProfile = ProfileEntity(
             firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
         )
+
+        println("Inserting: $firstName $lastName $phoneNumber")
 
         viewModelScope.launch {
             profileRepo.saveUserProfile(eachProfile)
@@ -105,10 +108,10 @@ class ProfileViewModel @Inject constructor(
 //            var allProfiles = profileRepo.loadAllProfile()
 //            println(allProfiles?.value)
 //        })
-            viewModelScope.launch {
-                var allProfilessss = profileRepo.loadAllProfile()
-                println(allProfilessss!!.value)
-            }
+//            viewModelScope.launch {
+//                var allProfilessss = profileRepo.loadAllProfile()
+//                println(allProfilessss!!.value)
+//            }
         }
 
         fun goToMainScreen() {

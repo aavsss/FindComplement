@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.profile.repo
 import androidx.lifecycle.LiveData
 import com.fronties.socialeventchat.profile.room.ProfileDao
 import com.fronties.socialeventchat.profile.room.ProfileEntity
+import kotlinx.coroutines.flow.Flow
 
 import javax.inject.Inject
 
@@ -19,10 +20,8 @@ class ProfileRepoImpl @Inject constructor(
         profileDao.insertProfile(profileEntity)
     }
 
-    override suspend fun loadAllProfile(): LiveData<List<ProfileEntity?>?>? {
-//        println("Amir")
+    override fun loadAllProfile(): LiveData<List<ProfileEntity>> {
         return profileDao.loadAllProfile()
     }
-
 
 }
