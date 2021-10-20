@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 
 class ProfileRepoImpl @Inject constructor(
-    private val profileDao: ProfileDao
+//    private val profileDao: ProfileDao
 ): ProfileRepo {
     override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
 //        TODO("Not yet implemented")
@@ -18,7 +18,7 @@ class ProfileRepoImpl @Inject constructor(
 //        val eachProfile = ProfileEntity(firstName!!, lastName!!, phoneNumber!!)
 
 
-        profileDao.insertProfile(profileEntity)
+//        profileDao.insertProfile(profileEntity)
 //        ProfileExecutor.getInstance()?.diskIO()?.execute(Runnable {
 //            if (mProfileId == DEFAULT_GOAL_ID) {
 //                mProfileDatabase?.profileDao()?.insertProfile(eachProfile)
@@ -32,7 +32,9 @@ class ProfileRepoImpl @Inject constructor(
 
     override suspend fun loadAllProfile(): LiveData<List<ProfileEntity?>?>? {
 //        println("Amir")
-        return profileDao.loadAllProfile()
+//        return profileDao.loadAllProfile()
+        TODO()
+
     }
 
 
