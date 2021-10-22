@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberException
+import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.helperClasses.Resource
@@ -115,6 +116,10 @@ class AddEventViewModel @Inject constructor(
                 } else {
                     _listenerForError.value = Event("Sorry! Error occurred")
                 }
+            } catch (e: AuthException) {
+                // TODO go to login screen
+                _listenerForError.value = Event(e.localizedMessage ?: "Unknown Error")
+                return@launch
             } catch (e: Exception) { // could all of this just be 1 excpetion?
                 _listenerForError.value = Event(e.localizedMessage ?: "Unknown Error")
                 return@launch

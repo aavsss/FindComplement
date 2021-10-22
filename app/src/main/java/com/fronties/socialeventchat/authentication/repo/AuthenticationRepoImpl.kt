@@ -3,7 +3,6 @@ package com.fronties.socialeventchat.authentication.repo
 import com.fronties.socialeventchat.authentication.api.AuthApi
 import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.authentication.model.AuthRequest
-import com.fronties.socialeventchat.helperClasses.AuthException
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
 import java.io.IOException

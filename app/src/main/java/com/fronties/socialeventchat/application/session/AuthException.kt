@@ -1,3 +1,3 @@
-package com.fronties.socialeventchat.helperClasses
+package com.fronties.socialeventchat.application.session
 
 class AuthException(message: String) : Exception(message)

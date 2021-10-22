@@ -2,6 +2,7 @@ package com.fronties.socialeventchat.event.repo
 
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberException
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
+import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.addEvent.MissingInfoException
 import com.fronties.socialeventchat.event.api.EventApi
@@ -60,6 +61,7 @@ class EventRepoImpl @Inject constructor(
         endTime: Pair<Int, Int>?,
         hostName: String?
     ): Boolean {
+        throw AuthException("Auth ")
         try {
             val socialEvents = SocialEvents(
                 name = name,
