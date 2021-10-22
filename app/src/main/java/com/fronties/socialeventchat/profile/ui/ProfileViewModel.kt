@@ -69,7 +69,7 @@ class ProfileViewModel @Inject constructor(
         _phoneNumberForProfile.value = phoneNumberEtContent.value
 
 //        Save User Profile
-        saveUserProfile(firstNameEtContent.value,lastNameEtContent.value,phoneNumberEtContent.value)
+//        saveUserProfile(firstNameEtContent.value,lastNameEtContent.value,phoneNumberEtContent.value)
         _listenerForProfileToEventFeed.value = Event(Unit)
 //        *** Write Code to Take User to Main Screen***
     }
@@ -114,8 +114,8 @@ class ProfileViewModel @Inject constructor(
 //            println(allProfiles?.value)
 //        })
         viewModelScope.launch {
-            var allProfilessss = profileRepo.loadAllProfile()
-            println(allProfilessss!!.value)
+//            var allProfilessss = profileRepo.loadAllProfile()
+//            println(allProfilessss!!.value)
         }
     }
 
