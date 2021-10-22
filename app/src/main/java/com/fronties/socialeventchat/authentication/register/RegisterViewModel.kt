@@ -50,6 +50,10 @@ class RegisterViewModel @Inject constructor(
     val listenerForNavToProfileSection: LiveData<Event<Unit>>
         get() = _listenerForNavToProfileSection
 
+    private val _listenerForRegisterError = MutableLiveData<Event<String?>>()
+    val listenerForRegisterError: LiveData<Event<String?>>
+        get() = _listenerForRegisterError
+
     fun registerButtonClicked() {
         _usernameForRegister.value = usernameRegisterEtContent.value
         _passwordForRegister.value = passwordRegisterEtContent.value
@@ -59,12 +63,16 @@ class RegisterViewModel @Inject constructor(
                     try {
                         if (authenticationRepo.registerUser(email, "password")) { // TODO for testing - remove later
                             _listenerForNavToProfileSection.value = Event(Unit)
+                        }else{
+                            _listenerForRegisterError.value = Event("register")
                         }
                     } catch (e: IOException) {
                         // TODO show some error screen
+                        _listenerForRegisterError.value = Event(e.localizedMessage)
                         return@launch
                     } catch (e: HttpException) {
                         // TODO show some error screen
+                        _listenerForRegisterError.value = Event(e.localizedMessage)
                         return@launch
                     }
                 }

@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentEventListBinding
+import com.fronties.socialeventchat.helperClasses.Extensions.gone
+import com.fronties.socialeventchat.helperClasses.Extensions.visible
 
 class EventListFragment : Fragment(R.layout.fragment_event_detail) {
 
@@ -55,7 +57,8 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
     private fun subscribeToErrorView() {
         viewModel.errorViewListener.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled().let {
-                Toast.makeText(context, "Error retrieving events!", Toast.LENGTH_LONG).show()
+                binding.clErrorView.visible()
+                binding.eventListViewCl.gone()
             }
         })
     }

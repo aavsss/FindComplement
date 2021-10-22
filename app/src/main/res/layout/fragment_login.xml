@@ -60,6 +60,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/forgot_pw_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="forgot password?"
+                android:gravity="left"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginVertical="4dp"
+                android:layout_marginLeft="10dp"
+                />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -81,6 +81,7 @@ class LoginViewModel @Inject constructor(
                             _listenerForNavToEventFeed.value = Event(Unit)
                         } else {
                             _listenerForError.value = Event("login")
+
                         }
                     } catch (e: IOException) {
                         // TODO show some error screen
