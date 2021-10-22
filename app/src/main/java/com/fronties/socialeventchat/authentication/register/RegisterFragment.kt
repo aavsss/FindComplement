@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.application.dialogs.CustomDialog
 import com.fronties.socialeventchat.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +40,16 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         registerViewModel.listenerForNavToProfileSection.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
+            }
+        }
+
+        registerViewModel.listenerForRegisterError.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let{ error->
+                var dialog = CustomDialog(error)
+
+                dialog.show(
+                    childFragmentManager, "customDialogFragment"
+                )
             }
         }
 
