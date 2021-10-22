@@ -3,8 +3,9 @@ package com.fronties.socialeventchat.event.addEvent
 import com.fronties.socialeventchat.event.model.SocialEvents
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class EventTransformerImpl : EventTransformer {
+class EventTransformerImpl @Inject constructor() : EventTransformer {
     // returns required properties of Event.
     // returning list of required items for now for future references
     override fun checkRequiredItems(socialEvents: SocialEvents): List<String> {
