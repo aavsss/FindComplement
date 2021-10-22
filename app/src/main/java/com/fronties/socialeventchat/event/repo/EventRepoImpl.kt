@@ -1,7 +1,9 @@
 package com.fronties.socialeventchat.event.repo
 
+import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberException
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
+import com.fronties.socialeventchat.event.addEvent.MissingInfoException
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.helperClasses.Resource
@@ -67,12 +69,8 @@ class EventRepoImpl @Inject constructor(
                 endtime = eventTransformer.transformDateToUTC(endDate, endTime),
                 hostname = hostName
             )
-            if (eventTransformer.checkRequiredItems(socialEvents).isNotEmpty()) {
-                return false
-            }
-            if (!phoneNumberValidator.validatePhoneNumber(contactNumber)) {
-                return false
-            }
+            eventTransformer.checkRequiredItems(socialEvents)
+            phoneNumberValidator.validatePhoneNumber(contactNumber)
             val eventResponse = eventApi.addEvent(socialEvents)
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
                 return true
@@ -83,6 +81,12 @@ class EventRepoImpl @Inject constructor(
             throw e
         } catch (e: HttpException) {
             Resource.error(e.localizedMessage ?: "HTTP Error", null)
+            throw e
+        } catch (e: PhoneNumberException) {
+            Resource.error(e.localizedMessage ?: "Invalid phone number", null)
+            throw e
+        } catch (e: MissingInfoException) {
+            Resource.error(e.localizedMessage ?: "Missing info", null)
             throw e
         }
     }

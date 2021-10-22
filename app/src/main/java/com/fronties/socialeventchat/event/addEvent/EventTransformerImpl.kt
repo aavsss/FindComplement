@@ -9,15 +9,18 @@ import javax.inject.Inject
 class EventTransformerImpl @Inject constructor() : EventTransformer {
     // returns required properties of Event.
     // returning list of required items for now for future references
-    override fun checkRequiredItems(socialEvents: SocialEvents): List<String> {
+    override fun checkRequiredItems(socialEvents: SocialEvents): Boolean {
         val requiredItems = mutableListOf<String>()
         if (socialEvents.name == null) {
-            requiredItems.add("Name")
+            requiredItems.add("Missing Name Field")
         }
         if (socialEvents.hostname == null) {
-            requiredItems.add("HostName")
+            requiredItems.add("Missing HostName field")
         }
-        return requiredItems
+        if (requiredItems.isEmpty()) {
+            return true
+        }
+        throw MissingInfoException(requiredItems[0])
     }
 
     override fun transformDateToUTC(

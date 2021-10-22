@@ -7,8 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberException
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
+import com.fronties.socialeventchat.helperClasses.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -110,13 +112,19 @@ class AddEventViewModel @Inject constructor(
                 ) {
                     _listenerForAddedEvent.value = Event(Unit)
                 } else {
-                    _listenerForError.value = Event("Please fill all the required items")
+                    _listenerForError.value = Event("Sorry! Error occurred")
                 }
-            } catch (e: IOException) {
+            } catch (e: IOException) { // could all of this just be 1 excpetion?
                 _listenerForError.value = Event(e.localizedMessage ?: "Error")
                 return@launch
             } catch (e: HttpException) {
                 _listenerForError.value = Event(e.localizedMessage ?: "Error")
+                return@launch
+            } catch (e: PhoneNumberException) {
+                _listenerForError.value = Event(e.localizedMessage ?: "Missing phone number")
+                return@launch
+            } catch (e: MissingInfoException) {
+                _listenerForError.value = Event(e.localizedMessage ?: "Missing info")
                 return@launch
             }
         }
