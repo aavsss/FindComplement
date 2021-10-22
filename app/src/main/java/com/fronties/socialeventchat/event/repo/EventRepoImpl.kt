@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.repo
 
+import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.helperClasses.Resource
@@ -8,7 +9,8 @@ import java.io.IOException
 import javax.inject.Inject
 
 class EventRepoImpl @Inject constructor(
-    private val eventApi: EventApi
+    private val eventApi: EventApi,
+    private val eventTransformer: EventTransformer
 ) : EventRepo {
     override suspend fun getEventDetails(eventId: Int): SocialEvents {
         try {
@@ -42,8 +44,30 @@ class EventRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
+    override suspend fun addEvent(
+        name: String?,
+        description: String?,
+        eventType: String?,
+        contactNumber: String?,
+        startDate: Triple<Int, Int, Int>?,
+        startTime: Pair<Int, Int>?,
+        endDate: Triple<Int, Int, Int>?,
+        endTime: Pair<Int, Int>?,
+        hostName: String?
+    ): Boolean {
         try {
+            val socialEvents = SocialEvents(
+                name = name,
+                description = description,
+                eventtype = eventType,
+                contactnumber = contactNumber,
+                starttime = eventTransformer.transformDateToUTC(startDate, startTime),
+                endtime = eventTransformer.transformDateToUTC(endDate, endTime),
+                hostname = hostName
+            )
+            if (eventTransformer.checkRequiredItems(socialEvents).isNotEmpty()) {
+                return false
+            }
             val eventResponse = eventApi.addEvent(socialEvents)
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
                 return true

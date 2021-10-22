@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +13,6 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class AddEventViewModel @Inject constructor(
@@ -24,10 +22,10 @@ class AddEventViewModel @Inject constructor(
     val eventName = MutableLiveData<String>()
     val eventType = MutableLiveData<String>()
     val eventDescription = MutableLiveData<String>()
-    val eventStartDate = MutableLiveData<String>()
-    val eventStartTime = MutableLiveData<String>()
-    val eventEndDate = MutableLiveData<String>()
-    val eventEndTime = MutableLiveData<String>()
+    val eventStartDate = MutableLiveData<Triple<Int, Int, Int>>()
+    val eventStartTime = MutableLiveData<Pair<Int, Int>>()
+    val eventEndDate = MutableLiveData<Triple<Int, Int, Int>>()
+    val eventEndTime = MutableLiveData<Pair<Int, Int>>()
     val eventContactNumber = MutableLiveData<String>()
     val eventHost = MutableLiveData<String>()
 
@@ -63,19 +61,19 @@ class AddEventViewModel @Inject constructor(
     }
 
     fun setStartDate(year: Int, month: Int, day: Int) {
-        eventStartDate.value = "$year/$month/$day"
+        eventStartDate.value = Triple(year, month, day)
     }
 
     fun setStartTime(hourOfDay: Int, minute: Int) {
-        eventStartTime.value = "$hourOfDay/$minute"
+        eventStartTime.value = Pair(hourOfDay, minute)
     }
 
     fun setEndDate(year: Int, month: Int, day: Int) {
-        eventEndDate.value = "$year/$month/$day"
+        eventEndDate.value = Triple(year, month, day)
     }
 
     fun setEndTime(hourOfDay: Int, minute: Int) {
-        eventEndTime.value = "$hourOfDay/$minute"
+        eventEndTime.value = Pair(hourOfDay, minute)
     }
 
     fun pickStartDate() {
@@ -95,19 +93,20 @@ class AddEventViewModel @Inject constructor(
     }
 
     fun addEvent() {
-        val socialEvents = SocialEvents(
-            eid = Random.nextInt(0, 10000),
-            name = eventName.value,
-            description = eventDescription.value,
-            eventtype = eventType.value,
-            contactnumber = eventContactNumber.value?.toDouble(),
-            starttime = eventStartDate.value,
-            endtime = eventEndDate.value,
-            hostname = eventHost.value // TODO use inverseBindingAdapter to get all remaining properties
-        )
         viewModelScope.launch {
             try {
-                if (eventRepo.addEvent(socialEvents)) {
+                if (eventRepo.addEvent(
+                        eventName.value,
+                        eventDescription.value,
+                        eventType.value,
+                        eventContactNumber.value,
+                        eventStartDate.value,
+                        eventStartTime.value,
+                        eventEndDate.value,
+                        eventEndTime.value,
+                        eventHost.value
+                    )
+                ) {
                     _listenerForAddedEvent.value = Event(Unit)
                 }
             } catch (e: IOException) {

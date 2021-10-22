@@ -1,5 +1,7 @@
 package com.fronties.socialeventchat.event.dependency
 
+import com.fronties.socialeventchat.event.addEvent.EventTransformer
+import com.fronties.socialeventchat.event.addEvent.EventTransformerImpl
 import com.fronties.socialeventchat.event.repo.DummyRepoImpl
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.event.repo.EventRepoImpl
@@ -18,4 +20,10 @@ abstract class EventBindingModule {
     abstract fun bindEventRepo(
         eventRepoImpl: EventRepoImpl
     ): EventRepo
+
+    @Singleton
+    @Binds
+    abstract fun bindEventTransformer(
+        eventTransformerImpl: EventTransformerImpl
+    ): EventTransformer
 }
