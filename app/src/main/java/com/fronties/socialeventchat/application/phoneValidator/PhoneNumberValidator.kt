@@ -1,5 +1,5 @@
 package com.fronties.socialeventchat.application.phoneValidator
 
 interface PhoneNumberValidator {
-    fun validatePhoneNumber(number: String?): Boolean
+    fun validatePhoneNumber(number: String?)
 }

@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -114,17 +115,8 @@ class AddEventViewModel @Inject constructor(
                 } else {
                     _listenerForError.value = Event("Sorry! Error occurred")
                 }
-            } catch (e: IOException) { // could all of this just be 1 excpetion?
-                _listenerForError.value = Event(e.localizedMessage ?: "Error")
-                return@launch
-            } catch (e: HttpException) {
-                _listenerForError.value = Event(e.localizedMessage ?: "Error")
-                return@launch
-            } catch (e: PhoneNumberException) {
-                _listenerForError.value = Event(e.localizedMessage ?: "Missing phone number")
-                return@launch
-            } catch (e: MissingInfoException) {
-                _listenerForError.value = Event(e.localizedMessage ?: "Missing info")
+            } catch (e: Exception) { // could all of this just be 1 excpetion?
+                _listenerForError.value = Event(e.localizedMessage ?: "Unknown Error")
                 return@launch
             }
         }

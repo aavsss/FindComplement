@@ -9,6 +9,7 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
 import java.io.IOException
+import java.lang.Exception
 import javax.inject.Inject
 
 class EventRepoImpl @Inject constructor(
@@ -76,17 +77,8 @@ class EventRepoImpl @Inject constructor(
                 return true
             }
             return false
-        } catch (e: IOException) {
-            Resource.error(e.localizedMessage ?: "IO Error", null)
-            throw e
-        } catch (e: HttpException) {
-            Resource.error(e.localizedMessage ?: "HTTP Error", null)
-            throw e
-        } catch (e: PhoneNumberException) {
-            Resource.error(e.localizedMessage ?: "Invalid phone number", null)
-            throw e
-        } catch (e: MissingInfoException) {
-            Resource.error(e.localizedMessage ?: "Missing info", null)
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error", null)
             throw e
         }
     }
