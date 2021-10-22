@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.repo
 
+import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.event.model.SocialEvents
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 class EventRepoImpl @Inject constructor(
     private val eventApi: EventApi,
-    private val eventTransformer: EventTransformer
+    private val eventTransformer: EventTransformer,
+    private val phoneNumberValidator: PhoneNumberValidator
 ) : EventRepo {
     override suspend fun getEventDetails(eventId: Int): SocialEvents {
         try {
@@ -66,6 +68,9 @@ class EventRepoImpl @Inject constructor(
                 hostname = hostName
             )
             if (eventTransformer.checkRequiredItems(socialEvents).isNotEmpty()) {
+                return false
+            }
+            if (!phoneNumberValidator.validatePhoneNumber(contactNumber)) {
                 return false
             }
             val eventResponse = eventApi.addEvent(socialEvents)

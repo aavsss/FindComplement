@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.addEvent
 
+import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.event.model.SocialEvents
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,16 +29,20 @@ class EventTransformerImpl @Inject constructor() : EventTransformer {
             calendar.set(date.first, date.second, date.third, time.first, time.second)
             calendar.set(Calendar.MILLISECOND, 0)
             val dateFromCalendar = calendar.time
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US)
-            format.format(dateFromCalendar)
+            convertToISO8601(dateFromCalendar)
         } else if (date != null) {
             calendar.set(date.first, date.second, date.third)
             calendar.set(Calendar.MILLISECOND, 0)
             val dateFromCalendar = calendar.time
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US)
-            format.format(dateFromCalendar)
+            convertToISO8601(dateFromCalendar)
         } else {
             null
         }
+    }
+
+    private fun convertToISO8601(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        format.timeZone = TimeZone.getTimeZone("UTC")
+        return format.format(date)
     }
 }

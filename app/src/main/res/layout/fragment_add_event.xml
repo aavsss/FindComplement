@@ -136,6 +136,7 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             style="@style/Body1"
+            android:onClick="@{() -> viewModel.pickEndTime()}"
             app:layout_constraintTop_toBottomOf="@id/eventStartTime"
             app:layout_constraintStart_toEndOf="@id/eventEndDate"
             android:background="@drawable/rounded_border"
