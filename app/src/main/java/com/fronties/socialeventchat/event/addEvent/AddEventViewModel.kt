@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.addEvent
 
+import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.LiveData
@@ -108,6 +109,8 @@ class AddEventViewModel @Inject constructor(
                     )
                 ) {
                     _listenerForAddedEvent.value = Event(Unit)
+                } else {
+                    _listenerForError.value = Event("Please fill all the required items")
                 }
             } catch (e: IOException) {
                 _listenerForError.value = Event(e.localizedMessage ?: "Error")
