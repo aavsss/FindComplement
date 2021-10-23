@@ -20,7 +20,8 @@ class ChatActivity : AppCompatActivity() {
         val view = binding.root
 
         chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        chatViewModel.establishConnection()
+
+        binding.chatViewModel = chatViewModel
 
         setContentView(view)
         setupAdapter()
@@ -29,5 +30,10 @@ class ChatActivity : AppCompatActivity() {
     private fun setupAdapter() {
         val adapter = MessageListAdapter()
         binding.recyclerGchat.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        chatViewModel.onDestroy()
+        super.onDestroy()
     }
 }

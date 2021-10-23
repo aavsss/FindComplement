@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="chatViewModel"
+            type="com.fronties.socialeventchat.chat.ui.ChatViewModel" />
 
     </data>
 
@@ -72,6 +75,7 @@
                 android:layout_centerVertical="true"
                 android:background="@android:color/transparent"
                 android:hint="Enter Message"
+                android:text="@={chatViewModel.textToSend}"
                 android:inputType="text"
                 android:maxLines="6"
                 tools:ignore="Autofill"
@@ -87,6 +91,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="?attr/selectableItemBackground"
                 android:text="Send"
+                android:onClick="@{() -> chatViewModel.sendText()}"
                 android:textColor="@color/purple_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

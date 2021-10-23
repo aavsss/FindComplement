@@ -5,13 +5,13 @@ import okio.ByteString
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class ChatRepoImpl @Inject constructor(
     private val socketOkHTTPClient: OkHttpClient
 ) : ChatRepo {
 
     @Inject
     lateinit var request: Request
+    lateinit var webSocket: WebSocket
 
     override fun establishWebSocketConnection() {
         val webSocketListener = object : WebSocketListener() {
@@ -40,7 +40,15 @@ class ChatRepoImpl @Inject constructor(
                 super.onFailure(webSocket, t, response)
             }
         }
-        val webSocket = socketOkHTTPClient.newWebSocket(request, webSocketListener)
+        webSocket = socketOkHTTPClient.newWebSocket(request, webSocketListener)
         socketOkHTTPClient.dispatcher.executorService.shutdown()
+    }
+
+    override fun sendText(message: String) {
+        webSocket.send(message)
+    }
+
+    override fun onDestroy() {
+//        webSocket.cancel() // Already handled?
     }
 }
