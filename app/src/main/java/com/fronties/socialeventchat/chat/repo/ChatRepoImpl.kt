@@ -1,13 +1,15 @@
 package com.fronties.socialeventchat.chat.repo
 
-import com.fronties.socialeventchat.helperClasses.Constants.WS_RUL
 import okhttp3.*
 import okio.ByteString
 import javax.inject.Inject
 
-class ChatRepoImpl @Inject constructor() : ChatRepo {
+class ChatRepoImpl @Inject constructor(
+    private val socketOkHTTPClient: OkHttpClient
+) : ChatRepo {
 
-    private val request = Request.Builder().url(WS_RUL).build()
+    @Inject
+    lateinit var request: Request
 
     override fun establishWebSocketConnection() {
         val webSocketListener = object : WebSocketListener() {
@@ -36,7 +38,6 @@ class ChatRepoImpl @Inject constructor() : ChatRepo {
                 super.onFailure(webSocket, t, response)
             }
         }
-        val socketOkHTTPClient = OkHttpClient.Builder().build()
         val webSocket = socketOkHTTPClient.newWebSocket(request, webSocketListener)
         socketOkHTTPClient.dispatcher.executorService.shutdown()
     }
