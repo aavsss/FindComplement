@@ -7,10 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.auth0.android.jwt.JWT
 import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
 import com.fronties.socialeventchat.authentication.validator.EmailValidator
-import com.fronties.socialeventchat.helperClasses.AuthException
 import com.fronties.socialeventchat.helperClasses.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -81,6 +79,7 @@ class LoginViewModel @Inject constructor(
                             _listenerForNavToEventFeed.value = Event(Unit)
                         } else {
                             _listenerForError.value = Event("login")
+
                         }
                     } catch (e: IOException) {
                         // TODO show some error screen

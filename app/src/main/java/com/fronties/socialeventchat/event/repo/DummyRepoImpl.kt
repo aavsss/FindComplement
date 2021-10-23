@@ -21,10 +21,20 @@ class DummyRepoImpl @Inject constructor() : EventRepo {
         return eventList
     }
 
-    override suspend fun addEvent(socialEvents: SocialEvents): Boolean {
-        eventList.add(socialEvents)
-        return true
+    override suspend fun addEvent(
+        name: String?,
+        description: String?,
+        eventType: String?,
+        contactNumber: String?,
+        startDate: Triple<Int, Int, Int>?,
+        startTime: Pair<Int, Int>?,
+        endDate: Triple<Int, Int, Int>?,
+        endTime: Pair<Int, Int>?,
+        hostName: String?
+    ): Boolean {
+        TODO("Not yet implemented")
     }
+
 
     override suspend fun attendEvent(eventId: Int): Boolean {
         TODO("Not yet implemented")

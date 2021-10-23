@@ -1,8 +1,5 @@
 package com.fronties.socialeventchat.application.session
 
-import android.content.Intent
-import com.fronties.socialeventchat.MainActivity
-import com.fronties.socialeventchat.helperClasses.AuthException
 import okhttp3.*
 import javax.inject.Inject
 

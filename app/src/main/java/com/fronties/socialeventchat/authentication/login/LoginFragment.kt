@@ -53,12 +53,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
-        loginViewModel.listenerForError.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { error ->
-                var dialog = CustomDialog("login")
+        loginViewModel.listenerForError.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let{ error->
+                var dialog = CustomDialog(error)
 
                 dialog.show(
-                    childFragmentManager, "customDialogFragment")
+                    childFragmentManager, "customDialogFragment"
+                )
             }
         }
 
