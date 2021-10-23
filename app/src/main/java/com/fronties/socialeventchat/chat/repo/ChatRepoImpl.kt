@@ -36,6 +36,8 @@ class ChatRepoImpl @Inject constructor() : ChatRepo {
                 super.onFailure(webSocket, t, response)
             }
         }
-        val webSocket = OkHttpClient().newWebSocket(request, webSocketListener)
+        val socketOkHTTPClient = OkHttpClient.Builder().build()
+        val webSocket = socketOkHTTPClient.newWebSocket(request, webSocketListener)
+        socketOkHTTPClient.dispatcher.executorService.shutdown()
     }
 }
