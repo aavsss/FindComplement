@@ -25,7 +25,13 @@ class EventDetailViewModel @Inject constructor(
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
     val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
 
+    private val _navToChat = MutableLiveData<Event<Int>>()
+    val navToChat: LiveData<Event<Int>> = _navToChat
+
+    private var eid: Int = -1
+
     fun getEventDetails(eventID: Int) {
+        setEid(eventID)
         viewModelScope.launch {
             val eventDetail = try {
                 eventRepo.getEventDetails(eventID)
@@ -35,5 +41,13 @@ class EventDetailViewModel @Inject constructor(
             }
             _eventDetail.value = Resource.success(eventDetail)
         }
+    }
+
+    private fun setEid(eventID: Int) {
+        eid = eventID
+    }
+
+    fun goToChat() {
+        _navToChat.value = Event(eid)
     }
 }

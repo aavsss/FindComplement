@@ -1,12 +1,13 @@
 package com.fronties.socialeventchat.chat.repo
 
+import com.fronties.socialeventchat.helperClasses.Constants.WS_RUL
 import okhttp3.*
 import okio.ByteString
 import javax.inject.Inject
 
 class ChatRepoImpl @Inject constructor() : ChatRepo {
 
-    private val request = Request.Builder().url("WS BACKEND URL").build()
+    private val request = Request.Builder().url(WS_RUL).build()
 
     override fun establishWebSocketConnection() {
         val webSocketListener = object : WebSocketListener() {
