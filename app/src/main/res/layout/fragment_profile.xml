@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="profileViewModel"
             type="com.fronties.socialeventchat.profile.ui.ProfileViewModel" />
@@ -28,6 +29,7 @@
                 android:layout_margin="20dp"
                 android:background="#E1BEE7"
                 android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
+                android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
                 />
 
             <TextView
@@ -51,7 +53,7 @@
                     android:id="@+id/first_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:text="@={profileViewModel.firstNameEtContent}" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -67,7 +69,7 @@
                     android:id="@+id/last_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:text="@={profileViewModel.lastNameEtContent}" />
 
             </com.google.android.material.textfield.TextInputLayout>

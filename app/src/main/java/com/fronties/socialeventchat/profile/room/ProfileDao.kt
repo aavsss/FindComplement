@@ -6,17 +6,17 @@ import androidx.room.*
 
 @Dao
 interface ProfileDao {
-    @Query("SELECT * FROM profile ORDER BY firstName")
-    fun loadAllProfile(): LiveData<List<ProfileEntity?>?>?
+    @Query("SELECT * FROM profile")
+    fun loadAllProfile(): LiveData<List<ProfileEntity>>
 
-    @Insert
-    fun insertProfile(eachProfile: ProfileEntity?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertProfile(eachProfile: ProfileEntity?)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateProfile(eachProfile: ProfileEntity?)
+    suspend fun updateProfile(eachProfile: ProfileEntity?)
 
     @Delete
-    fun deleteProfile(eachProfile: ProfileEntity?)
+    suspend fun deleteProfile(eachProfile: ProfileEntity?)
 
     @Query("SELECT * FROM profile where id = :id")
     fun loadProfileById(id: Int): LiveData<ProfileEntity?>?
