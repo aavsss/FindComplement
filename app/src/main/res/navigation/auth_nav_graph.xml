@@ -28,6 +28,12 @@
         android:id="@+id/profileFragment"
         android:name="com.fronties.socialeventchat.profile.ui.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_main_graph"
+            app:destination="@id/main_nav_graph" />
+    </fragment>
+
+    <include app:graph="@navigation/main_nav_graph" />
 
 </navigation>

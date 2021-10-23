@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
+import com.fronties.socialeventchat.profile.room.ProfileDatabase
 import com.fronties.socialeventchat.profile.room.ProfileEntity
 import com.fronties.socialeventchat.profile.room.ProfileExecutor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,10 +22,11 @@ class ProfileViewModel @Inject constructor(
 
     private val DEFAULT_GOAL_ID = -1
     private val mProfileId = DEFAULT_GOAL_ID
-//    private val mProfileDatabase: ProfileDatabase? = ProfileDatabase.getInstance()
 
+    // flag for if we are CREATING profile (editMode false) or UPDATING profile (editMode true)
+    var editMode = false
 
-    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry()}
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.add(callback)
@@ -63,44 +65,37 @@ class ProfileViewModel @Inject constructor(
     val listenerForProfileToEventFeed: LiveData<Event<Unit>>
         get() = _listenerForProfileToEventFeed
 
-    fun saveProfileButtonClicked(){
+    fun saveProfileButtonClicked() {
         _firstNameForProfile.value = firstNameEtContent.value
         _lastNameForProfile.value = lastNameEtContent.value
         _phoneNumberForProfile.value = phoneNumberEtContent.value
 
 //        Save User Profile
-//        saveUserProfile(firstNameEtContent.value,lastNameEtContent.value,phoneNumberEtContent.value)
+        saveUserProfile(
+            firstNameEtContent.value,
+            lastNameEtContent.value,
+            phoneNumberEtContent.value
+        )
         _listenerForProfileToEventFeed.value = Event(Unit)
-//        *** Write Code to Take User to Main Screen***
     }
 
+    fun loadAll() = profileRepo.loadAllProfile()
 
 
     private fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?) {
         val eachProfile = ProfileEntity(
-            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!)
+            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
+        )
 
+        println("Inserting: $firstName $lastName $phoneNumber")
 
-//        println()
-//        println(firstName)
-//        println(lastName)
-//        println(phoneNumber)
-//        viewModelScope.launch {
-//            profileRepo.saveUserProfile(eachProfile)
-//        }
-        ProfileExecutor.getInstance()?.diskIO()?.execute(Runnable {
-//            if (mProfileId == DEFAULT_GOAL_ID) {
-//                mProfileDatabase?.profileDao()?.insertProfile(eachProfile)
-//            } else {
-//                eachProfile.id = mProfileId
-//                mProfileDatabase?.profileDao()?.updateProfile(eachProfile)
-//            }
-
+        viewModelScope.launch {
             profileRepo.saveUserProfile(eachProfile)
-        })
+        }
     }
 
-    fun skipProfileButtonClicked(){
+
+        fun skipProfileButtonClicked() {
 //        *** Write Code to Take User to Register Screen***
 //        ProfileExecutor.getInstance()?.diskIO()?.execute(Runnable {
 //            if (mProfileId == DEFAULT_GOAL_ID) {
@@ -113,13 +108,13 @@ class ProfileViewModel @Inject constructor(
 //            var allProfiles = profileRepo.loadAllProfile()
 //            println(allProfiles?.value)
 //        })
-        viewModelScope.launch {
-//            var allProfilessss = profileRepo.loadAllProfile()
-//            println(allProfilessss!!.value)
+//            viewModelScope.launch {
+//                var allProfilessss = profileRepo.loadAllProfile()
+//                println(allProfilessss!!.value)
+//            }
         }
-    }
 
-    fun goToMainScreen(){
-        _listenerForNavToProfile.value = Event(Unit)
-    }
-}// class ends here
+        fun goToMainScreen() {
+            _listenerForNavToProfile.value = Event(Unit)
+        }
+    }// class ends here

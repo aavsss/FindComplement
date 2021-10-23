@@ -2,6 +2,7 @@ package com.fronties.socialeventchat.profile.repo
 
 import androidx.lifecycle.LiveData
 import com.fronties.socialeventchat.profile.room.ProfileEntity
+import kotlinx.coroutines.flow.Flow
 
 interface ProfileRepo {
 
@@ -11,7 +12,7 @@ interface ProfileRepo {
         phoneNumber: String
     )
 
-    fun saveUserProfile(profileEntity: ProfileEntity)
+    suspend fun saveUserProfile(profileEntity: ProfileEntity)
 
-    suspend fun loadAllProfile(): LiveData<List<ProfileEntity?>?>?
+    fun loadAllProfile(): LiveData<List<ProfileEntity>>
 }
