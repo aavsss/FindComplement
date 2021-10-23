@@ -3,7 +3,9 @@ package com.fronties.socialeventchat.chat.repo
 import okhttp3.*
 import okio.ByteString
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ChatRepoImpl @Inject constructor(
     private val socketOkHTTPClient: OkHttpClient
 ) : ChatRepo {
