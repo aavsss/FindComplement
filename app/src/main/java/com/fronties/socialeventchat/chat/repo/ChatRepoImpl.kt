@@ -49,8 +49,8 @@ class ChatRepoImpl @Inject constructor(
     override fun sendText(message: String) {
         val messageRequest = MessageRequest(
             "1",
-            "1,",
-            "hi there"
+            "1",
+            message
         )
         webSocket.send(Gson().toJson(messageRequest))
     }

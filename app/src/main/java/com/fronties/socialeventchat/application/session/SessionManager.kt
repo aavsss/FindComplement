@@ -24,6 +24,16 @@ class SessionManager @Inject constructor(
         return sharedPreferences.getString(USER_TOKEN, null)
     }
 
+    fun saveUid(uid: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putInt(USER_ID, uid)
+        editor.apply()
+    }
+
+    fun fetchUid(): Int {
+        return sharedPreferences.getInt(USER_ID, -1)
+    }
+
     fun removeAuthToken() {
         val editor = sharedPreferences.edit()
         editor.remove(USER_TOKEN)
