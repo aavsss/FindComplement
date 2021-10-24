@@ -41,7 +41,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         profileViewModel.listenerForNavToProfile.observe(viewLifecycleOwner){
             it.getContentIfNotHandled()?.let{
-                findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
             }
         }
 

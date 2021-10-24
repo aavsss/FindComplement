@@ -61,7 +61,6 @@ class EventRepoImpl @Inject constructor(
         endTime: Pair<Int, Int>?,
         hostName: String?
     ): Boolean {
-        throw AuthException("Auth ")
         try {
             val socialEvents = SocialEvents(
                 name = name,

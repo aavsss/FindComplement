@@ -1,7 +1,5 @@
 package com.fronties.socialeventchat.chat.dependency
 
-import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
-import com.fronties.socialeventchat.authentication.repo.AuthenticationRepoImpl
 import com.fronties.socialeventchat.chat.repo.ChatRepo
 import com.fronties.socialeventchat.chat.repo.ChatRepoImpl
 import dagger.Binds

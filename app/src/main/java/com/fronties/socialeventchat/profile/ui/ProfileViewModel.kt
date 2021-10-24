@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.profile.ui
 
 import android.app.Application
+import android.content.Intent
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -112,6 +113,7 @@ class ProfileViewModel @Inject constructor(
 //                var allProfilessss = profileRepo.loadAllProfile()
 //                println(allProfilessss!!.value)
 //            }
+            goToMainScreen()
         }
 
         fun goToMainScreen() {

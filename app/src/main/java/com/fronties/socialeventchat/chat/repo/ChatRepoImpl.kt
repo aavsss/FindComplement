@@ -1,5 +1,7 @@
 package com.fronties.socialeventchat.chat.repo
 
+import com.fronties.socialeventchat.chat.model.MessageRequest
+import com.google.gson.Gson
 import okhttp3.*
 import okio.ByteString
 import javax.inject.Inject
@@ -45,7 +47,12 @@ class ChatRepoImpl @Inject constructor(
     }
 
     override fun sendText(message: String) {
-        webSocket.send(message)
+        val messageRequest = MessageRequest(
+            "1",
+            "1,",
+            "hi there"
+        )
+        webSocket.send(Gson().toJson(messageRequest))
     }
 
     override fun onDestroy() {
