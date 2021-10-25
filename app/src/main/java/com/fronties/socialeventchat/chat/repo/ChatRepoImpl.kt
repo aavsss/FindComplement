@@ -1,7 +1,10 @@
 package com.fronties.socialeventchat.chat.repo
 
 import com.fronties.socialeventchat.chat.model.MessageRequest
+import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.google.gson.Gson
+import io.socket.client.Socket
+import io.socket.emitter.Emitter
 import okhttp3.*
 import okio.ByteString
 import javax.inject.Inject
@@ -14,6 +17,7 @@ class ChatRepoImpl @Inject constructor(
     @Inject
     lateinit var request: Request
     lateinit var webSocket: WebSocket
+
 
     override fun establishWebSocketConnection() {
         val webSocketListener = object : WebSocketListener() {
@@ -46,6 +50,10 @@ class ChatRepoImpl @Inject constructor(
         socketOkHTTPClient.dispatcher.executorService.shutdown()
     }
 
+    override fun getSocketIO(): Socket {
+        TODO("Not yet implemented")
+    }
+
     override fun sendText(message: String) {
         val messageRequest = MessageRequest(
             "1",
@@ -53,6 +61,19 @@ class ChatRepoImpl @Inject constructor(
             message
         )
         webSocket.send(Gson().toJson(messageRequest))
+    }
+
+
+    override fun onConnect(): Emitter.Listener {
+        TODO("Not yet implemented")
+    }
+
+    override fun joinRoom() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUpdateChat(callback: (MessageResponse) -> Unit): Emitter.Listener {
+        TODO("Not yet implemented")
     }
 
     override fun onDestroy() {
