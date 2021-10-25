@@ -6,7 +6,7 @@ import io.socket.emitter.Emitter
 
 interface ChatRepo {
     fun establishWebSocketConnection()
-    fun getSocketIO(): Socket
+    fun getSocketIO(): Socket?
     fun sendText(message: String)
     fun onConnect(): Emitter.Listener
     fun joinRoom(eid: Int)

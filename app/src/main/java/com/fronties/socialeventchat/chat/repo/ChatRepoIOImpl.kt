@@ -15,7 +15,7 @@ class ChatRepoIOImpl @Inject constructor(
     private val sessionManager: SessionManager
 ) : ChatRepo {
 
-    lateinit var socket: Socket
+    private var socket: Socket? = null
     private val gson = Gson()
 
     override fun establishWebSocketConnection() {
@@ -24,11 +24,11 @@ class ChatRepoIOImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        socket.connect()
-        socket.on(Socket.EVENT_CONNECT, onConnect())
+        socket?.connect()
+        socket?.on(Socket.EVENT_CONNECT, onConnect())
     }
 
-    override fun getSocketIO(): Socket {
+    override fun getSocketIO(): Socket? {
         return socket
     }
 
@@ -37,7 +37,7 @@ class ChatRepoIOImpl @Inject constructor(
             username = sessionManager.fetchUid(),
             room = eid
         )
-        socket.emit("joinRoom", gson.toJson(joinRoom))
+        socket?.emit("joinRoom", gson.toJson(joinRoom))
     }
 
     override fun sendText(message: String) {

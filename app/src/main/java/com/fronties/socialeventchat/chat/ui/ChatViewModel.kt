@@ -37,7 +37,7 @@ class ChatViewModel @Inject constructor(
 
     fun establishWebSocketConnection(eid: Int) {
         chatRepo.joinRoom(eid)
-        chatRepo.getSocketIO().on("updateChat", chatRepo.onUpdateChat(onUpdateChat))
+        chatRepo.getSocketIO()?.on("updateChat", chatRepo.onUpdateChat(onUpdateChat))
 //        chatRepo.getSocketIO().on("sendText", chatRepo.sendText("sendText"))
     }
 }
