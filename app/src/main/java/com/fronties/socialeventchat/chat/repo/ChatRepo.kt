@@ -9,7 +9,7 @@ interface ChatRepo {
     fun getSocketIO(): Socket
     fun sendText(message: String)
     fun onConnect(): Emitter.Listener
-    fun joinRoom()
+    fun joinRoom(eid: Int)
     fun onUpdateChat(callback: ((MessageResponse) -> Unit)): Emitter.Listener
     fun onDestroy()
 }

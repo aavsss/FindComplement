@@ -6,22 +6,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fronties.socialeventchat.chat.model.Message
+import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.databinding.ItemReceivedMessageBinding
 import com.fronties.socialeventchat.databinding.ItemUserMessageBinding
 
-class MessageListAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCallback()) {
+class MessageListAdapter : ListAdapter<MessageResponse, RecyclerView.ViewHolder>(MessageDiffCallback()) {
 
     companion object {
         private const val SENT_MESSAGE = 0
         private const val RECEIVED_MESSAGE = 0
     }
 
-    private class MessageDiffCallback : DiffUtil.ItemCallback<Message>() {
-        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-            return oldItem.uid == newItem.uid && oldItem.timeStamp == newItem.timeStamp
+    private class MessageDiffCallback : DiffUtil.ItemCallback<MessageResponse>() {
+        override fun areItemsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
+            return oldItem.senderid == newItem.senderid && oldItem.createdAt == newItem.createdAt
         }
 
-        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
+        override fun areContentsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
@@ -29,7 +30,7 @@ class MessageListAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(Message
     private class SentMessageHolder(
         private val binding: ItemUserMessageBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(message: Message) {
+        fun bind(message: MessageResponse) {
             binding.message = message
         }
     }
@@ -37,7 +38,7 @@ class MessageListAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(Message
     private class ReceivedMessageHolder(
         private val binding: ItemReceivedMessageBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(message: Message) {
+        fun bind(message: MessageResponse) {
             binding.message = message
         }
     }
@@ -65,7 +66,7 @@ class MessageListAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(Message
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position).uid) {
+        return when (getItem(position).senderid) {
             "uid" -> SENT_MESSAGE //TODO - get user's current UID from Room or a static variable
             else -> RECEIVED_MESSAGE
         }

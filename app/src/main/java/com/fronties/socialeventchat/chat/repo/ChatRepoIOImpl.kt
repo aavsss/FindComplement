@@ -1,9 +1,7 @@
 package com.fronties.socialeventchat.chat.repo
 
-import android.content.SharedPreferences
 import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.chat.model.JoinRoom
-import com.fronties.socialeventchat.chat.model.MessageRequest
 import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.helperClasses.Constants.WS_URL
 import com.google.gson.Gson
@@ -27,7 +25,6 @@ class ChatRepoIOImpl @Inject constructor(
             e.printStackTrace()
         }
         socket.connect()
-        joinRoom()
         socket.on(Socket.EVENT_CONNECT, onConnect())
     }
 
@@ -35,10 +32,10 @@ class ChatRepoIOImpl @Inject constructor(
         return socket
     }
 
-    override fun joinRoom() {
+    override fun joinRoom(eid: Int) {
         val joinRoom = JoinRoom(
             username = sessionManager.fetchUid(),
-            room = 1 // TODO: get the eventID
+            room = eid
         )
         socket.emit("joinRoom", gson.toJson(joinRoom))
     }
@@ -49,7 +46,6 @@ class ChatRepoIOImpl @Inject constructor(
 
     override fun onConnect(): Emitter.Listener {
         val onConnect = Emitter.Listener {
-
         }
         return onConnect
     }
