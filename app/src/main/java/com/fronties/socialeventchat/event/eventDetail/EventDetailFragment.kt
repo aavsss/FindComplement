@@ -67,9 +67,10 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
     private fun subscribeToNavToChat() {
         eventDetailViewModel.navToChat.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let {
+            it.getContentIfNotHandled()?.let { eid ->
                 // navigate to chat screen
                 val intent = Intent(activity, ChatActivity::class.java)
+                intent.putExtra("eid", eid)
                 startActivity(intent)
             }
         }

@@ -21,15 +21,15 @@ class ChatActivity : AppCompatActivity() {
         val eid = intent.getIntExtra("eid", -1)
 
         chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-        chatViewModel.establishWebSocketConnection(eid)
-
+//        chatViewModel.establishWebSocketConnection(eid)
+        chatViewModel.getChat(eid)
         val messageListAdapter = MessageListAdapter()
 
         binding.chatViewModel = chatViewModel
         binding.recyclerGchat.adapter = messageListAdapter
 
         chatViewModel.messageList.observe(this) {
-            messageListAdapter.submitList(it)
+            messageListAdapter.chats = it
         }
 
         setContentView(view)

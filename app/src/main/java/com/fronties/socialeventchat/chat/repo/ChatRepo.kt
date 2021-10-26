@@ -12,4 +12,5 @@ interface ChatRepo {
     fun joinRoom(eid: Int)
     fun onUpdateChat(callback: ((MessageResponse) -> Unit)): Emitter.Listener
     fun onDestroy()
+    suspend fun getChats(eid: Int): MutableList<MessageResponse>
 }
