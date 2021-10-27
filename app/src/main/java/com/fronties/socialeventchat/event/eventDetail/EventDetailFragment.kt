@@ -46,6 +46,13 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
             binding.toolbarLayout.title = it.data?.name ?: "Yapey"
         }
 
+        val adapterAttendees = EventAttendeesAdapter()
+        binding.rvAttendees.adapter = adapterAttendees
+
+        eventDetailViewModel.eventAttendeesList.observe(viewLifecycleOwner,{
+            adapterAttendees.submitList(it.data)
+        })
+
         subscribeToEventDetail()
         subscribeToErrorView()
     }

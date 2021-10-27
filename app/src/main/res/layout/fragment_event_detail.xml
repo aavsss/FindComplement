@@ -224,6 +224,16 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_description_base" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_attendees"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_description"
+                            app:layout_constraintBottom_toTopOf="@+id/btn_attend_event"
+                            />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_attend_event"
                             android:layout_width="match_parent"

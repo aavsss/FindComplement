@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 
 class ProfileRepoImpl @Inject constructor(
-//    private val profileDao: ProfileDao
+    private val profileDao: ProfileDao
 ): ProfileRepo {
     override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
 //        TODO("Not yet implemented")

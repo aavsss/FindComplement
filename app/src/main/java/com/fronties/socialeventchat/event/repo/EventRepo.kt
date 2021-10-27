@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.repo
 
+import com.fronties.socialeventchat.event.model.Attendees
 import com.fronties.socialeventchat.event.model.SocialEvents
 
 interface EventRepo {
@@ -21,4 +22,6 @@ interface EventRepo {
     ): Boolean
 
     suspend fun attendEvent(eventId: Int): Boolean
+
+    suspend fun getEventAttendees(eventId: Int): List<Attendees>?
 }

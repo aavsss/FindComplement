@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.event.api
 
 import com.fronties.socialeventchat.event.model.AttendEventRequestBody
+import com.fronties.socialeventchat.event.model.Attendees
 import com.fronties.socialeventchat.event.model.EventResponse
 import com.fronties.socialeventchat.event.model.SocialEvents
 import retrofit2.Response
@@ -15,6 +16,11 @@ interface EventApi {
     suspend fun getEventDetails(
         @Path("eid") eid: Int
     ): Response<SocialEvents>
+
+    @GET("/api/events/{eid}/attendees")
+    suspend fun getEventAttendees(
+        @Path("eid") eid: Int
+    ): Response<List<Attendees>>
 
     @POST("/api/events/")
     suspend fun addEvent(

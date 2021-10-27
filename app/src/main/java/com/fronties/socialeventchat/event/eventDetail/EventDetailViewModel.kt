@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fronties.socialeventchat.event.model.Attendees
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
@@ -22,6 +23,9 @@ class EventDetailViewModel @Inject constructor(
     private val _eventDetail = MutableLiveData<Resource<SocialEvents>>()
     val eventDetail: LiveData<Resource<SocialEvents>> = _eventDetail
 
+    private val _eventAttendeesList = MutableLiveData<Resource<List<Attendees>>>()
+    val eventAttendeesList: LiveData<Resource<List<Attendees>>> = _eventAttendeesList
+
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
     val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
 
@@ -36,4 +40,19 @@ class EventDetailViewModel @Inject constructor(
             _eventDetail.value = Resource.success(eventDetail)
         }
     }
+
+    fun getEventAttendees(eventID: Int) {
+        viewModelScope.launch {
+            val eventAttendees = try {
+                eventRepo.getEventAttendees(eventID)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
+            _eventAttendeesList.value = Resource.success(eventAttendees)
+        }
+    }
+
+
 }
+

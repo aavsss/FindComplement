@@ -6,6 +6,7 @@ import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.addEvent.MissingInfoException
 import com.fronties.socialeventchat.event.api.EventApi
+import com.fronties.socialeventchat.event.model.Attendees
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
@@ -25,6 +26,22 @@ class EventRepoImpl @Inject constructor(
                 return eventResponse.body()!!
             }
             return SocialEvents()
+        } catch (e: IOException) {
+            Resource.error(e.localizedMessage ?: "IO Error", null)
+            throw e
+        } catch (e: HttpException) {
+            Resource.error(e.localizedMessage ?: "HTTP Error", null)
+            throw e
+        }
+    }
+
+    override suspend fun getEventAttendees(eventId: Int): List<Attendees> {
+        try {
+            val eventAttendeesResponse = eventApi.getEventAttendees(eventId)
+            if (eventAttendeesResponse.isSuccessful && eventAttendeesResponse.body() != null) {
+                return eventAttendeesResponse.body()!!
+            }
+            return listOf(Attendees())
         } catch (e: IOException) {
             Resource.error(e.localizedMessage ?: "IO Error", null)
             throw e
