@@ -21,6 +21,7 @@ class ChatViewModel @Inject constructor(
     private val sessionManager: SessionManager
 ) : ViewModel() {
 
+
     val textToSend = MutableLiveData<String>()
     private val _messageList = MutableLiveData<MutableList<MessageResponse>>()
     val messageList: LiveData<MutableList<MessageResponse>>
