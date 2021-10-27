@@ -77,8 +77,8 @@ class ChatRepoIOImpl @Inject constructor(
 //            }
 //            return mutableListOf()
             return mutableListOf(
-                MessageResponse("1", "1", "1", "Hello", "Now"),
-                MessageResponse("1", "5", "1", "Hello again", "Yesterday")
+                MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+                MessageResponse(1, 5, 1, "Amir", "Hello again", "Now")
             )
         } catch (e: AuthException) {
             throw e

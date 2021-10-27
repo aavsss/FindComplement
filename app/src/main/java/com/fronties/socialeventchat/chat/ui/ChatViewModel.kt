@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.chat.repo.ChatRepo
+import com.fronties.socialeventchat.helperClasses.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.internal.notify
@@ -22,6 +23,8 @@ class ChatViewModel @Inject constructor(
     val messageList: LiveData<MutableList<MessageResponse>>
         get() = _messageList
 
+    val tempListener = MutableLiveData<Event<Unit>>()
+
     init {
         chatRepo.establishWebSocketConnection()
     }
@@ -29,13 +32,11 @@ class ChatViewModel @Inject constructor(
     private val onUpdateChat = { message: MessageResponse ->
         println(message)
         _messageList.value?.add(message)
-        _messageList.notify() // diffcallback might ignore this
+//        _messageList.notify() // diffcallback might ignore this
     }
 
     fun sendText() {
-        textToSend.value?.let {
-            chatRepo.sendText(it)
-        }
+        tempListener.value = Event(Unit)
     }
 
     fun onDestroy() {
@@ -44,7 +45,7 @@ class ChatViewModel @Inject constructor(
 
     fun establishWebSocketConnection(eid: Int) {
         chatRepo.joinRoom(eid)
-        chatRepo.getSocketIO()?.on("updateChat", chatRepo.onUpdateChat(onUpdateChat))
+//        chatRepo.getSocketIO()?.on("updateChat", chatRepo.onUpdateChat(onUpdateChat))
 //        chatRepo.getSocketIO().on("sendText", chatRepo.sendText("sendText"))
     }
 

@@ -24,7 +24,8 @@
             android:paddingTop="4dp"
             android:paddingEnd="8dp"
             android:paddingBottom="4dp"
-            android:text="June 10"
+            android:hint="June 10"
+            android:text="@{message.createdAt}"
             android:textColor="#C0C0C0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:hint= "John Grady Cole"
-            android:text="@{message.text}"
+            android:text="@{message.name}"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/image_gchat_profile_other"
             app:layout_constraintTop_toBottomOf="@+id/text_gchat_date_other" />

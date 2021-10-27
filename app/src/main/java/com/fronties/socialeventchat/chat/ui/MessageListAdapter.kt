@@ -9,11 +9,13 @@ import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.databinding.ItemReceivedMessageBinding
 import com.fronties.socialeventchat.databinding.ItemUserMessageBinding
 
-class MessageListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageListAdapter(
+    private val uid: Int
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val SENT_MESSAGE = 0
-        private const val RECEIVED_MESSAGE = 0
+        private const val RECEIVED_MESSAGE = 1
     }
 
     private val messageDiffCallback = object : DiffUtil.ItemCallback<MessageResponse>() {
@@ -26,7 +28,7 @@ class MessageListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    val differ = AsyncListDiffer(this, messageDiffCallback)
+    private val differ = AsyncListDiffer(this, messageDiffCallback)
     var chats: List<MessageResponse>
         get() = differ.currentList
         set(value) = differ.submitList(value)
@@ -63,15 +65,15 @@ class MessageListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is SentMessageHolder -> holder.bind(chats[position])
+        when (holder.itemViewType) {
+            SENT_MESSAGE -> (holder as SentMessageHolder).bind(chats[position])
             else -> (holder as ReceivedMessageHolder).bind(chats[position])
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (chats[position].senderid) {
-            "5" -> SENT_MESSAGE // TODO - get user's current UID from Room or a static variable
+            uid -> SENT_MESSAGE
             else -> RECEIVED_MESSAGE
         }
     }

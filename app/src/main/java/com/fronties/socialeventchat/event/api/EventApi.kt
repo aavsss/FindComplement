@@ -33,14 +33,14 @@ interface EventApi {
     ): Response<EventResponse>
 
     @POST("/{eid}/join")
-    suspend fun attendEvent(
+    suspend fun joinEvent(
         @Path("eid") eid: Int,
         @Body attendEventRequestBody: AttendEventRequestBody
     ): Response<EventResponse>
 
     // to get chats
     @GET("/api/events/{eid}/chats")
-    suspend fun getChat(
+    suspend fun getChats(
         @Path("eid") eid: Int
     ): Response<MutableList<MessageResponse>>
 }
