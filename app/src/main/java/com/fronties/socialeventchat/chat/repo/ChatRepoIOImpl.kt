@@ -4,6 +4,7 @@ import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.chat.model.JoinRoom
+import com.fronties.socialeventchat.chat.model.MessageRequest
 import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.helperClasses.Constants.WS_URL
@@ -46,12 +47,9 @@ class ChatRepoIOImpl @Inject constructor(
         socket?.emit("joinRoom", gson.toJson(joinRoom))
     }
 
-    override fun sendText(message: String) {
-        TODO("Not yet implemented")
-    }
-
     override fun onConnect(): Emitter.Listener {
         val onConnect = Emitter.Listener {
+            // Echo message
         }
         return onConnect
     }
@@ -65,21 +63,21 @@ class ChatRepoIOImpl @Inject constructor(
     }
 
     override fun onDestroy() {
-//        TODO("Not yet implemented")
+        socket?.close()
     }
 
     override suspend fun getChats(eid: Int): MutableList<MessageResponse> {
         try {
-//            val response = eventApi.getChat(eid)
+            val response = eventApi.getChats(eid)
 
-//            if (response.isSuccessful && response.body() != null) {
-//                return response.body()!!
-//            }
-//            return mutableListOf()
-            return mutableListOf(
-                MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-                MessageResponse(1, 5, 1, "Amir", "Hello again", "Now")
-            )
+            if (response.isSuccessful && response.body() != null) {
+                return response.body()!!
+            }
+            return mutableListOf()
+//            return mutableListOf(
+//                MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+//                MessageResponse(1, 5, 1, "Amir", "Hello again", "Now")
+//            )
         } catch (e: AuthException) {
             throw e
         } catch (e: Exception) {

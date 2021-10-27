@@ -1,10 +1,11 @@
 package com.fronties.socialeventchat.chat.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.databinding.ActivityChatBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,16 +29,38 @@ class ChatActivity : AppCompatActivity() {
         val eid = intent.getIntExtra("eid", -1)
 
         chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
-//        chatViewModel.establishWebSocketConnection(eid)
+        chatViewModel.eid = eid
+        chatViewModel.establishWebSocketConnection()
+
         val messageListAdapter = MessageListAdapter(
             sessionManager.fetchUid()
         )
+
         chatViewModel.getChat(eid)
         binding.chatViewModel = chatViewModel
         binding.recyclerGchat.adapter = messageListAdapter
+        messageListAdapter.chats = mutableListOf(
+            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+
+        )
+
+        ScrollToBottomObserver(
+            binding.recyclerGchat,
+            messageListAdapter,
+            LinearLayoutManager(this)
+        )
 
         chatViewModel.messageList.observe(this) {
-            messageListAdapter.chats = it
+//            messageListAdapter.chats = it
         }
 
         chatViewModel.tempListener.observe(this) {
