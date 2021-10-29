@@ -1,3 +1,4 @@
+
 package com.fronties.socialeventchat.event.eventDetail
 
 import android.os.Bundle
