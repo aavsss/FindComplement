@@ -11,19 +11,25 @@
         <entry key="..\:/SocialEventChat/app/src/main/res/drawable/rectangle_border.xml" value="0.1703125" />
         <entry key="..\:/SocialEventChat/app/src/main/res/drawable/rounded_border.xml" value="0.30615384615384617" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/activity_auth.xml" value="0.13020833333333334" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/activity_chat.xml" value="0.14583333333333334" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/activity_splash.xml" value="0.15" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/content_layout_based_activity.xml" value="0.1203125" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/error_screen_dialog.xml" value="0.12681159420289856" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/event_card.xml" value="0.176" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_add_event.xml" value="0.23550724637681159" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_chat.xml" value="0.16666666666666666" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_event_detail.xml" value="0.136" />
-        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_event_list.xml" value="0.2046875" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_event_list.xml" value="0.18552036199095023" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_going_event.xml" value="0.1671875" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_login.xml" value="0.15416666666666667" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_my_event.xml" value="0.1" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_profile.xml" value="0.11246200607902736" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_register.xml" value="0.1762917933130699" />
         <entry key="..\:/SocialEventChat/app/src/main/res/layout/fragment_splash.xml" value="0.10461956521739131" />
-        <entry key="..\:/SocialEventChat/app/src/main/res/layout/item_event_list.xml" value="0.17708333333333334" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/item_event_list.xml" value="0.176" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/item_received_message.xml" value="0.16666666666666666" />
+        <entry key="..\:/SocialEventChat/app/src/main/res/layout/item_user_message.xml" value="0.16666666666666666" />
         <entry key="..\:/SocialEventChat/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1421875" />
       </map>
     </option>
