@@ -39,19 +39,19 @@ class ChatActivity : AppCompatActivity() {
         chatViewModel.getChat(eid)
         binding.chatViewModel = chatViewModel
         binding.recyclerGchat.adapter = messageListAdapter
-        messageListAdapter.chats = mutableListOf(
-            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-
-        )
+//        messageListAdapter.chats = mutableListOf(
+//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
+//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
+//
+//        )
 
         ScrollToBottomObserver(
             binding.recyclerGchat,
@@ -60,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
         )
 
         chatViewModel.messageList.observe(this) {
-//            messageListAdapter.chats = it
+            messageListAdapter.chats = it
         }
 
         chatViewModel.tempListener.observe(this) {

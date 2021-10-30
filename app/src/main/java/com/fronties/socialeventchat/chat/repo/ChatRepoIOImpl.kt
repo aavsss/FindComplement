@@ -4,15 +4,17 @@ import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.chat.model.JoinRoom
-import com.fronties.socialeventchat.chat.model.MessageRequest
 import com.fronties.socialeventchat.chat.model.MessageResponse
+import com.fronties.socialeventchat.chat.model.TempMessageResponse
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.helperClasses.Constants.WS_URL
 import com.fronties.socialeventchat.helperClasses.Resource
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import org.json.JSONObject
 import javax.inject.Inject
 import kotlin.Exception
 
@@ -25,16 +27,18 @@ class ChatRepoIOImpl @Inject constructor(
     private var socket: Socket? = null
     private val gson = Gson()
 
+    @Synchronized
     override fun establishWebSocketConnection() {
         try {
             socket = IO.socket(WS_URL)
+            socket?.connect()
+            socket?.on(Socket.EVENT_CONNECT, onConnect())
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        socket?.connect()
-        socket?.on(Socket.EVENT_CONNECT, onConnect())
     }
 
+    @Synchronized
     override fun getSocketIO(): Socket? {
         return socket
     }
@@ -50,13 +54,14 @@ class ChatRepoIOImpl @Inject constructor(
     override fun onConnect(): Emitter.Listener {
         val onConnect = Emitter.Listener {
             // Echo message
+            println("....connected.......")
         }
         return onConnect
     }
 
-    override fun onUpdateChat(callback: ((message: MessageResponse) -> Unit)): Emitter.Listener {
+    override fun onUpdateChat(callback: ((message: TempMessageResponse) -> Unit)): Emitter.Listener {
         val onUpdateChat = Emitter.Listener {
-            val messageResponse = it[0] as MessageResponse
+            val messageResponse = gson.fromJson(it[0].toString(), TempMessageResponse::class.java)
             callback(messageResponse)
         }
         return onUpdateChat
