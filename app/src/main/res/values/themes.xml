@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="android:buttonStyle">@style/Theme.AppCompat.MyButton</item>
+        <item name="android:editTextStyle">@style/Theme.AppCompat.MyEditText</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -27,6 +28,10 @@
     <style name="Theme.SocialEventChat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.AppCompat.MyButton" parent="TextAppearance.MaterialComponents.Button">
+        <item name="background">@drawable/round_corners</item>
+    </style>
+
+    <style name="Theme.AppCompat.MyEditText" parent="Widget.MaterialComponents.TimePicker.Display.TextInputEditText">
         <item name="background">@drawable/round_corners</item>
     </style>
 </resources>

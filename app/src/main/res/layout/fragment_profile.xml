@@ -27,7 +27,6 @@
                 android:id="@+id/skip_button_profile"
                 android:layout_gravity="end"
                 android:layout_margin="20dp"
-                android:background="#E1BEE7"
                 android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
                 />
@@ -39,7 +38,7 @@
                 android:text="Profile"
                 android:gravity="center"
                 android:textSize="32sp"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_color"
                 android:layout_marginVertical="20dp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +94,6 @@
                 android:paddingHorizontal="80dp"
                 android:id="@+id/save_button_profile"
                 android:layout_gravity="center"
-                android:background="#E1BEE7"
                 android:onClick="@{()-> profileViewModel.saveProfileButtonClicked()}"
                 />
 
