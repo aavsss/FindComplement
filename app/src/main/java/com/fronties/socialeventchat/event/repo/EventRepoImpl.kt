@@ -102,6 +102,22 @@ class EventRepoImpl @Inject constructor(
         }
     }
 
+    override suspend fun getMyEvents(): List<SocialEvents> {
+        try {
+            val myEventListResponse = eventApi.getMyEvents(4) // TODO: Hardcoded user id
+            if (myEventListResponse.isSuccessful && myEventListResponse.body() != null) {
+                return myEventListResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: AuthException) {
+            Resource.error(e.localizedMessage ?: "Auth Error", null)
+            throw e
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Error", null)
+            throw e
+        }
+    }
+
     override suspend fun attendEvent(eventId: Int): Boolean {
         TODO("Not yet implemented")
     }

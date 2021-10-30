@@ -2,7 +2,6 @@ package com.fronties.socialeventchat.event.dependency
 
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.addEvent.EventTransformerImpl
-import com.fronties.socialeventchat.event.repo.DummyRepoImpl
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.event.repo.EventRepoImpl
 import dagger.Binds

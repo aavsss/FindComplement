@@ -1,4 +1,4 @@
-package com.fronties.socialeventchat.event.goingEvent
+package com.fronties.socialeventchat.event.myEvent
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +15,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class GoingEventViewModel @Inject constructor(
+class MyEventViewModel @Inject constructor(
     private val eventRepo: EventRepo
 ) : ViewModel() {
 
@@ -26,10 +26,10 @@ class GoingEventViewModel @Inject constructor(
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
     val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
 
-    fun getGoingEventList() {
+    fun getMyEventList() {
         viewModelScope.launch {
             val eventsList = try {
-                eventRepo.getGoingEvents()
+                eventRepo.getMyEvents()
             } catch (e: AuthException) {
                 // TODO go to login screen
                 _errorViewListener.value = Event(Unit)

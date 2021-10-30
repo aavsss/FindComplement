@@ -41,4 +41,9 @@ interface EventApi {
     suspend fun getAttendedEvents(
         @Path("uid") uid: Int
     ): Response<List<SocialEvents>>
+
+    @GET("/api/events/myevents/{uid}")
+    suspend fun getMyEvents(
+        @Path("uid") uid: Int
+    ): Response<List<SocialEvents>>
 }
