@@ -36,4 +36,9 @@ interface EventApi {
         @Path("eid") eid: Int,
         @Body attendEventRequestBody: AttendEventRequestBody
     ): Response<EventResponse>
+
+    @GET("/api/events/attendingevents/{uid}")
+    suspend fun getAttendedEvents(
+        @Path("uid") uid: Int
+    ): Response<List<SocialEvents>>
 }
