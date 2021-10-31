@@ -54,7 +54,7 @@ class ChatRepoIOImpl @Inject constructor(
     }
 
     @Synchronized
-    override fun onConnect(callback: (message: JoinRoomResponse) -> Unit): Emitter.Listener {
+    override fun onConnect(callback: (message: JoinRoomResponse?) -> Unit): Emitter.Listener {
         val onConnect = Emitter.Listener {
             // Echo message
 //            val joinRoomResponse = gson.fromJson(it[0].toString(), JoinRoomResponse::class.java)

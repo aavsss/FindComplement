@@ -10,7 +10,7 @@ import io.socket.emitter.Emitter
 interface ChatRepo {
     fun establishWebSocketConnection()
     fun getSocketIO(): Socket?
-    fun onConnect(callback: ((JoinRoomResponse) -> Unit)): Emitter.Listener
+    fun onConnect(callback: ((JoinRoomResponse?) -> Unit)): Emitter.Listener
     fun joinRoom(eid: Int)
     fun onUpdateChat(callback: ((MessageResponse) -> Unit)): Emitter.Listener
     fun onDestroy()

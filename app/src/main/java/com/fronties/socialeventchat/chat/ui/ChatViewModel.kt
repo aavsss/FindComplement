@@ -8,7 +8,6 @@ import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.chat.model.*
 import com.fronties.socialeventchat.chat.repo.ChatRepo
-import com.fronties.socialeventchat.helperClasses.Event
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.socket.client.Socket
@@ -27,10 +26,13 @@ class ChatViewModel @Inject constructor(
         get() = _messageList
 
     var eid = -1
-    val gson = Gson()
+    private val gson = Gson()
 
-    private val onConnect = { it: JoinRoomResponse ->
-        println(it)
+    private val onConnect = { joinRoomResponse: JoinRoomResponse? ->
+        if (joinRoomResponse != null) {
+            val chats = joinRoomResponse.messages
+            _messageList.postValue(chats)
+        }
     }
 
     private val onUpdateChat = { message: MessageResponse ->
@@ -50,7 +52,16 @@ class ChatViewModel @Inject constructor(
         )
         chatRepo.getSocketIO()?.on(
             "message",
-            chatRepo.onUpdateChat(onUpdateChat)
+            chatRepo.onUpdateChat {
+                var tempList = _messageList.value
+                if (tempList == null) {
+                    tempList = mutableListOf()
+                }
+                tempList!!.add(it)
+                viewModelScope.launch {
+                    _messageList.value = tempList
+                }
+            }
         )
     }
 

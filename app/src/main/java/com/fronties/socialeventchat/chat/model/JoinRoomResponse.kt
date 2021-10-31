@@ -1,3 +1,5 @@
 package com.fronties.socialeventchat.chat.model
 
-class JoinRoomResponse()
+data class JoinRoomResponse(
+    val messages: MutableList<MessageResponse>?
+)
