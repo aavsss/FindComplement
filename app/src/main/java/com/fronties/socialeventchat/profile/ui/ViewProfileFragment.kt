@@ -1,23 +1,34 @@
 package com.fronties.socialeventchat.profile.ui
 
+import android.R.attr
+import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.fronties.socialeventchat.MainActivity
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
     lateinit var profileViewModel: ProfileViewModel
+    var ImageUri: Uri? = null
+    var idRoom: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +50,19 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
         // TODO: this is untidy, need to clean it up. Just a quick thing for demo
         profileViewModel.loadAll().observe(viewLifecycleOwner, {
-            binding.firstNameEt.setText(it[it.lastIndex].firstName)
-            binding.lastNameEt.setText(it[it.lastIndex].lastName)
-            binding.phoneNumberEt.setText(it[it.lastIndex].phoneNumber)
+            if (it.isNotEmpty()){
+                idRoom = it[it.lastIndex].id
+                binding.firstNameEt.setText(it[it.lastIndex].firstName)
+                binding.lastNameEt.setText(it[it.lastIndex].lastName)
+                binding.phoneNumberEt.setText(it[it.lastIndex].phoneNumber)
+                if(it[it.lastIndex].profilePic == null){
+                    binding.profileIv.setImageDrawable(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_person_24_24))
+                }
+                else{
+                    binding.profileIv.setImageBitmap(it[it.lastIndex].profilePic)
+                }
+
+            }
         })
 
         profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
@@ -50,5 +71,23 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
                 findNavController().navigate(R.id.action_viewProfileFragment_to_eventListFragment)
             }
         }
+
+        var launchSomeActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                ImageUri = result.data?.data
+                binding.profileIv.setImageURI(ImageUri)
+                profileViewModel._profileImage.value = MediaStore.Images.Media.getBitmap(
+                    requireActivity().contentResolver, ImageUri
+                )
+            }
+        }
+
+        profileViewModel.listenerForProfileImage.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                launchSomeActivity.launch(intent)
+            }
+        }
+
     }
 }
