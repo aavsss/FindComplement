@@ -23,4 +23,6 @@ interface EventRepo {
     suspend fun attendEvent(eventId: Int): Boolean
 
     suspend fun getGoingEvents(): List<SocialEvents>
+
+    suspend fun getMyEvents(): List<SocialEvents>
 }

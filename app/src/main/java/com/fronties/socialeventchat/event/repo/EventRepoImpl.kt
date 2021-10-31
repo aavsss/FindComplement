@@ -88,9 +88,25 @@ class EventRepoImpl @Inject constructor(
 
     override suspend fun getGoingEvents(): List<SocialEvents> {
         try {
-            val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid()) // TODO: Hardcoded user id
+            val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid())
             if (eventListResponse.isSuccessful && eventListResponse.body() != null) {
                 return eventListResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: AuthException) {
+            Resource.error(e.localizedMessage ?: "Auth Error", null)
+            throw e
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Error", null)
+            throw e
+        }
+    }
+
+    override suspend fun getMyEvents(): List<SocialEvents> {
+        try {
+            val myEventListResponse = eventApi.getMyEvents(sessionManager.fetchUid())
+            if (myEventListResponse.isSuccessful && myEventListResponse.body() != null) {
+                return myEventListResponse.body()!!
             }
             return emptyList()
         } catch (e: AuthException) {
