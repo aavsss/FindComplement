@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.profile.ui
 import android.R.attr
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -21,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
 
 
 @AndroidEntryPoint
@@ -76,9 +78,18 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             if (result.resultCode == Activity.RESULT_OK) {
                 ImageUri = result.data?.data
                 binding.profileIv.setImageURI(ImageUri)
-                profileViewModel._profileImage.value = MediaStore.Images.Media.getBitmap(
+
+                var bitmap = MediaStore.Images.Media.getBitmap(
                     requireActivity().contentResolver, ImageUri
                 )
+                profileViewModel._profileImage.value = bitmap
+
+                val outputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 70, outputStream)
+
+                var amir = outputStream.toByteArray()
+
+                println("amir" + amir)
             }
         }
 
