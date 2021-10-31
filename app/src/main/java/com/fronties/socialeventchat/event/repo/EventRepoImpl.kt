@@ -88,7 +88,7 @@ class EventRepoImpl @Inject constructor(
 
     override suspend fun getGoingEvents(): List<SocialEvents> {
         try {
-            val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid()) // TODO: Hardcoded user id
+            val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid())
             if (eventListResponse.isSuccessful && eventListResponse.body() != null) {
                 return eventListResponse.body()!!
             }
@@ -104,7 +104,7 @@ class EventRepoImpl @Inject constructor(
 
     override suspend fun getMyEvents(): List<SocialEvents> {
         try {
-            val myEventListResponse = eventApi.getMyEvents(4) // TODO: Hardcoded user id
+            val myEventListResponse = eventApi.getMyEvents(sessionManager.fetchUid())
             if (myEventListResponse.isSuccessful && myEventListResponse.body() != null) {
                 return myEventListResponse.body()!!
             }
