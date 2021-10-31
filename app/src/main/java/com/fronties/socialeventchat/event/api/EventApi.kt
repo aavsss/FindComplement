@@ -43,4 +43,9 @@ interface EventApi {
     suspend fun getChats(
         @Path("eid") eid: Int
     ): Response<MutableList<MessageResponse>>
+
+    @GET("/api/events/attendingevents/{uid}")
+    suspend fun getAttendedEvents(
+        @Path("uid") uid: Int
+    ): Response<List<SocialEvents>>
 }

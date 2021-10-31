@@ -43,4 +43,11 @@
             app:destination="@id/eventListFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/goingEventFragment"
+        android:name="com.fronties.socialeventchat.event.goingEvent.GoingEventFragment"
+        android:label="GoingEventFragment">
+
+    </fragment>
+
 </navigation>
