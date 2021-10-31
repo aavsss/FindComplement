@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -32,9 +31,8 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         viewModel = ViewModelProvider(requireActivity())
             .get(EventListViewModel::class.java)
 
-
         val adapter = EventListAdapter()
-        viewModel.getEventList()        // setup event list in viewModel
+        viewModel.getEventList() // setup event list in viewModel
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter

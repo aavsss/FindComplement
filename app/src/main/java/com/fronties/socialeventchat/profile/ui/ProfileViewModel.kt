@@ -73,7 +73,7 @@ class ProfileViewModel @Inject constructor(
 
     private fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?, profileImage: Bitmap?) {
         val eachProfile = ProfileEntity(
-            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
+            firstName = firstName ?: "First", lastName = lastName ?: "Last", phoneNumber = phoneNumber ?: "903"
         )
         eachProfile.profilePic = profileImage
 
@@ -86,5 +86,7 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileImage.value = Event(Unit)
     }
 
-    fun skipProfileButtonClicked() {}
+    fun skipProfileButtonClicked() {
+        _listenerForProfileImage.value = Event(Unit)
+    }
 }// class ends here

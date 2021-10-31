@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.api
 
+import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.event.model.AttendEventRequestBody
 import com.fronties.socialeventchat.event.model.EventResponse
 import com.fronties.socialeventchat.event.model.SocialEvents
@@ -32,10 +33,16 @@ interface EventApi {
     ): Response<EventResponse>
 
     @POST("/{eid}/join")
-    suspend fun attendEvent(
+    suspend fun joinEvent(
         @Path("eid") eid: Int,
         @Body attendEventRequestBody: AttendEventRequestBody
     ): Response<EventResponse>
+
+    // to get chats
+    @GET("/api/events/{eid}/chats")
+    suspend fun getChats(
+        @Path("eid") eid: Int
+    ): Response<MutableList<MessageResponse>>
 
     @GET("/api/events/attendingevents/{uid}")
     suspend fun getAttendedEvents(

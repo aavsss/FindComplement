@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/event_date_time_tv"
-                    android:hint="THU, OCT 21 11:00 AM"
+                    tools:text="THU, OCT 21 11:00 AM"
                     android:text="@{event.starttime}"
                     android:gravity="center"
                     android:textColor="#c5c6d0"
