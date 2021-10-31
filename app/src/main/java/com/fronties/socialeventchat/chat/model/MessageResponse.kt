@@ -2,9 +2,7 @@ package com.fronties.socialeventchat.chat.model
 
 data class MessageResponse(
     val eid: Int,
-    val senderid: Int,
-    val mid: Int,
-    val name: String,
+    val uid: Int,
     val text: String,
-    val createdAt: String
+    val timestamp: String
 )

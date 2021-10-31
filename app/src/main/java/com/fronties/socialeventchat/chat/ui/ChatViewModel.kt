@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.SessionManager
-import com.fronties.socialeventchat.chat.model.MessageRequest
-import com.fronties.socialeventchat.chat.model.MessageResponse
-import com.fronties.socialeventchat.chat.model.TempMessage
-import com.fronties.socialeventchat.chat.model.TempMessageResponse
+import com.fronties.socialeventchat.chat.model.*
 import com.fronties.socialeventchat.chat.repo.ChatRepo
 import com.fronties.socialeventchat.helperClasses.Event
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.socket.client.Socket
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,23 +22,32 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
     val textToSend = MutableLiveData<String>()
-    private val _messageList = MutableLiveData<MutableList<TempMessageResponse>>()
-    val messageList: LiveData<MutableList<TempMessageResponse>>
+    private val _messageList = MutableLiveData<MutableList<MessageResponse>?>()
+    val messageList: LiveData<MutableList<MessageResponse>?>
         get() = _messageList
 
-    val tempListener = MutableLiveData<Event<Unit>>()
     var eid = -1
     val gson = Gson()
 
-    private val onUpdateChat = { message: TempMessageResponse ->
-//        println(message)
-        val tempList = _messageList.value
-        tempList?.add(message)
+    private val onConnect = { it: JoinRoomResponse ->
+        println(it)
+    }
+
+    private val onUpdateChat = { message: MessageResponse ->
+        var tempList = _messageList.value
+        if (tempList == null) {
+            tempList = mutableListOf()
+        }
+        tempList.add(message)
         _messageList.postValue(tempList)
     }
 
     init {
         chatRepo.establishWebSocketConnection()
+        chatRepo.getSocketIO()?.on(
+            Socket.EVENT_CONNECT,
+            chatRepo.onConnect(onConnect)
+        )
         chatRepo.getSocketIO()?.on(
             "message",
             chatRepo.onUpdateChat(onUpdateChat)
@@ -48,14 +55,12 @@ class ChatViewModel @Inject constructor(
     }
 
     fun sendText() {
-        textToSend.value?.let { message ->
-//            val messageRequest = MessageRequest(
-//                eid,
-//                sessionManager.fetchUid(),
-//                sessionManager.fetchUName(),
-//                message
-//            )
-            val messageRequest = TempMessage(message = message)
+        textToSend.value?.let { text ->
+            val messageRequest = MessageRequest(
+                eid = eid,
+                uid = sessionManager.fetchUid(),
+                text = text
+            )
             chatRepo.getSocketIO()?.emit("chatMessage", gson.toJson(messageRequest))
         }
     }

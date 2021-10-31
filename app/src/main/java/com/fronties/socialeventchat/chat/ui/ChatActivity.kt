@@ -59,12 +59,10 @@ class ChatActivity : AppCompatActivity() {
             LinearLayoutManager(this)
         )
 
-        chatViewModel.messageList.observe(this) {
-//            messageListAdapter.chats = it
-        }
-
-        chatViewModel.tempListener.observe(this) {
-            messageListAdapter.chats
+        chatViewModel.messageList.observe(this) { list ->
+            list?.let {
+                messageListAdapter.chats = it
+            }
         }
     }
 

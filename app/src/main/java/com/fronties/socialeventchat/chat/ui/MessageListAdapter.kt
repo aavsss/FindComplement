@@ -20,7 +20,7 @@ class MessageListAdapter(
 
     private val messageDiffCallback = object : DiffUtil.ItemCallback<MessageResponse>() {
         override fun areItemsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
-            return oldItem.senderid == newItem.senderid && oldItem.createdAt == newItem.createdAt
+            return oldItem.uid == newItem.uid && oldItem.timestamp == newItem.timestamp
         }
 
         override fun areContentsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
@@ -72,7 +72,7 @@ class MessageListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (chats[position].senderid) {
+        return when (chats[position].uid) {
             uid -> SENT_MESSAGE
             else -> RECEIVED_MESSAGE
         }
