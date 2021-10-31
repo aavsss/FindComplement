@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EventListViewModel @Inject constructor(
     private val eventRepo: EventRepo
-): ViewModel() {
+) : ViewModel() {
 
     private val _eventList = MutableLiveData<Resource<List<SocialEvents>>>()
     val eventList = _eventList

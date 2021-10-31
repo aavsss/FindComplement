@@ -1,7 +1,8 @@
 package com.fronties.socialeventchat.authentication.repo
 
-import com.fronties.socialeventchat.authentication.api.AuthApi
+import com.auth0.android.jwt.JWT
 import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.authentication.api.AuthApi
 import com.fronties.socialeventchat.authentication.model.AuthRequest
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
@@ -20,6 +21,7 @@ class AuthenticationRepoImpl @Inject constructor(
             if (authResponse.isSuccessful && authResponse.body() != null) {
                 val token = authResponse.body()!!.token!!
                 sessionManager.saveAuthToken(token)
+                sessionManager.saveUid(getUid(token))
                 return true
             }
             return false
@@ -50,5 +52,10 @@ class AuthenticationRepoImpl @Inject constructor(
             Resource.error(e.localizedMessage ?: "HTTP Error", null)
             throw e
         }
+    }
+
+    private fun getUid(token: String): Int {
+        val jwt = JWT(token)
+        return jwt.getClaim("uid").asInt()!!
     }
 }
