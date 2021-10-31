@@ -88,7 +88,7 @@ class EventRepoImpl @Inject constructor(
 
     override suspend fun getGoingEvents(): List<SocialEvents> {
         try {
-            val eventListResponse = eventApi.getAttendedEvents(4) // TODO: Hardcoded user id
+            val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid()) // TODO: Hardcoded user id
             if (eventListResponse.isSuccessful && eventListResponse.body() != null) {
                 return eventListResponse.body()!!
             }
