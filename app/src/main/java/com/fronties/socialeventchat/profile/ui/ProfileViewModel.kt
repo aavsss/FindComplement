@@ -2,6 +2,10 @@ package com.fronties.socialeventchat.profile.ui
 
 import android.app.Application
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.provider.MediaStore
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -21,9 +25,6 @@ class ProfileViewModel @Inject constructor(
     private val profileRepo: ProfileRepo
 ) : ViewModel(), Observable {
 
-    private val DEFAULT_GOAL_ID = -1
-    private val mProfileId = DEFAULT_GOAL_ID
-
     // flag for if we are CREATING profile (editMode false) or UPDATING profile (editMode true)
     var editMode = false
 
@@ -40,83 +41,50 @@ class ProfileViewModel @Inject constructor(
     @Bindable
     val firstNameEtContent = MutableLiveData<String>()
 
-    private val _firstNameForProfile = MutableLiveData<String>()
-    val usernameForLogin: LiveData<String>
-        get() = _firstNameForProfile
-
     @Bindable
     val lastNameEtContent = MutableLiveData<String>()
 
-    private val _lastNameForProfile = MutableLiveData<String>()
-    val lastNameForProfile: LiveData<String>
-        get() = _lastNameForProfile
-
     @Bindable
     val phoneNumberEtContent = MutableLiveData<String>()
-
-    private val _phoneNumberForProfile = MutableLiveData<String>()
-    val phoneNumberForProfile: LiveData<String>
-        get() = _phoneNumberForProfile
-
-    private val _listenerForNavToProfile = MutableLiveData<Event<Unit>>()
-    val listenerForNavToProfile: LiveData<Event<Unit>>
-        get() = _listenerForNavToProfile
 
     private val _listenerForProfileToEventFeed = MutableLiveData<Event<Unit>>()
     val listenerForProfileToEventFeed: LiveData<Event<Unit>>
         get() = _listenerForProfileToEventFeed
 
-    fun saveProfileButtonClicked() {
-        _firstNameForProfile.value = firstNameEtContent.value
-        _lastNameForProfile.value = lastNameEtContent.value
-        _phoneNumberForProfile.value = phoneNumberEtContent.value
+    private val _listenerForProfileImage = MutableLiveData<Event<Unit>>()
+    val listenerForProfileImage : LiveData<Event<Unit>>
+        get() = _listenerForProfileImage
 
-//        Save User Profile
+    val _profileImage = MutableLiveData<Bitmap>()
+    val profileImage : LiveData<Bitmap>
+        get() = _profileImage
+
+    fun saveProfileButtonClicked() {
         saveUserProfile(
             firstNameEtContent.value,
             lastNameEtContent.value,
-            phoneNumberEtContent.value
+            phoneNumberEtContent.value,
+            profileImage.value
         )
         _listenerForProfileToEventFeed.value = Event(Unit)
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
 
-
-    private fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?) {
+    private fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?, profileImage: Bitmap?) {
         val eachProfile = ProfileEntity(
             firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
         )
-
-        println("Inserting: $firstName $lastName $phoneNumber")
+        eachProfile.profilePic = profileImage
 
         viewModelScope.launch {
             profileRepo.saveUserProfile(eachProfile)
         }
     }
 
+    fun profileImageClicked(){
+        _listenerForProfileImage.value = Event(Unit)
+    }
 
-        fun skipProfileButtonClicked() {
-//        *** Write Code to Take User to Register Screen***
-//        ProfileExecutor.getInstance()?.diskIO()?.execute(Runnable {
-//            if (mProfileId == DEFAULT_GOAL_ID) {
-//                mProfileDatabase?.profileDao()?.insertProfile(eachProfile)
-//            } else {
-//                eachProfile.id = mProfileId
-//                mProfileDatabase?.profileDao()?.updateProfile(eachProfile)
-//            }
-
-//            var allProfiles = profileRepo.loadAllProfile()
-//            println(allProfiles?.value)
-//        })
-//            viewModelScope.launch {
-//                var allProfilessss = profileRepo.loadAllProfile()
-//                println(allProfilessss!!.value)
-//            }
-            goToMainScreen()
-        }
-
-        fun goToMainScreen() {
-            _listenerForNavToProfile.value = Event(Unit)
-        }
-    }// class ends here
+    fun skipProfileButtonClicked() {}
+}// class ends here

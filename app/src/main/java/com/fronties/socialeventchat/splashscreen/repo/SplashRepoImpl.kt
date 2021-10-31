@@ -9,13 +9,13 @@ class SplashRepoImpl @Inject constructor(
 ) : SplashRepo {
     override fun isUserLoggedIn(): Boolean {
         val authToken = sessionManager.fetchAuthToken()
-        authToken?.let { token ->
-            val jwt = JWT(token)
-            if (jwt.isNotExpired()) {
-                return true
-            }
-            return false
-        }
+//        authToken?.let { token ->
+//            val jwt = JWT(token)
+//            if (jwt.isNotExpired()) {
+//                return true
+//            }
+//            return false
+//        }
         return false
     }
 
