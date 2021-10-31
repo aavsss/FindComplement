@@ -45,7 +45,7 @@
             android:layout_marginStart="20dp"
             android:textColor="@color/orange"
             android:textSize="32sp"
-            android:text="GET THE YAPEY OUT"/>
+            android:text="Get The Yapey Out!"/>
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/sv_search_view"
