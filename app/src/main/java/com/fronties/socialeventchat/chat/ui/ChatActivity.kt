@@ -60,7 +60,7 @@ class ChatActivity : AppCompatActivity() {
         )
 
         chatViewModel.messageList.observe(this) {
-            messageListAdapter.chats = it
+//            messageListAdapter.chats = it
         }
 
         chatViewModel.tempListener.observe(this) {

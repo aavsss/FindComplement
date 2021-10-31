@@ -43,18 +43,21 @@ class ChatRepoIOImpl @Inject constructor(
         return socket
     }
 
+    @Synchronized
     override fun joinRoom(eid: Int) {
         val joinRoom = JoinRoom(
             username = sessionManager.fetchUid(),
-            room = eid
+            room = 1
         )
+        println(gson.toJson(joinRoom))
         socket?.emit("joinRoom", gson.toJson(joinRoom))
     }
 
     override fun onConnect(): Emitter.Listener {
         val onConnect = Emitter.Listener {
             // Echo message
-            println("....connected.......")
+//            println("....connected....... " + it[0])
+            it
         }
         return onConnect
     }
