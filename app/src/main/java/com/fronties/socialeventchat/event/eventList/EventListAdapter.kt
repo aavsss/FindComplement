@@ -2,15 +2,11 @@ package com.fronties.socialeventchat.event.eventList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ExpandableListView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fronties.socialeventchat.R
-import com.fronties.socialeventchat.authentication.login.LoginFragmentDirections
 import com.fronties.socialeventchat.databinding.EventCardBinding
-import com.fronties.socialeventchat.databinding.ItemEventListBinding
 import com.fronties.socialeventchat.event.model.SocialEvents
 
 class EventListAdapter() :
@@ -46,5 +42,4 @@ class EventListAdapter() :
             return oldItem == newItem
         }
     }
-
 }

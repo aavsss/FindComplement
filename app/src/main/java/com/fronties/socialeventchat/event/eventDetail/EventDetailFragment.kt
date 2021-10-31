@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.eventDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.appcompat.app.AppCompatActivity
+import com.fronties.socialeventchat.chat.ui.ChatActivity
 
 @AndroidEntryPoint
 class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
@@ -42,11 +44,8 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.getEventDetails(eventId)
 
-        eventDetailViewModel.eventDetail.observe(viewLifecycleOwner) {
-            binding.toolbarLayout.title = it.data?.name ?: "Yapey"
-        }
-
         subscribeToEventDetail()
+        subscribeToNavToChat()
         subscribeToErrorView()
     }
 
@@ -61,7 +60,19 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
     private fun subscribeToEventDetail() {
         eventDetailViewModel.eventDetail.observe(viewLifecycleOwner) {
+            binding.toolbarLayout.title = it.data?.name ?: "Yapey"
             binding.viewmodel = eventDetailViewModel
+        }
+    }
+
+    private fun subscribeToNavToChat() {
+        eventDetailViewModel.navToChat.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { eid ->
+                // navigate to chat screen
+                val intent = Intent(activity, ChatActivity::class.java)
+                intent.putExtra("eid", eid)
+                startActivity(intent)
+            }
         }
     }
 }

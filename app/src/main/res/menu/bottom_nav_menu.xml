@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/eventListFragment"
+        android:title="Events"
+        android:icon="@drawable/ic_baseline_home_24" />
+    <item
+        android:id="@+id/goingEventFragment"
+        android:title="Going"
+        android:icon="@drawable/ic_baseline_star_border_24"/>
+    <item
+        android:id="@+id/myEventFragment"
+        android:title="My Event"
+        android:icon="@drawable/ic_baseline_calendar_today_24"/>
+    <item
         android:id="@+id/viewProfileFragment"
         android:title="Profile"
         android:icon="@drawable/ic_person_24_24" />
-    <item
-        android:id="@+id/eventListFragment"
-        android:title="Events"
-        android:icon="@drawable/ic_calendar_24_24" />
-
 </menu>

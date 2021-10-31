@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.event.repo
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberException
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.application.session.AuthException
+import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.addEvent.MissingInfoException
 import com.fronties.socialeventchat.event.api.EventApi
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class EventRepoImpl @Inject constructor(
     private val eventApi: EventApi,
     private val eventTransformer: EventTransformer,
-    private val phoneNumberValidator: PhoneNumberValidator
+    private val phoneNumberValidator: PhoneNumberValidator,
+    private val sessionManager: SessionManager
 ) : EventRepo {
     override suspend fun getEventDetails(eventId: Int): SocialEvents {
         try {
@@ -61,7 +63,6 @@ class EventRepoImpl @Inject constructor(
         endTime: Pair<Int, Int>?,
         hostName: String?
     ): Boolean {
-        throw AuthException("Auth ")
         try {
             val socialEvents = SocialEvents(
                 name = name,
@@ -81,6 +82,38 @@ class EventRepoImpl @Inject constructor(
             return false
         } catch (e: Exception) {
             Resource.error(e.localizedMessage ?: "Unknown error", null)
+            throw e
+        }
+    }
+
+    override suspend fun getGoingEvents(): List<SocialEvents> {
+        try {
+            val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid())
+            if (eventListResponse.isSuccessful && eventListResponse.body() != null) {
+                return eventListResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: AuthException) {
+            Resource.error(e.localizedMessage ?: "Auth Error", null)
+            throw e
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Error", null)
+            throw e
+        }
+    }
+
+    override suspend fun getMyEvents(): List<SocialEvents> {
+        try {
+            val myEventListResponse = eventApi.getMyEvents(sessionManager.fetchUid())
+            if (myEventListResponse.isSuccessful && myEventListResponse.body() != null) {
+                return myEventListResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: AuthException) {
+            Resource.error(e.localizedMessage ?: "Auth Error", null)
+            throw e
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Error", null)
             throw e
         }
     }
