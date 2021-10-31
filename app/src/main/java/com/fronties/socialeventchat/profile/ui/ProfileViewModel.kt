@@ -18,6 +18,7 @@ import com.fronties.socialeventchat.profile.room.ProfileEntity
 import com.fronties.socialeventchat.profile.room.ProfileExecutor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -86,5 +87,10 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileImage.value = Event(Unit)
     }
 
+    fun uploadImage(bb: RequestBody){
+        viewModelScope.launch {
+            profileRepo.uploadImage(bb)
+        }
+    }
     fun skipProfileButtonClicked() {}
 }// class ends here

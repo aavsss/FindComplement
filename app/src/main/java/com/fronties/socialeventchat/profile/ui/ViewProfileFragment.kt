@@ -1,11 +1,8 @@
 package com.fronties.socialeventchat.profile.ui
 
-import android.R.attr
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,13 +12,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 
 
@@ -89,6 +88,9 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
                 var amir = outputStream.toByteArray()
 
+                val body: RequestBody = RequestBody.create("application/octet-stream".toMediaTypeOrNull(), amir)
+
+                profileViewModel.uploadImage(body)
                 println("amir" + amir)
             }
         }
