@@ -50,4 +50,10 @@ class SessionManager @Inject constructor(
         editor.remove(USER_TOKEN)
         editor.apply()
     }
+
+    fun removeUid() {
+        val editor = sharedPreferences.edit()
+        editor.remove(USER_ID)
+        editor.apply()
+    }
 }
