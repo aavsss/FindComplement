@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -92,7 +93,6 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 ImageUri = result.data?.data
-                println("ImageUri " + ImageUri)
                 binding.profileIv.setImageURI(ImageUri)
             }
         }
@@ -116,13 +116,20 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun persistImage(bitmap: Bitmap, name: String,context:Context): File? {
 
-        val filesDir: File = context.filesDir
+        val mediaStorageDir = File(context.getExternalFilesDir(null)?.absoluteFile, "MyDirName")
 
-        val imageFile = File(filesDir, "$name.jpg")
+        if(!mediaStorageDir.exists()){
+            mediaStorageDir.mkdir()
+        }
+
+        val imageFile = File(mediaStorageDir, "$name.jpg")
         val os: OutputStream
         try {
+            val bytes = ByteArrayOutputStream()
             os = FileOutputStream(imageFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, os)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes)
+            profileViewModel._profileImage.value = bitmap
+            os.write(bytes.toByteArray())
             os.flush()
             os.close()
             return imageFile

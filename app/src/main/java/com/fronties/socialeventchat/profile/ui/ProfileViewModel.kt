@@ -56,13 +56,14 @@ class ProfileViewModel @Inject constructor(
         get() = _profileImage
 
     fun saveProfileButtonClicked() {
+        _listenerForProfileToEventFeed.value = Event(Unit)
+
         saveUserProfile(
             firstNameEtContent.value,
             lastNameEtContent.value,
             phoneNumberEtContent.value,
             profileImage.value
         )
-        _listenerForProfileToEventFeed.value = Event(Unit)
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
@@ -95,8 +96,7 @@ class ProfileViewModel @Inject constructor(
                 lastname = lastNameEtContent.value,
                 phonenumber = phoneNumberEtContent.value
             )
-            val updatedUser = profileRepo.updateProfile(file,user)
-            Log.i("updatedUser", updatedUser.toString())
+            profileRepo.updateProfile(file,user)
         }
     }
 

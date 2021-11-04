@@ -3,7 +3,7 @@
     package="com.fronties.socialeventchat">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".application.ComplementApplication"
         android:allowBackup="true"
