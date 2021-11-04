@@ -12,10 +12,6 @@
         android:id="@+id/myEventFragment"
         android:icon="@drawable/ic_baseline_calendar_today_24"
         android:title="My Event" />
-    <item
-        android:id="@+id/viewProfileFragment"
-        android:icon="@drawable/ic_person_24_24"
-        android:title="Profile" />
 
     <item
         android:id="@id/settingsFragment"
