@@ -52,16 +52,7 @@ class ChatViewModel @Inject constructor(
         )
         chatRepo.getSocketIO()?.on(
             "message",
-            chatRepo.onUpdateChat {
-                var tempList = _messageList.value
-                if (tempList == null) {
-                    tempList = mutableListOf()
-                }
-                tempList!!.add(it)
-                viewModelScope.launch {
-                    _messageList.value = tempList
-                }
-            }
+            chatRepo.onUpdateChat(onUpdateChat)
         )
     }
 

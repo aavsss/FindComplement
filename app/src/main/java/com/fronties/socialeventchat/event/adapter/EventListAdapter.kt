@@ -1,4 +1,4 @@
-package com.fronties.socialeventchat.event.eventList
+package com.fronties.socialeventchat.event.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fronties.socialeventchat.databinding.EventCardBinding
+import com.fronties.socialeventchat.databinding.ItemEventListBinding
+import com.fronties.socialeventchat.event.eventList.EventListFragmentDirections
 import com.fronties.socialeventchat.event.model.SocialEvents
 
 class EventListAdapter() :
@@ -14,7 +15,7 @@ class EventListAdapter() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            EventCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemEventListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -22,12 +23,13 @@ class EventListAdapter() :
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: EventCardBinding) :
+    class ViewHolder(private val binding: ItemEventListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: SocialEvents) {
             binding.event = event
-            binding.btnViewEvent.setOnClickListener {
-                val action = EventListFragmentDirections.actionEventListFragmentToEventDetailFragment(event.eid!!)
+            binding.root.setOnClickListener {
+                val action = EventListFragmentDirections
+                    .actionEventListFragmentToEventDetailFragment(event.eid!!)
                 it.findNavController().navigate(action)
             }
         }

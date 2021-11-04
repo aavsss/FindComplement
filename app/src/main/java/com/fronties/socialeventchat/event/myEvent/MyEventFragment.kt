@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentMyEventBinding
-import com.fronties.socialeventchat.event.eventList.EventListAdapter
+import com.fronties.socialeventchat.event.adapter.EventListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

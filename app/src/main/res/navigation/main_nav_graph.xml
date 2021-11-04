@@ -58,6 +58,10 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.fronties.socialeventchat.settings.ui.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_viewProfileFragment"
+            app:destination="@id/viewProfileFragment" />
+    </fragment>
 
 </navigation>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.authentication.AuthActivity
 import com.fronties.socialeventchat.databinding.FragmentSettingsBinding
@@ -33,6 +34,12 @@ class SettingsFragment : Fragment(R.layout.fragment_event_detail) {
 
         settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
         binding.settingsViewModel = settingsViewModel
+
+        settingsViewModel.listenerForUserProfile.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(R.id.action_settingsFragment_to_viewProfileFragment)
+            }
+        }
 
         settingsViewModel.userLoggedOut.observe(viewLifecycleOwner, {
             if (it) {

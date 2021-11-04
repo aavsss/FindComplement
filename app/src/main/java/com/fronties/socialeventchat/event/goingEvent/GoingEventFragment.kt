@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentGoingEventBinding
-import com.fronties.socialeventchat.event.eventList.EventListAdapter
+import com.fronties.socialeventchat.event.adapter.EventListAdapter
 
 class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
 
