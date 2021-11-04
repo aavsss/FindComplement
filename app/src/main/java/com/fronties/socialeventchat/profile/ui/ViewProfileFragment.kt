@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.profile.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,10 +21,8 @@ import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import android.graphics.Bitmap
 import java.io.FileOutputStream
 import java.io.OutputStream
-import java.lang.Exception
 
 
 @AndroidEntryPoint
@@ -93,6 +92,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 ImageUri = result.data?.data
+                println("ImageUri " + ImageUri)
                 binding.profileIv.setImageURI(ImageUri)
             }
         }
@@ -115,7 +115,9 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun persistImage(bitmap: Bitmap, name: String,context:Context): File? {
+
         val filesDir: File = context.filesDir
+
         val imageFile = File(filesDir, "$name.jpg")
         val os: OutputStream
         try {

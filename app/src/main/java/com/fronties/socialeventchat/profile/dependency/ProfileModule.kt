@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.profile.dependency
 import com.fronties.socialeventchat.application.session.AuthInterceptor
 import com.fronties.socialeventchat.helperClasses.Constants.BASE_URL
 import com.fronties.socialeventchat.profile.api.ProfileApi
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +26,8 @@ object ProfileModule {
         .client(authInterceptor.getOkHttpClientWithInterceptor())
         .build()
         .create(ProfileApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideGson() = Gson()
 }

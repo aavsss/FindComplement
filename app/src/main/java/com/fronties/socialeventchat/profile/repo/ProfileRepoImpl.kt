@@ -6,6 +6,7 @@ import com.fronties.socialeventchat.profile.api.ProfileApi
 import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.room.ProfileDao
 import com.fronties.socialeventchat.profile.room.ProfileEntity
+import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -18,7 +19,8 @@ import javax.inject.Inject
 
 class ProfileRepoImpl @Inject constructor(
     private val profileDao: ProfileDao,
-    private val profileApi: ProfileApi
+    private val profileApi: ProfileApi,
+    private val gson: Gson
 ) : ProfileRepo {
     override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
 //        TODO("Not yet implemented")
@@ -44,7 +46,7 @@ class ProfileRepoImpl @Inject constructor(
                 );
             }
 
-            val userPart = MultipartBody.Part.createFormData("user", user.toString())
+            val userPart = MultipartBody.Part.createFormData("user", gson.toJson(user))
 
             val eventResponse = profileApi.updateProfile(1, filePart, userPart)
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
