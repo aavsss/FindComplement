@@ -36,8 +36,9 @@
             android:id="@+id/card_gchat_message_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#774df2"
-            app:cardCornerRadius="12dp"
+            android:padding="17dp"
+            app:cardBackgroundColor="@color/dark_gray"
+            app:cardCornerRadius="15dp"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
@@ -48,6 +49,7 @@
                 android:id="@+id/layout_gchat_container_me"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="7dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -57,11 +59,10 @@
                     android:layout_marginBottom="8dp"
                     android:maxWidth="260dp"
                     android:paddingLeft="12dp"
-                    android:paddingTop="8dp"
                     android:paddingRight="12dp"
                     android:hint="This is a Message"
                     android:text="@{message.text}"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
 

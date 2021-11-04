@@ -148,16 +148,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{event.eventName}" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_view_event"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="View Event"-->
-<!--            android:layout_gravity="right" />-->
     </com.google.android.material.card.MaterialCardView>
 </layout>
