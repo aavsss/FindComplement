@@ -62,6 +62,9 @@ class ChatActivity : AppCompatActivity() {
         chatViewModel.messageList.observe(this) { list ->
             list?.let {
                 messageListAdapter.chats = it
+                // TODO - find a better way to notify adapter - I hate this
+                messageListAdapter.notifyItemChanged(messageListAdapter.chats.lastIndex)
+                messageListAdapter.notifyItemRangeInserted(messageListAdapter.chats.lastIndex, 1)
             }
         }
     }

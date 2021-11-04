@@ -6,16 +6,13 @@ import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.chat.model.JoinRoom
 import com.fronties.socialeventchat.chat.model.JoinRoomResponse
 import com.fronties.socialeventchat.chat.model.MessageResponse
-import com.fronties.socialeventchat.chat.model.TempMessageResponse
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.helperClasses.Constants.WS_URL
 import com.fronties.socialeventchat.helperClasses.Resource
 import com.google.gson.Gson
-import com.google.gson.JsonElement
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import org.json.JSONObject
 import javax.inject.Inject
 import kotlin.Exception
 

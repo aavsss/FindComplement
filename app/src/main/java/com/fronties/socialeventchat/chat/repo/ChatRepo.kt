@@ -1,9 +1,7 @@
 package com.fronties.socialeventchat.chat.repo
 
 import com.fronties.socialeventchat.chat.model.JoinRoomResponse
-import com.fronties.socialeventchat.chat.model.MessageRequest
 import com.fronties.socialeventchat.chat.model.MessageResponse
-import com.fronties.socialeventchat.chat.model.TempMessageResponse
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 

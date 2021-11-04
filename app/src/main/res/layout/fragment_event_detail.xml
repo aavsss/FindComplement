@@ -300,6 +300,19 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
 
+                        <Button
+                            android:id="@+id/btn_chat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Go to chat"
+                            android:layout_marginHorizontal="48dp"
+                            android:layout_marginTop="16dp"
+                            android:onClick="@{() -> viewmodel.goToChat()}"
+                            app:layout_constraintTop_toBottomOf="@id/btn_attend_event"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.core.widget.NestedScrollView>
