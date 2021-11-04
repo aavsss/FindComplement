@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialEventChat">
         <activity
+            android:name=".chat.ui.ChatActivity"
+            android:exported="true" />
+        <activity
             android:name=".splashscreen.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -22,15 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".authentication.AuthActivity"
             android:exported="true"
+            android:noHistory="true"
             android:label="@string/title_activity_auth" />
-
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

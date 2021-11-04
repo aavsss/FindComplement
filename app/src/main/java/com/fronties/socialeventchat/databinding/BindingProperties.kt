@@ -8,12 +8,13 @@ import javax.inject.Singleton
 
 @Singleton
 class BindingProperties @Inject constructor(
-    val glide: RequestManager
+    private val glide: RequestManager
 ) {
     @BindingAdapter("app:displayImage")
     fun displayImage(view: ImageView, urlThumbnail: String?) {
         urlThumbnail?.let {
             glide.load(it)
+                .centerCrop()
                 .into(view)
         }
     }

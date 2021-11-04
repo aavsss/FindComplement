@@ -22,10 +22,19 @@ class EventDetailViewModel @Inject constructor(
     private val _eventDetail = MutableLiveData<Resource<SocialEvents>>()
     val eventDetail: LiveData<Resource<SocialEvents>> = _eventDetail
 
+    private val _attendSuccess = MutableLiveData<Resource<Boolean>>()
+    val attendSuccess: LiveData<Resource<Boolean>> = _attendSuccess
+
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
     val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
 
+    private val _navToChat = MutableLiveData<Event<Int>>()
+    val navToChat: LiveData<Event<Int>> = _navToChat
+
+    private var eid: Int = -1
+
     fun getEventDetails(eventID: Int) {
+        setEid(eventID)
         viewModelScope.launch {
             val eventDetail = try {
                 eventRepo.getEventDetails(eventID)
@@ -35,5 +44,26 @@ class EventDetailViewModel @Inject constructor(
             }
             _eventDetail.value = Resource.success(eventDetail)
         }
+    }
+
+    private fun setEid(eventID: Int) {
+        eid = eventID
+    }
+
+    // given an event ID indicate that the user is going
+    fun attendEvent(eid: Int) {
+        viewModelScope.launch {
+            val isAttendingEvent = try {
+                eventRepo.attendEvent(eid)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
+            _attendSuccess.value = Resource.success(isAttendingEvent)
+        }
+    }
+
+    fun goToChat() {
+        _navToChat.value = Event(eid)
     }
 }
