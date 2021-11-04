@@ -8,6 +8,7 @@ class SettingsRepoImpl @Inject constructor(
 ) : SettingsRepo {
     override suspend fun logout(): Boolean {
         sessionManager.removeAuthToken()
+        sessionManager.removeUid()
         return true // maybe make this more informative
     }
 

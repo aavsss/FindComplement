@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -31,6 +32,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         binding = FragmentEventDetailBinding.inflate(
             inflater, container, false
         )
+
         return binding.root
     }
 
@@ -44,9 +46,14 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.getEventDetails(eventId)
 
+        binding.btnAttendEvent.setOnClickListener {
+            eventDetailViewModel.attendEvent(eventId)
+        }
+
         subscribeToEventDetail()
         subscribeToNavToChat()
         subscribeToErrorView()
+        subscribeToAttendEvent()
     }
 
     private fun subscribeToErrorView() {
@@ -72,6 +79,16 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
                 val intent = Intent(activity, ChatActivity::class.java)
                 intent.putExtra("eid", eid)
                 startActivity(intent)
+            }
+        }
+    }
+
+    private fun subscribeToAttendEvent() {
+        eventDetailViewModel.attendSuccess.observe(viewLifecycleOwner) {
+            if (it.data == true) {
+                Toast.makeText(context, "Attending event!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(context, "Not attending event :(", Toast.LENGTH_LONG).show()
             }
         }
     }
