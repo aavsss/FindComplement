@@ -55,5 +55,9 @@
         android:label="MyEventFragment">
 
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.fronties.socialeventchat.settings.ui.SettingsFragment"
+        android:label="SettingsFragment" />
 
 </navigation>
