@@ -12,6 +12,7 @@ import com.fronties.socialeventchat.authentication.AuthActivity
 import com.fronties.socialeventchat.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.fragment_event_detail) {
 
     private lateinit var binding: FragmentSettingsBinding
@@ -37,6 +38,7 @@ class SettingsFragment : Fragment(R.layout.fragment_event_detail) {
             if (it) {
                 val intent = Intent(context, AuthActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             }
         })
     }

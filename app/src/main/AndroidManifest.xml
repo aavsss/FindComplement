@@ -27,6 +27,7 @@
         <activity
             android:name=".authentication.AuthActivity"
             android:exported="true"
+            android:noHistory="true"
             android:label="@string/title_activity_auth" />
         <activity
             android:name=".MainActivity"
