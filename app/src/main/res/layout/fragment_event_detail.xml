@@ -127,11 +127,11 @@
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_date"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
                             android:layout_marginHorizontal="16dp"
-                            android:src="@drawable/ic_calendar_24_24"
-                            android:background="@color/primary_color"
+                            android:src="@drawable/ic_frame_calendar"
                             app:layout_constraintBottom_toTopOf="@id/img_host"
                             app:layout_constraintEnd_toStartOf="@id/date"
                             app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +144,7 @@
                             android:layout_height="wrap_content"
                             style="@style/Body1"
                             android:layout_marginHorizontal="16dp"
-                            android:text="@{viewmodel.eventDetail.data.starttime}"
+                            app:displayFormattedDate="@{viewmodel.eventDetail.data.starttime}"
                             tools:text="10/17/2021"
                             android:layout_marginVertical="16dp"
                             app:layout_constraintTop_toTopOf="@id/img_date"
@@ -155,10 +155,10 @@
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_type"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
                             android:layout_marginHorizontal="16dp"
-                            android:src="@drawable/ic_baseline_home_work_24"
+                            android:src="@drawable/ic_frame_clock"
                             app:layout_constraintBottom_toBottomOf="@id/img_date"
                             app:layout_constraintEnd_toStartOf="@id/type"
                             app:layout_constraintStart_toEndOf="@id/date"
@@ -172,7 +172,7 @@
                             style="@style/Body1"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
-                            android:text="@{viewmodel.eventDetail.data.eventtype}"
+                            app:displayFormattedTime="@{viewmodel.eventDetail.data.starttime}"
                             app:layout_constraintTop_toTopOf="@id/img_type"
                             app:layout_constraintBottom_toBottomOf="@id/img_type"
                             tools:text="Type"
@@ -273,10 +273,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:text="Description"
+                            android:textSize="24sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_host_name"
-                            android:textSize="24sp"/>
+                            app:layout_constraintTop_toBottomOf="@id/tv_host_name" />
 
                         <TextView
                             android:id="@+id/tv_description"
