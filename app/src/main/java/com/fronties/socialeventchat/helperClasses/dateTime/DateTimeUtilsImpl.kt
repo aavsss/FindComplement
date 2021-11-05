@@ -1,26 +1,70 @@
 package com.fronties.socialeventchat.helperClasses.dateTime
 
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
 
-    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
 
     override fun getDateString(isoDate: String): String {
 //        TODO("Not yet implemented")
-        return "10/26/2021"
+//        val dateString = LocalDate.parse(isoDate,
+//            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
+        return try {
+            val date = format.parse(isoDate)
+            val calendar = Calendar.getInstance()
+            calendar.time = date!!
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DATE)
+            val year = calendar.get(Calendar.YEAR)
+            "$month/$day/$year"
+        } catch (e: Exception) {
+            "Unknown date"
+        }
     }
 
     override fun getTimeString(isoDate: String): String {
-//        TODO("Not yet implemented")
-        return "7:00pm"
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
+        return try {
+            val date = format.parse(isoDate)
+            val calendar = Calendar.getInstance()
+            calendar.time = date!!
+            val hour = calendar.get(Calendar.HOUR)
+            val minute = calendar.get(Calendar.MINUTE)
+            val isAm = calendar.get(Calendar.AM_PM)
+            if (isAm == 0) {
+                if (minute < 10) {
+                    "$hour:${minute}0 AM"
+                } else {
+                    "$hour:$minute AM"
+                }
+            } else {
+                if (minute < 10) {
+                    "$hour:${minute}0 PM"
+                } else {
+                    "$hour:$minute PM"
+                }
+            }
+        } catch (e: Exception) {
+            "Unknown time"
+        }
     }
 
     override fun getDateAndTimeString(isoDate: String): String {
-//        TODO("Not yet implemented")
-        return "10/26/2021 at 7:00pm"
+        return try {
+            val dateString = getDateString(isoDate)
+            val timeString = getTimeString(isoDate)
+            if (timeString == "0:00 PM" || timeString == "0:00 AM") {
+                dateString
+            } else {
+                "$dateString at $timeString"
+            }
+        } catch (e: Exception) {
+            "Unknown date and time"
+        }
     }
 
     override fun transformDateToUTC(
