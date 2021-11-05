@@ -1,23 +1,19 @@
 package com.fronties.socialeventchat.profile.ui
 
-import android.app.Application
-import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.provider.MediaStore
-import androidx.core.app.ActivityCompat.startActivityForResult
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.*
 
 import com.fronties.socialeventchat.helperClasses.Event
+import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
-import com.fronties.socialeventchat.profile.room.ProfileDatabase
 import com.fronties.socialeventchat.profile.room.ProfileEntity
-import com.fronties.socialeventchat.profile.room.ProfileExecutor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,28 +48,34 @@ class ProfileViewModel @Inject constructor(
         get() = _listenerForProfileToEventFeed
 
     private val _listenerForProfileImage = MutableLiveData<Event<Unit>>()
-    val listenerForProfileImage : LiveData<Event<Unit>>
+    val listenerForProfileImage: LiveData<Event<Unit>>
         get() = _listenerForProfileImage
 
     val _profileImage = MutableLiveData<Bitmap>()
-    val profileImage : LiveData<Bitmap>
+    val profileImage: LiveData<Bitmap>
         get() = _profileImage
 
     fun saveProfileButtonClicked() {
+        _listenerForProfileToEventFeed.value = Event(Unit)
+
         saveUserProfile(
             firstNameEtContent.value,
             lastNameEtContent.value,
             phoneNumberEtContent.value,
             profileImage.value
         )
-        _listenerForProfileToEventFeed.value = Event(Unit)
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
 
-    private fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?, profileImage: Bitmap?) {
+    private fun saveUserProfile(
+        firstName: String?,
+        lastName: String?,
+        phoneNumber: String?,
+        profileImage: Bitmap?
+    ) {
         val eachProfile = ProfileEntity(
-            firstName = firstName ?: "First", lastName = lastName ?: "Last", phoneNumber = phoneNumber ?: "903"
+            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
         )
         eachProfile.profilePic = profileImage
 
@@ -82,11 +84,21 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun profileImageClicked(){
+    fun profileImageClicked() {
         _listenerForProfileImage.value = Event(Unit)
     }
 
-    fun skipProfileButtonClicked() {
-        _listenerForProfileImage.value = Event(Unit)
+    fun updateProfile(file: File?) {
+        viewModelScope.launch {
+
+            val user = User(
+                firstname = firstNameEtContent.value,
+                lastname = lastNameEtContent.value,
+                phonenumber = phoneNumberEtContent.value
+            )
+            profileRepo.updateProfile(file,user)
+        }
     }
+
+    fun skipProfileButtonClicked() {}
 }// class ends here
