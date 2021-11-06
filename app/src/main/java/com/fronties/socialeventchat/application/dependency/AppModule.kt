@@ -1,4 +1,4 @@
-package com.fronties.socialeventchat.application
+package com.fronties.socialeventchat.application.dependency
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -16,7 +16,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 @Module
@@ -46,7 +45,6 @@ object AppModule {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-
     @Singleton // Tell Dagger-Hilt to create a singleton accessible everywhere in ApplicationCompenent (i.e. everywhere in the application)
     @Provides
     fun provideYourDatabase(
@@ -62,8 +60,4 @@ object AppModule {
     @Singleton
     @Provides
     fun provideYourDao(db: ProfileDatabase) = db.profileDao()
-
-
-
-
 }

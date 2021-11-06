@@ -1,7 +1,11 @@
 package com.fronties.socialeventchat.profile.repo
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
+import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.helperClasses.Resource
+import com.fronties.socialeventchat.helperClasses.file.FileHandler
+import com.fronties.socialeventchat.helperClasses.file.FileType
 import com.fronties.socialeventchat.profile.api.ProfileApi
 import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.room.ProfileDao
@@ -13,18 +17,19 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.HttpException
 import java.io.File
 import java.io.IOException
-
 import javax.inject.Inject
-
 
 class ProfileRepoImpl @Inject constructor(
     private val profileDao: ProfileDao,
     private val profileApi: ProfileApi,
-    private val gson: Gson
+    private val gson: Gson,
+    private val sessionManager: SessionManager,
+    private val fileHandler: FileHandler
 ) : ProfileRepo {
-    override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
-//        TODO("Not yet implemented")
-        // Basic logic: need to match the id of the user with the id in the profile table.
+
+
+    override fun getCurrentUser(): LiveData<ProfileEntity?>? {
+        return profileDao.loadProfileById(sessionManager.fetchUid())
     }
 
     override suspend fun saveUserProfile(profileEntity: ProfileEntity) {
@@ -35,6 +40,14 @@ class ProfileRepoImpl @Inject constructor(
         return profileDao.loadAllProfile()
     }
 
+    override fun createImageFile(imageUri: Uri?): File? {
+        return fileHandler.createFile(
+            imageUri,
+            sessionManager.fetchUid().toString(),
+            FileType.USER
+        )
+    }
+
     override suspend fun updateProfile(rb: File?, user: User): User? {
         try {
             var filePart: MultipartBody.Part? = null
@@ -43,7 +56,7 @@ class ProfileRepoImpl @Inject constructor(
                     "file", rb.name,
                     rb
                         .asRequestBody("image/*".toMediaTypeOrNull()),
-                );
+                )
             }
 
             val userPart = MultipartBody.Part.createFormData("user", gson.toJson(user))
@@ -60,5 +73,12 @@ class ProfileRepoImpl @Inject constructor(
             Resource.error(e.localizedMessage ?: "HTTP Error", null)
             throw e
         }
+    }
+
+    override fun getImageFile(): File? {
+        return fileHandler.getFile(
+            FileType.USER,
+            sessionManager.fetchUid().toString()
+        )
     }
 }
