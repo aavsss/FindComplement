@@ -10,5 +10,5 @@ interface FileHandler {
         fileType: FileType
     ): File?
 
-    fun getFile(fileType: FileType, fileName: String): File
+    fun getFile(fileType: FileType, fileName: String): File?
 }

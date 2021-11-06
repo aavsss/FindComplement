@@ -13,10 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,16 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var profileViewModel: ProfileViewModel
     var ImageUri: Uri? = null
     var idRoom: Int? = null
+
+    private val launchSomeActivity =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                profileViewModel.setValueOfImageUri(result.data?.data)
+
+                ImageUri = result.data?.data
+//                binding.profileIv.setImageURI(ImageUri)
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,23 +68,23 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
                 binding.firstNameEt.setText(it[it.lastIndex].firstName)
                 binding.lastNameEt.setText(it[it.lastIndex].lastName)
                 binding.phoneNumberEt.setText(it[it.lastIndex].phoneNumber)
-                if (it[it.lastIndex].profilePic == null) {
-                    binding.profileIv.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireActivity(),
-                            R.drawable.ic_person_24_24
-                        )
-                    )
-                } else {
-                    binding.profileIv.setImageBitmap(it[it.lastIndex].profilePic)
-                }
+//                if (it[it.lastIndex].profilePic == null) {
+//                    binding.profileIv.setImageDrawable(
+//                        ContextCompat.getDrawable(
+//                            requireActivity(),
+//                            R.drawable.ic_person_24_24
+//                        )
+//                    )
+//                } else {
+//                    binding.profileIv.setImageBitmap(it[it.lastIndex].profilePic)
+//                }
             }
         })
 
         profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
 //                updateProfile()
-                profileViewModel.updateProfile(ImageUri)
+//                profileViewModel.updateProfile(ImageUri)
                 Toast.makeText(context, "Profile updated!", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_viewProfileFragment_to_eventListFragment)
             }
@@ -86,15 +97,18 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
                 launchSomeActivity.launch(intent)
             }
         }
-    }
 
-    private val launchSomeActivity =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                ImageUri = result.data?.data
+        profileViewModel.profileImageUri.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
                 binding.profileIv.setImageURI(ImageUri)
             }
         }
+
+        val testFile = profileViewModel.testImageFile()
+        Glide.with(this)
+            .load(testFile?.toUri())
+            .into(binding.profileIv)
+    }
 
     fun updateProfile() {
         if (ImageUri != null) {

@@ -73,4 +73,11 @@ class ProfileRepoImpl @Inject constructor(
             throw e
         }
     }
+
+    override fun getImageFile(): File? {
+        return fileHandler.getFile(
+            FileType.USER,
+            sessionManager.fetchUid().toString()
+        )
+    }
 }

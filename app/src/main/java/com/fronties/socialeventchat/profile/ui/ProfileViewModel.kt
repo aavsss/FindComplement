@@ -56,8 +56,11 @@ class ProfileViewModel @Inject constructor(
     val profileImage: LiveData<Bitmap>
         get() = _profileImage
 
+    private val _profileImageUri = MutableLiveData<Event<Uri>>()
+    val profileImageUri: LiveData<Event<Uri>>
+        get() = _profileImageUri
+
     fun saveProfileButtonClicked() {
-        _listenerForProfileToEventFeed.value = Event(Unit)
 
         saveUserProfile(
             firstNameEtContent.value,
@@ -65,6 +68,10 @@ class ProfileViewModel @Inject constructor(
             phoneNumberEtContent.value,
             profileImage.value
         )
+
+        updateProfile()
+
+        _listenerForProfileToEventFeed.value = Event(Unit)
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
@@ -78,6 +85,7 @@ class ProfileViewModel @Inject constructor(
         val eachProfile = ProfileEntity(
             firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
         )
+        // TODO change this to just uri
         eachProfile.profilePic = profileImage
 
         viewModelScope.launch {
@@ -89,8 +97,10 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileImage.value = Event(Unit)
     }
 
-    fun updateProfile(imageUri: Uri?) {
-        val file = profileRepo.createImageFile(imageUri)
+    private fun updateProfile() {
+        val file = profileRepo.createImageFile(
+            _profileImageUri.value?.getContentIfNotHandled()
+        )
         viewModelScope.launch {
 
             val user = User(
@@ -101,6 +111,19 @@ class ProfileViewModel @Inject constructor(
             profileRepo.updateProfile(file, user)
         }
     }
+
+    fun setValueOfImageUri(imageUri: Uri?) {
+        imageUri?.let {
+            _profileImageUri.value = Event(it)
+        }
+    }
+
+    // region remove after fix
+    fun testImageFile(): File? {
+        val file = profileRepo.getImageFile()
+        return file
+    }
+    // endregion
 
     fun skipProfileButtonClicked() {}
 }// class ends here
