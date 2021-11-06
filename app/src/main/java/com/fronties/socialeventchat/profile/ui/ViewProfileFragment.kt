@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -66,7 +67,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
                         )
                     )
                 } else {
-                    binding.profileIv.setImageBitmap(it[it.lastIndex].profilePic)
+                    binding.profileIv.setImageURI(it[it.lastIndex].profilePic)
                 }
 
             }
@@ -116,7 +117,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun persistImage(bitmap: Bitmap, name: String,context:Context): File? {
 
-        val mediaStorageDir = File(context.getExternalFilesDir(null)?.absoluteFile, "MyDirName")
+        val mediaStorageDir = File(context.getExternalFilesDir(null)?.absoluteFile, "users")
 
         if(!mediaStorageDir.exists()){
             mediaStorageDir.mkdir()
@@ -128,7 +129,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             val bytes = ByteArrayOutputStream()
             os = FileOutputStream(imageFile)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes)
-            profileViewModel._profileImage.value = bitmap
+//            profileViewModel._profileImage.value = bitmap
             os.write(bytes.toByteArray())
             os.flush()
             os.close()

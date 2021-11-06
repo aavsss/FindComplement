@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.profile.room
 
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -15,5 +16,5 @@ class ProfileEntity(
     @ColumnInfo(name = "phoneNumber") var phoneNumber: String
 )
 {
-    var profilePic: Bitmap? = null
+    var profilePic: Uri? = null
 }

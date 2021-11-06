@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.profile.ui
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -51,8 +52,8 @@ class ProfileViewModel @Inject constructor(
     val listenerForProfileImage: LiveData<Event<Unit>>
         get() = _listenerForProfileImage
 
-    val _profileImage = MutableLiveData<Bitmap>()
-    val profileImage: LiveData<Bitmap>
+    val _profileImage = MutableLiveData<Uri>()
+    val profileImage: LiveData<Uri>
         get() = _profileImage
 
     fun saveProfileButtonClicked() {
@@ -72,7 +73,7 @@ class ProfileViewModel @Inject constructor(
         firstName: String?,
         lastName: String?,
         phoneNumber: String?,
-        profileImage: Bitmap?
+        profileImage: Uri?
     ) {
         val eachProfile = ProfileEntity(
             firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
