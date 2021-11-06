@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.profile.ui
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
@@ -52,24 +53,26 @@ class ProfileViewModel @Inject constructor(
     val listenerForProfileImage: LiveData<Event<Unit>>
         get() = _listenerForProfileImage
 
-    val _profileImage = MutableLiveData<Uri>()
-    val profileImage: LiveData<Uri>
-        get() = _profileImage
-
-    private val _profileImageUri = MutableLiveData<Event<Uri>>()
-    val profileImageUri: LiveData<Event<Uri>>
+    private val _profileImageUri = MutableLiveData<Event<Uri?>>()
+    val profileImageUri: LiveData<Event<Uri?>>
         get() = _profileImageUri
 
     fun saveProfileButtonClicked() {
+
+        val file = profileRepo.createImageFile(
+            _profileImageUri.value?.peekContent()
+        )
+
+        _profileImageUri.value = Event(file?.toUri())
 
         saveUserProfile(
             firstNameEtContent.value,
             lastNameEtContent.value,
             phoneNumberEtContent.value,
-            profileImage.value
+            profileImageUri.value?.peekContent()
         )
 
-        updateProfile()
+        updateProfile(file)
 
         _listenerForProfileToEventFeed.value = Event(Unit)
     }
@@ -83,9 +86,8 @@ class ProfileViewModel @Inject constructor(
         profileImage: Uri?
     ) {
         val eachProfile = ProfileEntity(
-            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
+            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber
         )
-        // TODO change this to just uri
         eachProfile.profilePic = profileImage
 
         viewModelScope.launch {
@@ -97,10 +99,7 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileImage.value = Event(Unit)
     }
 
-    private fun updateProfile() {
-        val file = profileRepo.createImageFile(
-            _profileImageUri.value?.getContentIfNotHandled()
-        )
+    private fun updateProfile(file: File?) {
         viewModelScope.launch {
 
             val user = User(
@@ -118,7 +117,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    // region remove after fix
+    // region TODO remove after fix
     fun testImageFile(): File? {
         val file = profileRepo.getImageFile()
         return file

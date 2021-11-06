@@ -13,7 +13,7 @@ class ProfileEntity(
     @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "id") val id: Int? = 0,
     @ColumnInfo(name = "firstName") var firstName: String,
     @ColumnInfo(name = "lastName") var lastName:String,
-    @ColumnInfo(name = "phoneNumber") var phoneNumber: String
+    @ColumnInfo(name = "phoneNumber") var phoneNumber: String?
 )
 {
     var profilePic: Uri? = null

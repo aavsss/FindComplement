@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -68,16 +69,16 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
                 binding.firstNameEt.setText(it[it.lastIndex].firstName)
                 binding.lastNameEt.setText(it[it.lastIndex].lastName)
                 binding.phoneNumberEt.setText(it[it.lastIndex].phoneNumber)
-//                if (it[it.lastIndex].profilePic == null) {
-//                    binding.profileIv.setImageDrawable(
-//                        ContextCompat.getDrawable(
-//                            requireActivity(),
-//                            R.drawable.ic_person_24_24
-//                        )
-//                    )
-//                } else {
-//                    binding.profileIv.setImageBitmap(it[it.lastIndex].profilePic)
-//                }
+                if (it[it.lastIndex].profilePic.toString().isEmpty()) {
+                    binding.profileIv.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireActivity(),
+                            R.drawable.ic_person_24_24
+                        )
+                    )
+                } else {
+                    binding.profileIv.setImageURI(it[it.lastIndex].profilePic)
+                }
             }
         })
 
@@ -104,10 +105,10 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
-        val testFile = profileViewModel.testImageFile()
-        Glide.with(this)
-            .load(testFile?.toUri())
-            .into(binding.profileIv)
+//        val testFile = profileViewModel.testImageFile()
+//        Glide.with(this)
+//            .load(testFile?.toUri())
+//            .into(binding.profileIv)
     }
 
     fun updateProfile() {
@@ -139,7 +140,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             val bytes = ByteArrayOutputStream()
             os = FileOutputStream(imageFile)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes)
-            profileViewModel._profileImage.value = bitmap // TODO
+//            profileViewModel._profileImage.value = bitmap // TODO
             os.write(bytes.toByteArray())
             os.flush()
             os.close()
