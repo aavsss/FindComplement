@@ -26,9 +26,10 @@ class ProfileRepoImpl @Inject constructor(
     private val sessionManager: SessionManager,
     private val fileHandler: FileHandler
 ) : ProfileRepo {
-    override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
-//        TODO("Not yet implemented")
-        // Basic logic: need to match the id of the user with the id in the profile table.
+
+
+    override fun getCurrentUser(): LiveData<ProfileEntity?>? {
+        return profileDao.loadProfileById(sessionManager.fetchUid())
     }
 
     override suspend fun saveUserProfile(profileEntity: ProfileEntity) {

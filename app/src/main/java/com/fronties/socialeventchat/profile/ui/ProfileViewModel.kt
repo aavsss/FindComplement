@@ -1,13 +1,12 @@
 package com.fronties.socialeventchat.profile.ui
 
-import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.*
+import com.fronties.socialeventchat.application.session.SessionManager
 
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.profile.model.User
@@ -23,6 +22,8 @@ class ProfileViewModel @Inject constructor(
     private val profileRepo: ProfileRepo
 ) : ViewModel(), Observable {
 
+    @Inject
+    lateinit var sessionManager: SessionManager
     // flag for if we are CREATING profile (editMode false) or UPDATING profile (editMode true)
     var editMode = false
 
@@ -79,6 +80,8 @@ class ProfileViewModel @Inject constructor(
 
     fun loadAll() = profileRepo.loadAllProfile()
 
+    fun loadById() = profileRepo.getCurrentUser()
+
     private fun saveUserProfile(
         firstName: String?,
         lastName: String?,
@@ -86,7 +89,10 @@ class ProfileViewModel @Inject constructor(
         profileImage: Uri?
     ) {
         val eachProfile = ProfileEntity(
-            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber
+            id = sessionManager.fetchUid(),
+            firstName = firstName!!,
+            lastName = lastName!!,
+            phoneNumber = phoneNumber
         )
         eachProfile.profilePic = profileImage
 
@@ -116,13 +122,6 @@ class ProfileViewModel @Inject constructor(
             _profileImageUri.value = Event(it)
         }
     }
-
-    // region TODO remove after fix
-    fun testImageFile(): File? {
-        val file = profileRepo.getImageFile()
-        return file
-    }
-    // endregion
 
     fun skipProfileButtonClicked() {}
 }// class ends here

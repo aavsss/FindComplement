@@ -63,22 +63,21 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.profileViewModel = profileViewModel
 
         // TODO: this is untidy, need to clean it up. Just a quick thing for demo
-        profileViewModel.loadAll().observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                idRoom = it[it.lastIndex].id
-                binding.firstNameEt.setText(it[it.lastIndex].firstName)
-                binding.lastNameEt.setText(it[it.lastIndex].lastName)
-                binding.phoneNumberEt.setText(it[it.lastIndex].phoneNumber)
-                if (it[it.lastIndex].profilePic.toString().isEmpty()) {
-                    binding.profileIv.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireActivity(),
-                            R.drawable.ic_person_24_24
-                        )
+        profileViewModel.loadById()?.observe(viewLifecycleOwner, {
+            it
+            idRoom = it?.id
+            binding.firstNameEt.setText(it?.firstName)
+            binding.lastNameEt.setText(it?.lastName)
+            binding.phoneNumberEt.setText(it?.phoneNumber)
+            if (it?.profilePic.toString().isNullOrEmpty()) {
+                binding.profileIv.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.ic_person_24_24
                     )
-                } else {
-                    binding.profileIv.setImageURI(it[it.lastIndex].profilePic)
-                }
+                )
+            } else {
+                binding.profileIv.setImageURI(it?.profilePic)
             }
         })
 
