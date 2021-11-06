@@ -89,8 +89,8 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileImage.value = Event(Unit)
     }
 
-    fun updateProfile(file: File?, imageUri: Uri?) {
-//        val fileT = profileRepo.createImageFile(imageUri)
+    fun updateProfile(imageUri: Uri?) {
+        val file = profileRepo.createImageFile(imageUri)
         viewModelScope.launch {
 
             val user = User(

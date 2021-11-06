@@ -72,8 +72,8 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
         profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                updateProfile()
-//                profileViewModel.updateProfile(null, ImageUri)
+//                updateProfile()
+                profileViewModel.updateProfile(ImageUri)
                 Toast.makeText(context, "Profile updated!", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_viewProfileFragment_to_eventListFragment)
             }
@@ -104,10 +104,10 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
             val file = persistImage(bitmap, "1", requireContext())
             file?.let {
-                profileViewModel.updateProfile(file, ImageUri)
+//                profileViewModel.updateProfile(file, ImageUri)
             }
         } else {
-            profileViewModel.updateProfile(null, ImageUri)
+//            profileViewModel.updateProfile(null, ImageUri)
         }
     }
 
@@ -125,7 +125,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             val bytes = ByteArrayOutputStream()
             os = FileOutputStream(imageFile)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes)
-            profileViewModel._profileImage.value = bitmap
+            profileViewModel._profileImage.value = bitmap // TODO
             os.write(bytes.toByteArray())
             os.flush()
             os.close()

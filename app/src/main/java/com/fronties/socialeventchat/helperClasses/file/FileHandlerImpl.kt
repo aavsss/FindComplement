@@ -16,6 +16,15 @@ class FileHandlerImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : FileHandler {
 
+    override fun getFile(fileType: FileType, fileName: String): File {
+        val mediaStorageDir = File(
+            context.getExternalFilesDir(null)?.absoluteFile,
+            fileType.type
+        )
+
+        return File(mediaStorageDir, fileName)
+    }
+
     override fun createFile(
         imageUri: Uri?,
         fileName: String?,
