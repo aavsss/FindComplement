@@ -1,6 +1,7 @@
 package com.fronties.socialeventchat.profile.ui
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -88,7 +89,8 @@ class ProfileViewModel @Inject constructor(
         _listenerForProfileImage.value = Event(Unit)
     }
 
-    fun updateProfile(file: File?) {
+    fun updateProfile(file: File?, imageUri: Uri?) {
+//        val fileT = profileRepo.createImageFile(imageUri)
         viewModelScope.launch {
 
             val user = User(
@@ -96,7 +98,7 @@ class ProfileViewModel @Inject constructor(
                 lastname = lastNameEtContent.value,
                 phonenumber = phoneNumberEtContent.value
             )
-            profileRepo.updateProfile(file,user)
+            profileRepo.updateProfile(file, user)
         }
     }
 

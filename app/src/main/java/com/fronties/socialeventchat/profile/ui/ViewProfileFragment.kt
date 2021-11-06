@@ -25,7 +25,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-
 @AndroidEntryPoint
 class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
@@ -34,7 +33,8 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     var idRoom: Int? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -47,7 +47,6 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         profileViewModel.editMode = true
-
 
         binding.profileViewModel = profileViewModel
 
@@ -68,13 +67,13 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
                 } else {
                     binding.profileIv.setImageBitmap(it[it.lastIndex].profilePic)
                 }
-
             }
         })
 
         profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 updateProfile()
+//                profileViewModel.updateProfile(null, ImageUri)
                 Toast.makeText(context, "Profile updated!", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_viewProfileFragment_to_eventListFragment)
             }
@@ -97,28 +96,26 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
-    fun updateProfile(): Unit {
-        if (ImageUri != null){
+    fun updateProfile() {
+        if (ImageUri != null) {
             val bitmap = MediaStore.Images.Media.getBitmap(
                 requireActivity().contentResolver, ImageUri
             )
 
-            val file = persistImage(bitmap,"1",requireContext())
-            file?.let{
-                profileViewModel.updateProfile(file)
+            val file = persistImage(bitmap, "1", requireContext())
+            file?.let {
+                profileViewModel.updateProfile(file, ImageUri)
             }
+        } else {
+            profileViewModel.updateProfile(null, ImageUri)
         }
-        else{
-            profileViewModel.updateProfile(null)
-        }
-
     }
 
-    private fun persistImage(bitmap: Bitmap, name: String,context:Context): File? {
+    private fun persistImage(bitmap: Bitmap, name: String, context: Context): File? {
 
         val mediaStorageDir = File(context.getExternalFilesDir(null)?.absoluteFile, "MyDirName")
 
-        if(!mediaStorageDir.exists()){
+        if (!mediaStorageDir.exists()) {
             mediaStorageDir.mkdir()
         }
 

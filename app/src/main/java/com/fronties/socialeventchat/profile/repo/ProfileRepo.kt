@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.profile.repo
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.room.ProfileEntity
@@ -17,6 +18,7 @@ interface ProfileRepo {
 
     suspend fun updateProfile(rb: File?, user: User): User?
 
-
     fun loadAllProfile(): LiveData<List<ProfileEntity>>
+
+    fun createImageFile(imageUri: Uri?): File?
 }
