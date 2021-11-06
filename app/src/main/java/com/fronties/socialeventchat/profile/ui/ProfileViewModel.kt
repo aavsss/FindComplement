@@ -52,8 +52,8 @@ class ProfileViewModel @Inject constructor(
     val listenerForProfileImage: LiveData<Event<Unit>>
         get() = _listenerForProfileImage
 
-    val _profileImage = MutableLiveData<Bitmap>()
-    val profileImage: LiveData<Bitmap>
+    val _profileImage = MutableLiveData<Uri>()
+    val profileImage: LiveData<Uri>
         get() = _profileImage
 
     private val _profileImageUri = MutableLiveData<Event<Uri>>()
@@ -80,7 +80,7 @@ class ProfileViewModel @Inject constructor(
         firstName: String?,
         lastName: String?,
         phoneNumber: String?,
-        profileImage: Bitmap?
+        profileImage: Uri?
     ) {
         val eachProfile = ProfileEntity(
             firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber!!
