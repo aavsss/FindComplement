@@ -27,16 +27,12 @@ class ProfileRepoImpl @Inject constructor(
     private val fileHandler: FileHandler,
     private val profileInfoValidator: ProfileInfoValidator
 ) : ProfileRepo {
-    override suspend fun updateProfile(firstName: String, lastName: String, phoneNumber: String) {
-//        TODO("Not yet implemented")
-        // Basic logic: need to match the id of the user with the id in the profile table.
-    }
 
     override suspend fun saveUserProfile(
         firstName: String?,
         lastName: String?,
-        phoneNumber: String?
-//        profilePic: Uri?
+        phoneNumber: String?,
+        profilePic: Uri?
     ) : Boolean {
         return if(
             profileInfoValidator.checkIfEntered(firstName) &&
@@ -47,8 +43,8 @@ class ProfileRepoImpl @Inject constructor(
                     sessionManager.fetchUid(),
                     firstName!!,
                     lastName!!,
-                    phoneNumber
-//                    profilePic
+                    phoneNumber,
+                    profilePic
                 )
             )
             true

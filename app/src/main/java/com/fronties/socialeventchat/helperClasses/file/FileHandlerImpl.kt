@@ -34,7 +34,6 @@ class FileHandlerImpl @Inject constructor(
             val bitmap = MediaStore.Images.Media.getBitmap(
                 context.contentResolver, imageUri
             )
-
             return persistImage(bitmap, fileName, fileType)
         }
         return null

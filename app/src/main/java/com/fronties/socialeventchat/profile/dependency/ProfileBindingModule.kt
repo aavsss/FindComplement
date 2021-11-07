@@ -1,10 +1,11 @@
-
 package com.fronties.socialeventchat.profile.dependency
 
 import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
 import com.fronties.socialeventchat.authentication.repo.AuthenticationRepoImpl
 import com.fronties.socialeventchat.authentication.validator.EmailValidator
 import com.fronties.socialeventchat.authentication.validator.EmailValidatorImpl
+import com.fronties.socialeventchat.profile.repo.ProfileInfoValidator
+import com.fronties.socialeventchat.profile.repo.ProfileInfoValidatorImpl
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
 import com.fronties.socialeventchat.profile.repo.ProfileRepoImpl
 import dagger.Binds
@@ -22,4 +23,10 @@ abstract class ProfileBindingModule {
     abstract fun bindProfileRepo(
         profileRepoImpl: ProfileRepoImpl
     ): ProfileRepo
+
+    @Singleton
+    @Binds
+    abstract fun bindProfileInfoValidator(
+        profileInfoValidatorImpl: ProfileInfoValidatorImpl
+    ): ProfileInfoValidator
 }

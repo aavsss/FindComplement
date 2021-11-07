@@ -35,10 +35,8 @@ class ProfileViewModel @Inject constructor(
 
     @Bindable
     val firstNameEtContent = MutableLiveData<String>()
-
     @Bindable
     val lastNameEtContent = MutableLiveData<String>()
-
     @Bindable
     val phoneNumberEtContent = MutableLiveData<String>()
 
@@ -59,7 +57,6 @@ class ProfileViewModel @Inject constructor(
         get() = _profileInfoInvalid
 
     fun saveProfileButtonClicked() {
-
         val file = profileRepo.createImageFile(
             _profileImageUri.value?.peekContent()
         )
@@ -71,8 +68,8 @@ class ProfileViewModel @Inject constructor(
                 profileRepo.saveUserProfile(
                     firstNameEtContent.value,
                     lastNameEtContent.value,
-                    phoneNumberEtContent.value
-//                    profileImageUri.value?.peekContent()
+                    phoneNumberEtContent.value,
+                    profileImageUri.value?.peekContent()
                 )
             ){
                 updateProfile(file)
@@ -81,31 +78,9 @@ class ProfileViewModel @Inject constructor(
                 _profileInfoInvalid.value = Event(Unit)
             }
         }
-//        saveUserProfile(
-//            firstNameEtContent.value,
-//            lastNameEtContent.value,
-//            phoneNumberEtContent.value,
-//            profileImageUri.value?.peekContent()
-//        )
-
-
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
-
-//    private fun saveUserProfile(
-//        firstName: String?,
-//        lastName: String?,
-//        phoneNumber: String?,
-//        profileImage: Uri?
-//    ) {
-//        val eachProfile = ProfileEntity(
-//            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber
-//        )
-//        eachProfile.profilePic = profileImage
-//
-//
-//    }
 
     fun profileImageClicked() {
         _listenerForProfileImage.value = Event(Unit)
@@ -113,7 +88,6 @@ class ProfileViewModel @Inject constructor(
 
     private fun updateProfile(file: File?) {
         viewModelScope.launch {
-
             val user = User(
                 firstname = firstNameEtContent.value,
                 lastname = lastNameEtContent.value,
@@ -128,13 +102,6 @@ class ProfileViewModel @Inject constructor(
             _profileImageUri.value = Event(it)
         }
     }
-
-    // region TODO remove after fix
-    fun testImageFile(): File? {
-        val file = profileRepo.getImageFile()
-        return file
-    }
-    // endregion
 
     fun skipProfileButtonClicked() {}
 }// class ends here

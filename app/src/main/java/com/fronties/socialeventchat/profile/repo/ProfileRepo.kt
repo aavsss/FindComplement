@@ -8,13 +8,7 @@ import java.io.File
 
 interface ProfileRepo {
 
-    suspend fun updateProfile(
-        firstName: String,
-        lastName: String,
-        phoneNumber: String
-    )
-
-    suspend fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?) : Boolean
+    suspend fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?, profilePic: Uri?) : Boolean
 
     suspend fun updateProfile(rb: File?, user: User): User?
 

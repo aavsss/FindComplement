@@ -38,9 +38,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 profileViewModel.setValueOfImageUri(result.data?.data)
-
                 ImageUri = result.data?.data
-//                binding.profileIv.setImageURI(ImageUri)
             }
         }
 
@@ -84,8 +82,6 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
         profileViewModel.listenerForProfileToEventFeed.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-//                updateProfile()
-//                profileViewModel.updateProfile(ImageUri)
                 Toast.makeText(context, "Profile updated!", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_viewProfileFragment_to_eventListFragment)
             }
@@ -109,49 +105,7 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             Toast.makeText(context, "Enter a valid first and last name!", Toast.LENGTH_LONG).show()
         }
 
-//        val testFile = profileViewModel.testImageFile()
-//        Glide.with(this)
-//            .load(testFile?.toUri())
-//            .into(binding.profileIv)
     }
 
-    fun updateProfile() {
-        if (ImageUri != null) {
-            val bitmap = MediaStore.Images.Media.getBitmap(
-                requireActivity().contentResolver, ImageUri
-            )
 
-            val file = persistImage(bitmap, "1", requireContext())
-            file?.let {
-//                profileViewModel.updateProfile(file, ImageUri)
-            }
-        } else {
-//            profileViewModel.updateProfile(null, ImageUri)
-        }
-    }
-
-    private fun persistImage(bitmap: Bitmap, name: String, context: Context): File? {
-
-        val mediaStorageDir = File(context.getExternalFilesDir(null)?.absoluteFile, "MyDirName")
-
-        if (!mediaStorageDir.exists()) {
-            mediaStorageDir.mkdir()
-        }
-
-        val imageFile = File(mediaStorageDir, "$name.jpg")
-        val os: OutputStream
-        try {
-            val bytes = ByteArrayOutputStream()
-            os = FileOutputStream(imageFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, bytes)
-//            profileViewModel._profileImage.value = bitmap // TODO
-            os.write(bytes.toByteArray())
-            os.flush()
-            os.close()
-            return imageFile
-        } catch (e: Exception) {
-            Log.e(javaClass.simpleName, "Error writing bitmap", e)
-        }
-        return null
-    }
 }
