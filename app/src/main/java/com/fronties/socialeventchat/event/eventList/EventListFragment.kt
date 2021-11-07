@@ -34,6 +34,7 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
 
         val adapter = EventListAdapter()
         viewModel.getEventList() // setup event list in viewModel
+        viewModel.loadProfilePic()
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter
@@ -47,6 +48,12 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
                 findNavController().navigate(
                     R.id.action_eventListFragment_to_addEventFragment
                 )
+            }
+        }
+
+        viewModel.profilePic.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { uri ->
+                binding.imgProfile.setImageURI(uri)
             }
         }
 
