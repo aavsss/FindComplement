@@ -62,7 +62,6 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
         // TODO: this is untidy, need to clean it up. Just a quick thing for demo
         profileViewModel.loadById()?.observe(viewLifecycleOwner, {
-            it
             idRoom = it?.id
             binding.firstNameEt.setText(it?.firstName)
             binding.lastNameEt.setText(it?.lastName)

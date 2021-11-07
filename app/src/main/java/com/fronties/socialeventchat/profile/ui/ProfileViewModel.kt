@@ -82,6 +82,8 @@ class ProfileViewModel @Inject constructor(
 
     fun loadAll() = profileRepo.loadAllProfile()
 
+    fun loadById() = profileRepo.loadById()
+
     fun profileImageClicked() {
         _listenerForProfileImage.value = Event(Unit)
     }

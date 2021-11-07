@@ -14,6 +14,8 @@ interface ProfileRepo {
 
     fun loadAllProfile(): LiveData<List<ProfileEntity>>
 
+    fun loadById(): LiveData<ProfileEntity?>?
+
     fun createImageFile(imageUri: Uri?): File?
 
     fun getImageFile(): File?
