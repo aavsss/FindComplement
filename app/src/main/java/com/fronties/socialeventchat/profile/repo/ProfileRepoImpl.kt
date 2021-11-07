@@ -58,6 +58,10 @@ class ProfileRepoImpl @Inject constructor(
         return profileDao.loadAllProfile()
     }
 
+    override fun loadById(): LiveData<ProfileEntity?>? {
+        return profileDao.loadProfileById(sessionManager.fetchUid())
+    }
+
     override fun createImageFile(imageUri: Uri?): File? {
         return fileHandler.createFile(
             imageUri,
