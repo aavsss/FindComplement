@@ -14,7 +14,7 @@ interface ProfileRepo {
         phoneNumber: String
     )
 
-    suspend fun saveUserProfile(profileEntity: ProfileEntity)
+    suspend fun saveUserProfile(firstName: String?, lastName: String?, phoneNumber: String?) : Boolean
 
     suspend fun updateProfile(rb: File?, user: User): User?
 

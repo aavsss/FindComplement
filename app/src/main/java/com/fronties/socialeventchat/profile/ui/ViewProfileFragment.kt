@@ -105,6 +105,10 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
+        profileViewModel.profileInfoInvalid.observe(viewLifecycleOwner){
+            Toast.makeText(context, "Enter a valid first and last name!", Toast.LENGTH_LONG).show()
+        }
+
 //        val testFile = profileViewModel.testImageFile()
 //        Glide.with(this)
 //            .load(testFile?.toUri())

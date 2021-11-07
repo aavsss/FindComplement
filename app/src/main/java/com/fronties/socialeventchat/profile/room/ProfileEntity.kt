@@ -14,6 +14,7 @@ class ProfileEntity(
     @ColumnInfo(name = "firstName") var firstName: String,
     @ColumnInfo(name = "lastName") var lastName:String,
     @ColumnInfo(name = "phoneNumber") var phoneNumber: String?
+//    @ColumnInfo(name = "profilePic") var profilePic: Uri?
 )
 {
     var profilePic: Uri? = null

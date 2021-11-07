@@ -1,8 +1,6 @@
 package com.fronties.socialeventchat.profile.ui
 
-import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
@@ -12,7 +10,6 @@ import androidx.lifecycle.*
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
-import com.fronties.socialeventchat.profile.room.ProfileEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -57,6 +54,10 @@ class ProfileViewModel @Inject constructor(
     val profileImageUri: LiveData<Event<Uri?>>
         get() = _profileImageUri
 
+    private val _profileInfoInvalid = MutableLiveData<Event<Unit>>()
+    val profileInfoInvalid : LiveData<Event<Unit>>
+        get() = _profileInfoInvalid
+
     fun saveProfileButtonClicked() {
 
         val file = profileRepo.createImageFile(
@@ -65,35 +66,46 @@ class ProfileViewModel @Inject constructor(
 
         _profileImageUri.value = Event(file?.toUri())
 
-        saveUserProfile(
-            firstNameEtContent.value,
-            lastNameEtContent.value,
-            phoneNumberEtContent.value,
-            profileImageUri.value?.peekContent()
-        )
+        viewModelScope.launch {
+            if(
+                profileRepo.saveUserProfile(
+                    firstNameEtContent.value,
+                    lastNameEtContent.value,
+                    phoneNumberEtContent.value
+//                    profileImageUri.value?.peekContent()
+                )
+            ){
+                updateProfile(file)
+                _listenerForProfileToEventFeed.value = Event(Unit)
+            } else {
+                _profileInfoInvalid.value = Event(Unit)
+            }
+        }
+//        saveUserProfile(
+//            firstNameEtContent.value,
+//            lastNameEtContent.value,
+//            phoneNumberEtContent.value,
+//            profileImageUri.value?.peekContent()
+//        )
 
-        updateProfile(file)
 
-        _listenerForProfileToEventFeed.value = Event(Unit)
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
 
-    private fun saveUserProfile(
-        firstName: String?,
-        lastName: String?,
-        phoneNumber: String?,
-        profileImage: Uri?
-    ) {
-        val eachProfile = ProfileEntity(
-            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber
-        )
-        eachProfile.profilePic = profileImage
-
-        viewModelScope.launch {
-            profileRepo.saveUserProfile(eachProfile)
-        }
-    }
+//    private fun saveUserProfile(
+//        firstName: String?,
+//        lastName: String?,
+//        phoneNumber: String?,
+//        profileImage: Uri?
+//    ) {
+//        val eachProfile = ProfileEntity(
+//            firstName = firstName!!, lastName = lastName!!, phoneNumber = phoneNumber
+//        )
+//        eachProfile.profilePic = profileImage
+//
+//
+//    }
 
     fun profileImageClicked() {
         _listenerForProfileImage.value = Event(Unit)
