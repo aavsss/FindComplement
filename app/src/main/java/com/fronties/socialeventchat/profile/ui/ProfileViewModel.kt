@@ -6,7 +6,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.*
-
+import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
@@ -20,6 +20,8 @@ class ProfileViewModel @Inject constructor(
     private val profileRepo: ProfileRepo
 ) : ViewModel(), Observable {
 
+    @Inject
+    lateinit var sessionManager: SessionManager
     // flag for if we are CREATING profile (editMode false) or UPDATING profile (editMode true)
     var editMode = false
 
@@ -106,4 +108,4 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun skipProfileButtonClicked() {}
-}// class ends here
+} // class ends here

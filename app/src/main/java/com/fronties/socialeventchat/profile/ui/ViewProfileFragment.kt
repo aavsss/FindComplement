@@ -1,38 +1,28 @@
 package com.fronties.socialeventchat.profile.ui
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 
 @AndroidEntryPoint
 class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
     lateinit var profileViewModel: ProfileViewModel
     var ImageUri: Uri? = null
-    var idRoom: Int? = null
 
     private val launchSomeActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -62,11 +52,10 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
 
         // TODO: this is untidy, need to clean it up. Just a quick thing for demo
         profileViewModel.loadById()?.observe(viewLifecycleOwner, {
-            idRoom = it?.id
             binding.firstNameEt.setText(it?.firstName)
             binding.lastNameEt.setText(it?.lastName)
             binding.phoneNumberEt.setText(it?.phoneNumber)
-            if (it?.profilePic.toString().isNullOrEmpty()) {
+            if (it?.profilePic.toString().isEmpty()) {
                 binding.profileIv.setImageDrawable(
                     ContextCompat.getDrawable(
                         requireActivity(),
@@ -99,11 +88,8 @@ class ViewProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
-        profileViewModel.profileInfoInvalid.observe(viewLifecycleOwner){
+        profileViewModel.profileInfoInvalid.observe(viewLifecycleOwner) {
             Toast.makeText(context, "Enter a valid first and last name!", Toast.LENGTH_LONG).show()
         }
-
     }
-
-
 }

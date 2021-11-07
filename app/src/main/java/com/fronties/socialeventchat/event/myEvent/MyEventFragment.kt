@@ -30,6 +30,7 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())
             .get(MyEventViewModel::class.java)
+        viewModel.loadProfilePic()
 
         val adapter = EventListAdapter()
 
@@ -39,6 +40,12 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
         viewModel.eventList.observe(viewLifecycleOwner) {
             it.data?.getContentIfNotHandled()?.let { list ->
                 adapter.submitList(list)
+            }
+        }
+
+        viewModel.profilePic.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { uri ->
+                binding.imgProfile.setImageURI(uri)
             }
         }
 
