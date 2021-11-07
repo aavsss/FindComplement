@@ -24,16 +24,34 @@ class ProfileRepoImpl @Inject constructor(
     private val profileApi: ProfileApi,
     private val gson: Gson,
     private val sessionManager: SessionManager,
-    private val fileHandler: FileHandler
+    private val fileHandler: FileHandler,
+    private val profileInfoValidator: ProfileInfoValidator
 ) : ProfileRepo {
 
+    override suspend fun saveUserProfile(
+        firstName: String?,
+        lastName: String?,
+        phoneNumber: String?,
+        profilePic: Uri?
+    ) : Boolean {
+        return if(
+            profileInfoValidator.checkIfEntered(firstName) &&
+            profileInfoValidator.checkIfEntered(lastName)
+        ){
+            profileDao.insertProfile(
+                ProfileEntity(
+                    sessionManager.fetchUid(),
+                    firstName!!,
+                    lastName!!,
+                    phoneNumber,
+                    profilePic
+                )
+            )
+            true
+        } else {
+            false
+        }
 
-    override fun getCurrentUser(): LiveData<ProfileEntity?>? {
-        return profileDao.loadProfileById(sessionManager.fetchUid())
-    }
-
-    override suspend fun saveUserProfile(profileEntity: ProfileEntity) {
-        profileDao.insertProfile(profileEntity)
     }
 
     override fun loadAllProfile(): LiveData<List<ProfileEntity>> {

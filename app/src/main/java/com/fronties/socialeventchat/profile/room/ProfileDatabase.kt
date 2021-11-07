@@ -10,7 +10,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [ProfileEntity::class], version = 1, exportSchema = false)
-@TypeConverters(BitmapConverters::class, UriConverters::class)
+@TypeConverters(UriConverters::class)
 abstract class ProfileDatabase : RoomDatabase() {
 
     abstract fun profileDao(): ProfileDao

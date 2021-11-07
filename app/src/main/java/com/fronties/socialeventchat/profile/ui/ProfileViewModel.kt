@@ -6,12 +6,10 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.*
-import com.fronties.socialeventchat.application.session.SessionManager
 
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.profile.model.User
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
-import com.fronties.socialeventchat.profile.room.ProfileEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -22,8 +20,6 @@ class ProfileViewModel @Inject constructor(
     private val profileRepo: ProfileRepo
 ) : ViewModel(), Observable {
 
-    @Inject
-    lateinit var sessionManager: SessionManager
     // flag for if we are CREATING profile (editMode false) or UPDATING profile (editMode true)
     var editMode = false
 
@@ -39,10 +35,8 @@ class ProfileViewModel @Inject constructor(
 
     @Bindable
     val firstNameEtContent = MutableLiveData<String>()
-
     @Bindable
     val lastNameEtContent = MutableLiveData<String>()
-
     @Bindable
     val phoneNumberEtContent = MutableLiveData<String>()
 
@@ -58,48 +52,35 @@ class ProfileViewModel @Inject constructor(
     val profileImageUri: LiveData<Event<Uri?>>
         get() = _profileImageUri
 
-    fun saveProfileButtonClicked() {
+    private val _profileInfoInvalid = MutableLiveData<Event<Unit>>()
+    val profileInfoInvalid : LiveData<Event<Unit>>
+        get() = _profileInfoInvalid
 
+    fun saveProfileButtonClicked() {
         val file = profileRepo.createImageFile(
             _profileImageUri.value?.peekContent()
         )
 
         _profileImageUri.value = Event(file?.toUri())
 
-        saveUserProfile(
-            firstNameEtContent.value,
-            lastNameEtContent.value,
-            phoneNumberEtContent.value,
-            profileImageUri.value?.peekContent()
-        )
-
-        updateProfile(file)
-
-        _listenerForProfileToEventFeed.value = Event(Unit)
+        viewModelScope.launch {
+            if(
+                profileRepo.saveUserProfile(
+                    firstNameEtContent.value,
+                    lastNameEtContent.value,
+                    phoneNumberEtContent.value,
+                    profileImageUri.value?.peekContent()
+                )
+            ){
+                updateProfile(file)
+                _listenerForProfileToEventFeed.value = Event(Unit)
+            } else {
+                _profileInfoInvalid.value = Event(Unit)
+            }
+        }
     }
 
     fun loadAll() = profileRepo.loadAllProfile()
-
-    fun loadById() = profileRepo.getCurrentUser()
-
-    private fun saveUserProfile(
-        firstName: String?,
-        lastName: String?,
-        phoneNumber: String?,
-        profileImage: Uri?
-    ) {
-        val eachProfile = ProfileEntity(
-            id = sessionManager.fetchUid(),
-            firstName = firstName!!,
-            lastName = lastName!!,
-            phoneNumber = phoneNumber
-        )
-        eachProfile.profilePic = profileImage
-
-        viewModelScope.launch {
-            profileRepo.saveUserProfile(eachProfile)
-        }
-    }
 
     fun profileImageClicked() {
         _listenerForProfileImage.value = Event(Unit)
@@ -107,7 +88,6 @@ class ProfileViewModel @Inject constructor(
 
     private fun updateProfile(file: File?) {
         viewModelScope.launch {
-
             val user = User(
                 firstname = firstNameEtContent.value,
                 lastname = lastNameEtContent.value,
