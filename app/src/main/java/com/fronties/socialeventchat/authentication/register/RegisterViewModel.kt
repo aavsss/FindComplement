@@ -54,6 +54,10 @@ class RegisterViewModel @Inject constructor(
     val listenerForRegisterError: LiveData<Event<String?>>
         get() = _listenerForRegisterError
 
+    private val _listenerForLoginTv = MutableLiveData<Event<Unit>>()
+    val listenerForLoginTv: LiveData<Event<Unit>>
+        get() = _listenerForLoginTv
+
     fun registerButtonClicked() {
         _usernameForRegister.value = usernameRegisterEtContent.value
         _passwordForRegister.value = passwordRegisterEtContent.value
@@ -78,10 +82,9 @@ class RegisterViewModel @Inject constructor(
                 }
             }
         }
-//        Register user
-//        *** Uncomment Below Method***
-//        registerUser(usernameForRegister.value,passwordForRegister.value)
+    }
 
-//        Take User to Profile Section
+    fun loginTvClicked() {
+        _listenerForLoginTv.value = Event(Unit)
     }
 }

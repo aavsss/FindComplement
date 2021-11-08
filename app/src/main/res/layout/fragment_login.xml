@@ -12,12 +12,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginFragment">
+        tools:context=".LoginFragment"
+        android:paddingTop="128dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            >
 
             <TextView
                 android:id="@+id/title"
@@ -25,24 +29,32 @@
                 android:layout_height="wrap_content"
                 android:text="Login"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:textSize="32sp"
-                android:textColor="@color/primary_color"
-                android:layout_marginVertical="48dp" />
+                android:textColor="#ff7539"
+                android:layout_marginBottom="32dp"
+                 />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/username_et_layout"
+                android:id="@+id/username_et"
                 android:layout_width="match_parent"
-                android:hint="Enter email"
-                android:layout_margin="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
+                android:hint="Enter Email ..."
+                android:layout_marginTop="16dp"
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/username_et"
+                >
+                <EditText
+                    android:id="@+id/register_username_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:text="@={loginViewModel.usernameLoginEtContent}" />
-
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeColor="#00ffffff"
+                    android:background="@drawable/round_corners"
+                    android:text="@={loginViewModel.usernameLoginEtContent}"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -50,87 +62,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter password"
-                app:boxBackgroundColor="@color/white"
                 app:boxStrokeWidth="0dp"
-                app:boxStrokeColor="@color/gray"
-                android:layout_margin="10dp">
+                app:boxStrokeColor="#00ffffff"
+                android:layout_marginTop="16dp"
+                >
 
                 <EditText
                     android:id="@+id/password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
+                    android:background="@drawable/round_corners"
                     android:text="@={loginViewModel.passwordLoginEtContent}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="login"
-                android:paddingHorizontal="134dp"
-                android:paddingVertical="14dp"
                 android:layout_marginTop="16dp"
                 android:id="@+id/login_button"
                 android:layout_gravity="center"
+                android:background="@drawable/round_corners"
                 android:onClick="@{()-> loginViewModel.loginButtonClicked()}"
                 />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                >
 
                 <TextView
                     android:id="@+id/forgot_pw_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="forgot password?"
+                    android:text="Forgot password?"
+                    android:textStyle="bold"
                     android:gravity="left"
                     android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:layout_marginLeft="10dp"
+
                     />
+
 
                 <TextView
                     android:id="@+id/tv_sign_up"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Sign up"
+                    android:text="Sign Up"
+                    android:textSize="16sp"
+                    android:textColor="#ff7539"
                     android:gravity="end"
                     android:layout_weight="1"
-                    android:layout_marginRight="10dp"
+
                     android:textStyle="bold"
+                    android:onClick="@{()-> loginViewModel.registerButtonClicked()}"
                     />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="-----  Not a member?  -----"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:layout_marginVertical="20dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:paddingHorizontal="70dp"
-                android:id="@+id/register_button"
-                android:layout_gravity="center"
-                android:background="#E1BEE7"
-                android:onClick="@{()-> loginViewModel.registerButtonClicked()}"
-
-                />
-
 
         </LinearLayout>
 
