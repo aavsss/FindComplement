@@ -28,8 +28,8 @@
                 android:id="@+id/skip_button_profile"
                 android:layout_gravity="end"
                 android:layout_margin="20dp"
-                android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
+                android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 />
 
             <ImageView
