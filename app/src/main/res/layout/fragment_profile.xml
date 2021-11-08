@@ -13,33 +13,60 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginFragment">
+        tools:context=".LoginFragment"
+
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#fff"
+            android:paddingHorizontal="32dp"
+            >
 
-            <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="skip >>"
-                android:paddingHorizontal="32dp"
+                android:layout_gravity="right"
+                android:text="Skip > >"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#0288d1"
                 android:id="@+id/skip_button_profile"
-                android:layout_gravity="end"
-                android:layout_margin="20dp"
+                android:layout_marginTop="16dp"
                 android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
                 />
 
-            <ImageView
-                android:id="@+id/profile_iv"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="155dp"
+                android:layout_height="155dp"
+                app:cardCornerRadius="250dp"
                 android:layout_gravity="center"
-                android:layout_margin="20dp"
-                android:src="@drawable/ic_person_24_24"
-                android:onClick="@{() -> profileViewModel.profileImageClicked()}" />
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginTop="16dp"
+                android:visibility="@{profileViewModel.editMode ? View.VISIBLE : View.GONE}"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="250dp"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/profile_iv"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ic_person_24_24"
+                        android:scaleType="centerCrop"
+                        android:onClick="@{() -> profileViewModel.profileImageClicked()}"
+                        />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
@@ -47,23 +74,32 @@
                 android:text="Profile"
                 android:gravity="center"
                 android:textSize="32sp"
-                android:textColor="@color/primary_color"
-                android:layout_marginVertical="20dp" />
+                android:textStyle="bold"
+                android:textColor="#ff7539"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="16dp"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/first_name_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
                 android:hint="First Name *"
-                android:layout_margin="10dp">
+                android:layout_marginTop="16dp"
 
-                <com.google.android.material.textfield.TextInputEditText
+                >
+                <EditText
                     android:id="@+id/first_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="@={profileViewModel.firstNameEtContent}" />
-
+                    android:inputType="textEmailAddress"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeColor="#00ffffff"
+                    android:background="@drawable/round_corners"
+                    android:text="@={profileViewModel.firstNameEtContent}"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,14 +107,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Last Name *"
-                android:layout_margin="10dp">
+                android:layout_marginTop="16dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
+                >
 
                 <EditText
                     android:id="@+id/last_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={profileViewModel.lastNameEtContent}" />
+                    android:text="@={profileViewModel.lastNameEtContent}"
+                    android:background="@drawable/round_corners"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +129,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
-                android:layout_margin="10dp">
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
+                android:layout_marginTop="16dp"
+
+                >
 
                 <EditText
                     android:id="@+id/phone_number_et"
@@ -96,17 +141,20 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:text="@={profileViewModel.phoneNumberEtContent}"
+                    android:background="@drawable/round_corners"
+
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="save"
-                android:paddingHorizontal="80dp"
+                android:layout_marginTop="16dp"
                 android:id="@+id/save_button_profile"
                 android:layout_gravity="center"
+                android:background="@drawable/round_corners"
                 android:onClick="@{()-> profileViewModel.saveProfileButtonClicked()}"
                 />
             

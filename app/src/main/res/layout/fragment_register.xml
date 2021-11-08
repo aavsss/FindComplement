@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -11,12 +12,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".authentication.register.RegisterFragment">
+        tools:context=".authentication.register.RegisterFragment"
+        android:paddingTop="128dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="32dp"
+            >
 
             <TextView
                 android:id="@+id/title"
@@ -24,22 +29,31 @@
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:textSize="32sp"
-                android:textColor="@color/primary_color"
-                android:layout_marginVertical="48dp" />
+                android:textColor="#ff7539"
+                android:layout_marginBottom="32dp"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/register_username_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter email"
-                android:layout_margin="10dp">
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
+                android:hint="Enter Email ..."
+                android:layout_marginTop="16dp"
 
-                    <com.google.android.material.textfield.TextInputEditText
+                >
+
+                    <EditText
                         android:id="@+id/register_username_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeColor="#00ffffff"
+                        android:background="@drawable/round_corners"
                         android:text="@={registerViewModel.usernameRegisterEtContent}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -48,8 +62,11 @@
                 android:id="@+id/register_password_et_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter password"
-                android:layout_margin="10dp">
+                android:hint="Enter Password ..."
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
+                android:layout_marginTop="16dp"
+                >
 
                 <EditText
                     android:id="@+id/register_password_et"
@@ -57,28 +74,56 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:text="@={registerViewModel.passwordRegisterEtContent}"
+                    android:background="@drawable/round_corners"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:layout_marginTop="16dp"
-                android:paddingHorizontal="123dp"
                 android:id="@+id/register_button"
-                android:layout_gravity="center"
-                android:background="@drawable/round_corners"
                 android:gravity="center"
+                android:background="@drawable/round_corners"
                 android:onClick="@{()-> registerViewModel.registerButtonClicked()}"
                 />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_login"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Already have an account? Log In"
-                android:layout_marginTop="10dp"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                >
+
+                <TextView
+                    android:id="@+id/forgot_pw_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Already have an account?"
+                    android:textStyle="bold"
+                    android:gravity="right"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/tv_sign_up"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Log In"
+                    android:textSize="16sp"
+                    android:textColor="#ff7539"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:onClick="@{()-> registerViewModel.loginTvClicked()}"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </LinearLayout>
 
