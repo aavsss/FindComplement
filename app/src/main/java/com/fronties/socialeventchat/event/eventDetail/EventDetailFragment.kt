@@ -54,6 +54,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         subscribeToNavToChat()
         subscribeToErrorView()
         subscribeToAttendEvent()
+
     }
 
     private fun subscribeToErrorView() {
