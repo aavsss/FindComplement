@@ -9,15 +9,12 @@ class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
 
 
     override fun getDateString(isoDate: String): String {
-//        TODO("Not yet implemented")
-//        val dateString = LocalDate.parse(isoDate,
-//            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
         return try {
             val date = format.parse(isoDate)
             val calendar = Calendar.getInstance()
             calendar.time = date!!
-            val month = calendar.get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH) + 1
             val day = calendar.get(Calendar.DATE)
             val year = calendar.get(Calendar.YEAR)
             "$month/$day/$year"

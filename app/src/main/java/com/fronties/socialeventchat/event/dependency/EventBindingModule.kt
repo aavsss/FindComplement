@@ -4,6 +4,8 @@ import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.addEvent.EventTransformerImpl
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.event.repo.EventRepoImpl
+import com.fronties.socialeventchat.profile.repo.ProfileRepo
+import com.fronties.socialeventchat.profile.repo.ProfileRepoImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
