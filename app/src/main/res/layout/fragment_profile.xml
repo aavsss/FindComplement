@@ -35,8 +35,8 @@
                 android:textColor="#0288d1"
                 android:id="@+id/skip_button_profile"
                 android:layout_marginTop="16dp"
-                android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
+                android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 />
 
             <androidx.cardview.widget.CardView
