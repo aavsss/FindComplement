@@ -43,19 +43,20 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             }
         }
 
+        registerViewModel.listenerForLoginTv.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            }
+        }
+
         registerViewModel.listenerForRegisterError.observe(viewLifecycleOwner){
             it.getContentIfNotHandled()?.let{ error->
                 var dialog = CustomDialog(error)
-
                 dialog.show(
                     childFragmentManager, "customDialogFragment"
                 )
             }
         }
-
-//        registerViewModel.passwordRegisterEtContent.observe(viewLifecycleOwner, Observer {
-//
-//        })
     }
 
 }
