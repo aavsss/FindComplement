@@ -34,8 +34,7 @@
                 android:textSize="20sp"
                 android:textColor="#0288d1"
                 android:id="@+id/skip_button_profile"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:onClick="@{()-> profileViewModel.skipProfileButtonClicked()}"
                 android:visibility="@{profileViewModel.editMode ? View.GONE : View.VISIBLE}"
                 />
@@ -46,7 +45,8 @@
                 app:cardCornerRadius="250dp"
                 android:layout_gravity="center"
                 app:cardBackgroundColor="@color/white"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="16dp"
+                android:visibility="@{profileViewModel.editMode ? View.VISIBLE : View.GONE}"
                 >
 
                 <androidx.cardview.widget.CardView
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeColor="#00ffffff"
-                android:hint="Enter Email ..."
+                android:hint="First Name *"
                 android:layout_marginTop="16dp"
 
                 >
