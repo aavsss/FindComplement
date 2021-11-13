@@ -36,17 +36,6 @@ class EventListViewModel @Inject constructor(
     val profilePic: LiveData<Event<Uri?>>
         get() = _profilePic
 
-    val joinEvent: (SocialEvents) -> Unit = {
-        viewModelScope.launch {
-            try {
-                eventRepo.attendEvent(it.eid!!)
-            } catch (e: Exception) {
-                _errorViewListener.value = Event(Unit)
-                return@launch
-            }
-        }
-    }
-
     fun getEventList() {
         viewModelScope.launch {
             val eventsList = try {
@@ -56,6 +45,17 @@ class EventListViewModel @Inject constructor(
                 return@launch
             }
             _eventList.value = Resource.success(eventsList)
+        }
+    }
+
+    fun attendEvent(event: SocialEvents) {
+        viewModelScope.launch {
+            try {
+                eventRepo.attendEvent(event.eid!!)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fronties.socialeventchat.databinding.ItemEventListBinding
 import com.fronties.socialeventchat.event.eventList.EventListFragmentDirections
+import com.fronties.socialeventchat.event.eventList.EventListViewModel
 import com.fronties.socialeventchat.event.model.SocialEvents
 import java.util.*
 import kotlin.collections.ArrayList
@@ -19,10 +20,12 @@ class EventListAdapter() :
 
     var eventFilterList: MutableList<SocialEvents>? = this.currentList
     var allEventList: MutableList<SocialEvents> = this.currentList
-    lateinit var joinCallback: (SocialEvents) -> Unit
+    private var eventListViewModel: EventListViewModel? = null
 
-    constructor(joinCallback: ((SocialEvents) -> Unit)) : this() {
-        this.joinCallback = joinCallback
+    constructor(
+        eventListViewModel: EventListViewModel
+    ) : this() {
+        this.eventListViewModel = eventListViewModel
     }
 
     override fun onCurrentListChanged(
@@ -36,7 +39,7 @@ class EventListAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemEventListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, joinCallback)
+        return ViewHolder(binding, eventListViewModel)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -72,7 +75,7 @@ class EventListAdapter() :
 
     class ViewHolder(
         private val binding: ItemEventListBinding,
-        private val joinCallback: (SocialEvents) -> Unit
+        private val eventListViewModel: EventListViewModel?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -83,8 +86,12 @@ class EventListAdapter() :
                     .actionEventListFragmentToEventDetailFragment(event.eid!!)
                 it.findNavController().navigate(action)
             }
-            binding.btnJoin.setOnClickListener {
-                joinCallback.invoke(event)
+
+            eventListViewModel?.let { eventListViewModel ->
+                binding.btnJoin.setOnClickListener {
+                    eventListViewModel.attendEvent(event)
+                    eventListViewModel.getEventList()
+                }
             }
         }
     }

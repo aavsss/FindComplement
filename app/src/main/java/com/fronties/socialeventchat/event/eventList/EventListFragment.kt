@@ -33,7 +33,9 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         viewModel = ViewModelProvider(requireActivity())
             .get(EventListViewModel::class.java)
 
-        val adapter = EventListAdapter(viewModel.joinEvent)
+        val adapter = EventListAdapter(
+            viewModel
+        )
         viewModel.getEventList() // setup event list in viewModel
         viewModel.loadProfilePic()
 
