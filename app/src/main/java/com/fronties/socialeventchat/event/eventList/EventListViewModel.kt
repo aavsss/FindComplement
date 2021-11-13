@@ -13,8 +13,8 @@ import com.fronties.socialeventchat.helperClasses.Resource
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
+import kotlin.Exception
 
 @HiltViewModel
 class EventListViewModel @Inject constructor(
@@ -35,6 +35,17 @@ class EventListViewModel @Inject constructor(
     private val _profilePic = MutableLiveData<Event<Uri?>>()
     val profilePic: LiveData<Event<Uri?>>
         get() = _profilePic
+
+    val joinEvent: (SocialEvents) -> Unit = {
+        viewModelScope.launch {
+            try {
+                eventRepo.attendEvent(it.eid!!)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
+        }
+    }
 
     fun getEventList() {
         viewModelScope.launch {
