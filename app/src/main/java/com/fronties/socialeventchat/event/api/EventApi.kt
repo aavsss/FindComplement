@@ -4,6 +4,7 @@ import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.event.model.AttendEventRequestBody
 import com.fronties.socialeventchat.event.model.EventResponse
 import com.fronties.socialeventchat.event.model.SocialEvents
+import com.fronties.socialeventchat.event.model.SortRequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -52,5 +53,10 @@ interface EventApi {
     @GET("/api/events/myevents/{uid}")
     suspend fun getMyEvents(
         @Path("uid") uid: Int
+    ): Response<List<SocialEvents>>
+
+    @POST("/api/events/sort")
+    suspend fun sortEvents(
+        @Body sortRequestBody: SortRequestBody
     ): Response<List<SocialEvents>>
 }

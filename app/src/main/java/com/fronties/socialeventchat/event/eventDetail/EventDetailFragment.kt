@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.chat.ui.ChatActivity
 import com.fronties.socialeventchat.databinding.FragmentEventDetailBinding
+import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +40,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         val eventId = args.eventId
+        val isAttending = args.isAttending
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.getEventDetails(eventId)
@@ -47,6 +49,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
             eventDetailViewModel.attendEvent(eventId)
         }
 
+        showChatButtonIfAttending(isAttending)
         subscribeToEventDetail()
         subscribeToNavToChat()
         subscribeToErrorView()
@@ -64,7 +67,6 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
     private fun subscribeToEventDetail() {
         eventDetailViewModel.eventDetail.observe(viewLifecycleOwner) {
-            binding.toolbarLayout.title = it.data?.name ?: "Yapey"
             binding.viewmodel = eventDetailViewModel
         }
     }
@@ -87,6 +89,13 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
             } else {
                 Toast.makeText(context, "Not attending event :(", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun showChatButtonIfAttending(isAttending: Int) {
+        if (isAttending == EventType.ATTENDED.value) {
+            binding.btnChat.visible()
+            binding.btnAttendEvent.gone()
         }
     }
 }

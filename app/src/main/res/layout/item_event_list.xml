@@ -125,6 +125,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/img_building"
                 android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:text="@{event.hostname}"
                 android:hint="Alpha, Gamma, "
                 app:layout_constraintTop_toBottomOf="@id/tv_event_name"/>
 

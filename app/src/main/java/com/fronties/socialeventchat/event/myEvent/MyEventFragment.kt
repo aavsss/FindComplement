@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentMyEventBinding
+import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +33,7 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
             .get(MyEventViewModel::class.java)
         viewModel.loadProfilePic()
 
-        val adapter = EventListAdapter()
+        val adapter = AttendingEventsAdapter()
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter
