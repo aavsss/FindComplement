@@ -25,6 +25,10 @@
             android:name="eventId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="isAttending"
+            app:argType="integer"
+            android:defaultValue="-1"/>
     </fragment>
 
     <fragment

@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentEventListBinding
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
+import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
+import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 
@@ -33,7 +35,9 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         viewModel = ViewModelProvider(requireActivity())
             .get(EventListViewModel::class.java)
 
-        val adapter = EventListAdapter()
+        val adapter = EventListAdapter(
+            viewModel
+        )
         viewModel.getEventList() // setup event list in viewModel
         viewModel.loadProfilePic()
 
@@ -58,18 +62,27 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
             }
         }
 
-        binding.svSearchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+        viewModel.listenerForSort.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                val sortDialog = SortingDialogFragment { sortType, sortOrder ->
+                    viewModel.sortEvents(sortType, sortOrder)
+                }
+                sortDialog.show(childFragmentManager, "sortDialog")
             }
+        }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
-                return false
-            }
+        binding.svSearchView.setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener,
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
 
-        })
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapter.filter.filter(newText)
+                    return false
+                }
+            })
 
         subscribeToErrorView()
     }

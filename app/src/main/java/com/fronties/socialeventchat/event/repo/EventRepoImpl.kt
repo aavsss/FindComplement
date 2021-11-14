@@ -1,19 +1,20 @@
 package com.fronties.socialeventchat.event.repo
 
-import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberException
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.SessionManager
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
-import com.fronties.socialeventchat.event.addEvent.MissingInfoException
 import com.fronties.socialeventchat.event.api.EventApi
+import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
+import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.model.AttendEventRequestBody
 import com.fronties.socialeventchat.event.model.SocialEvents
+import com.fronties.socialeventchat.event.model.SortRequestBody
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
 import java.io.IOException
-import java.lang.Exception
 import javax.inject.Inject
+import kotlin.Exception
 
 class EventRepoImpl @Inject constructor(
     private val eventApi: EventApi,
@@ -131,5 +132,19 @@ class EventRepoImpl @Inject constructor(
             Resource.error(e.localizedMessage ?: "Unknown error occured", null)
             return false
         }
+    }
+
+    override suspend fun sortEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents> {
+        try {
+            val sortEventResponse = eventApi.sortEvents(
+                SortRequestBody(sortType, sortOrder)
+            )
+            if (sortEventResponse.isSuccessful && sortEventResponse.body() != null) {
+                return sortEventResponse.body()!!
+            }
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error occured", null)
+        }
+        return emptyList()
     }
 }

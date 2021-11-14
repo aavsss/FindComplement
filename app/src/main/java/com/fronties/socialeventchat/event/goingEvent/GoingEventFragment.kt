@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentGoingEventBinding
+import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
 
 class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
@@ -30,7 +31,7 @@ class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
             .get(GoingEventViewModel::class.java)
         viewModel.loadProfilePic()
 
-        val adapter = EventListAdapter()
+        val adapter = AttendingEventsAdapter()
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter
