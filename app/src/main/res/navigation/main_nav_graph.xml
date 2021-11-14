@@ -51,6 +51,9 @@
         android:id="@+id/goingEventFragment"
         android:name="com.fronties.socialeventchat.event.goingEvent.GoingEventFragment"
         android:label="GoingEventFragment">
+        <action
+            android:id="@+id/action_goingEventFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
     </fragment>
 
     <fragment

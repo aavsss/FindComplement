@@ -15,6 +15,7 @@ import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
 import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
+import com.fronties.socialeventchat.helperClasses.Status
 
 class EventListFragment : Fragment(R.layout.fragment_event_detail) {
 
@@ -45,7 +46,19 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         binding.rvEventList.adapter = adapter
 
         viewModel.eventList.observe(viewLifecycleOwner, {
-            adapter.submitList(it.data)
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBar.visible()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBar.gone()
+                    adapter.submitList(it.data)
+                }
+                Status.ERROR -> {
+                    binding.progressBar.gone()
+                    showErrorView()
+                }
+            }
         })
 
         viewModel.navToAddEvent.observe(viewLifecycleOwner) {
@@ -90,9 +103,13 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
     private fun subscribeToErrorView() {
         viewModel.errorViewListener.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled().let {
-                binding.clErrorView.visible()
-                binding.eventListViewCl.gone()
+                showErrorView()
             }
         })
+    }
+
+    private fun showErrorView() {
+        binding.clErrorView.visible()
+        binding.eventListViewCl.gone()
     }
 }

@@ -12,6 +12,7 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.model.SortRequestBody
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.Exception
@@ -46,10 +47,8 @@ class EventRepoImpl @Inject constructor(
             }
             return emptyList()
         } catch (e: IOException) {
-            Resource.error(e.localizedMessage ?: "IO Error", null)
             throw e
         } catch (e: HttpException) {
-            Resource.error(e.localizedMessage ?: "HTTP Error", null)
             throw e
         }
     }
