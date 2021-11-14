@@ -12,6 +12,7 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.helperClasses.Resource
+import com.fronties.socialeventchat.helperClasses.Status
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -44,6 +45,7 @@ class EventListViewModel @Inject constructor(
 
     fun getEventList() {
         viewModelScope.launch {
+            _eventList.value = Resource.loading(emptyList())
             val eventsList = try {
                 eventRepo.getEventsList()
             } catch (e: Exception) {

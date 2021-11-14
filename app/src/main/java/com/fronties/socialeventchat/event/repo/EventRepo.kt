@@ -3,6 +3,7 @@ package com.fronties.socialeventchat.event.repo
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
 import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.model.SocialEvents
+import com.fronties.socialeventchat.helperClasses.Resource
 
 interface EventRepo {
     suspend fun getEventDetails(eventId: Int): SocialEvents?

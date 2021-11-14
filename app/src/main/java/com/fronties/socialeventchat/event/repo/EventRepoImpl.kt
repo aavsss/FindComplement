@@ -12,6 +12,7 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.model.SortRequestBody
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.Exception
@@ -46,10 +47,8 @@ class EventRepoImpl @Inject constructor(
             }
             return emptyList()
         } catch (e: IOException) {
-            Resource.error(e.localizedMessage ?: "IO Error", null)
             throw e
         } catch (e: HttpException) {
-            Resource.error(e.localizedMessage ?: "HTTP Error", null)
             throw e
         }
     }
@@ -123,13 +122,19 @@ class EventRepoImpl @Inject constructor(
     override suspend fun attendEvent(eventId: Int): Boolean {
         try {
             val attendEventR =
-                eventApi.joinEvent(eventId, AttendEventRequestBody(sessionManager.fetchUid()))
+                eventApi.joinEvent(
+                    eventId,
+                    AttendEventRequestBody(
+                        sessionManager.fetchUid(),
+                        eventId
+                    )
+                )
             if (attendEventR.isSuccessful) {
                 return true
             }
             return false
         } catch (e: Exception) {
-            Resource.error(e.localizedMessage ?: "Unknown error occured", null)
+            Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
             return false
         }
     }
@@ -143,7 +148,7 @@ class EventRepoImpl @Inject constructor(
                 return sortEventResponse.body()!!
             }
         } catch (e: Exception) {
-            Resource.error(e.localizedMessage ?: "Unknown error occured", null)
+            Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
         }
         return emptyList()
     }

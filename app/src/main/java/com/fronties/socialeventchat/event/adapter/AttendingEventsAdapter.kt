@@ -81,7 +81,7 @@ class AttendingEventsAdapter() :
                     "isAttending" to EventType.ATTENDED.value
                 )
                 it.findNavController().navigate(
-                    R.id.action_eventListFragment_to_eventDetailFragment,
+                    R.id.action_goingEventFragment_to_eventDetailFragment,
                     bundle
                 )
             }

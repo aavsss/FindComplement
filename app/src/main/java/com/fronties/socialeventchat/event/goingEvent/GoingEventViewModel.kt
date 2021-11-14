@@ -23,8 +23,8 @@ class GoingEventViewModel @Inject constructor(
     private val profileRepo: ProfileRepo
 ) : ViewModel() {
 
-    private val _eventList = MutableLiveData<Resource<Event<List<SocialEvents>>>>()
-    val eventList: LiveData<Resource<Event<List<SocialEvents>>>>
+    private val _eventList = MutableLiveData<Resource<List<SocialEvents>>>()
+    val eventList: LiveData<Resource<List<SocialEvents>>>
         get() = _eventList
 
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
@@ -36,6 +36,7 @@ class GoingEventViewModel @Inject constructor(
 
     fun getGoingEventList() {
         viewModelScope.launch {
+            _eventList.value = Resource.loading(emptyList())
             val eventsList = try {
                 eventRepo.getGoingEvents()
             } catch (e: AuthException) {
@@ -46,7 +47,7 @@ class GoingEventViewModel @Inject constructor(
                 _errorViewListener.value = Event(Unit)
                 return@launch
             }
-            _eventList.value = Resource.success(Event(eventsList))
+            _eventList.value = Resource.success(eventsList)
         }
     }
 

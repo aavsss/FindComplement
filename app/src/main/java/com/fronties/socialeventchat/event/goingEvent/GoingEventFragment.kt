@@ -10,6 +10,9 @@ import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentGoingEventBinding
 import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
+import com.fronties.socialeventchat.helperClasses.Extensions.gone
+import com.fronties.socialeventchat.helperClasses.Extensions.visible
+import com.fronties.socialeventchat.helperClasses.Status
 
 class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
 
@@ -37,9 +40,21 @@ class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
         binding.rvEventList.adapter = adapter
 
         viewModel.eventList.observe(viewLifecycleOwner) {
-            it.data?.getContentIfNotHandled()?.let { list ->
-                adapter.submitList(list)
+            when (it.status) {
+                Status.LOADING -> {
+                    binding.progressBar.visible()
+                }
+                Status.SUCCESS -> {
+                    binding.progressBar.gone()
+                    adapter.submitList(it.data)
+                }
+                Status.ERROR -> {
+                    binding.progressBar.gone()
+                    binding.clErrorView.visible()
+                    binding.eventListViewCl.gone()
+                }
             }
+
         }
 
         viewModel.profilePic.observe(viewLifecycleOwner) {
