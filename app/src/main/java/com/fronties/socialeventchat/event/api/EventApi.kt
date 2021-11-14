@@ -33,7 +33,7 @@ interface EventApi {
         @Path("eid") eid: Int
     ): Response<EventResponse>
 
-    @POST("/{eid}/join")
+    @POST("/api/events/{eid}/join")
     suspend fun joinEvent(
         @Path("eid") eid: Int,
         @Body attendEventRequestBody: AttendEventRequestBody

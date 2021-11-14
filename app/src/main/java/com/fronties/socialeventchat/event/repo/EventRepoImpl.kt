@@ -123,13 +123,19 @@ class EventRepoImpl @Inject constructor(
     override suspend fun attendEvent(eventId: Int): Boolean {
         try {
             val attendEventR =
-                eventApi.joinEvent(eventId, AttendEventRequestBody(sessionManager.fetchUid()))
+                eventApi.joinEvent(
+                    eventId,
+                    AttendEventRequestBody(
+                        sessionManager.fetchUid(),
+                        eventId
+                    )
+                )
             if (attendEventR.isSuccessful) {
                 return true
             }
             return false
         } catch (e: Exception) {
-            Resource.error(e.localizedMessage ?: "Unknown error occured", null)
+            Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
             return false
         }
     }
@@ -143,7 +149,7 @@ class EventRepoImpl @Inject constructor(
                 return sortEventResponse.body()!!
             }
         } catch (e: Exception) {
-            Resource.error(e.localizedMessage ?: "Unknown error occured", null)
+            Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
         }
         return emptyList()
     }
