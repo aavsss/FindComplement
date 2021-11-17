@@ -10,6 +10,7 @@ import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentGoingEventBinding
 import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
+import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import com.fronties.socialeventchat.helperClasses.Status
@@ -54,7 +55,15 @@ class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
                     binding.eventListViewCl.gone()
                 }
             }
+        }
 
+        viewModel.listenerForSort.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                val sortDialog = SortingDialogFragment(viewModel) { sortType, sortOrder ->
+                    viewModel.sortEvents(sortType, sortOrder)
+                }
+                sortDialog.show(childFragmentManager, "sortDialog")
+            }
         }
 
         viewModel.profilePic.observe(viewLifecycleOwner) {

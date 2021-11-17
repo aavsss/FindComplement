@@ -7,7 +7,7 @@
             name="eventViewModel"
             type="com.fronties.socialeventchat.event.EventViewModel" />
 
-        <import type="com.fronties.socialeventchat.databinding.scope.BindingUtils"/>
+        <import type="com.fronties.socialeventchat.databinding.BindingUtils"/>
         <import type="com.fronties.socialeventchat.event.dependency.sorting.SortOrder"/>
 
     </data>

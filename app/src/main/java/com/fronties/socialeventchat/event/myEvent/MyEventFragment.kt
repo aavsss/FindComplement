@@ -10,6 +10,7 @@ import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentMyEventBinding
 import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
+import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import com.fronties.socialeventchat.helperClasses.Status
@@ -61,6 +62,15 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
         viewModel.profilePic.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { uri ->
                 binding.imgProfile.setImageURI(uri)
+            }
+        }
+
+        viewModel.listenerForSort.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                val sortDialog = SortingDialogFragment(viewModel) { sortType, sortOrder ->
+                    viewModel.sortEvents(sortType, sortOrder)
+                }
+                sortDialog.show(childFragmentManager, "sortDialog")
             }
         }
 

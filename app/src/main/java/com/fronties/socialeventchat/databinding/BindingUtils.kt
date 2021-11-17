@@ -1,6 +1,5 @@
-package com.fronties.socialeventchat.databinding.scope
+package com.fronties.socialeventchat.databinding
 
-import androidx.databinding.BindingConversion
 import androidx.databinding.InverseMethod
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
