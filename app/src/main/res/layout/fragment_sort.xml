@@ -8,6 +8,7 @@
             type="com.fronties.socialeventchat.event.EventViewModel" />
 
         <import type="com.fronties.socialeventchat.databinding.scope.BindingUtils"/>
+        <import type="com.fronties.socialeventchat.event.dependency.sorting.SortOrder"/>
 
     </data>
 
@@ -28,6 +29,7 @@
             android:id="@+id/sort_type_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checkedButton="@={BindingUtils.INSTANCE.transformSortTypeToButtonId(eventViewModel.sortType)}"
             app:layout_constraintTop_toBottomOf="@id/sort_type"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -69,6 +71,7 @@
             android:id="@+id/sort_order_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checkedButton="@={BindingUtils.INSTANCE.transformSortOrderToButtonId(eventViewModel.sortOrder)}"
             app:layout_constraintTop_toBottomOf="@id/sort_order"
             app:layout_constraintStart_toStartOf="parent">
 

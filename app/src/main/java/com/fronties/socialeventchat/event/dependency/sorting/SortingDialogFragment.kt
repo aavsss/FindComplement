@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentSortBinding
+import com.fronties.socialeventchat.event.EventViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SortingDialogFragment(
-    private val sortCallback: (SortType, SortOrder) -> Unit
+    private val eventViewModel: EventViewModel,
+    private val sortCallback: (SortType, SortOrder) -> Unit,
 ) : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentSortBinding
@@ -30,18 +32,12 @@ class SortingDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.eventViewModel = eventViewModel
 
         binding.btnSet.setOnClickListener {
-            when (binding.sortTypeRg.checkedRadioButtonId) {
-                R.id.rb_name -> sortType = SortType.NAME
-                R.id.rb_hostname -> sortType = SortType.HOSTNAME
-                R.id.rb_location -> sortType = SortType.LOCATION
-            }
-            when (binding.sortOrderRg.checkedRadioButtonId) {
-                R.id.rb_asc -> sortOrder = SortOrder.ASC
-                R.id.rb_dsc -> sortOrder = SortOrder.DESC
-            }
-            sortCallback(sortType, sortOrder)
+            sortCallback(eventViewModel.sortType, eventViewModel.sortOrder)
+            Log.i("sortType", eventViewModel.sortType.type)
+            Log.i("sortOrder", eventViewModel.sortOrder.order)
             dismiss()
         }
     }

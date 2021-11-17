@@ -78,7 +78,7 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
 
         viewModel.listenerForSort.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                val sortDialog = SortingDialogFragment { sortType, sortOrder ->
+                val sortDialog = SortingDialogFragment(viewModel) { sortType, sortOrder ->
                     viewModel.sortEvents(sortType, sortOrder)
                 }
                 sortDialog.show(childFragmentManager, "sortDialog")

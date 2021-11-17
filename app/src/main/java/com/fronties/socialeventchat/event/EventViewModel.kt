@@ -15,5 +15,6 @@ import javax.inject.Inject
 open class EventViewModel @Inject constructor(
     // TODO
 ) : ViewModel() {
-    val sortOrder = MutableLiveData<SortOrder?>()
+    var sortType: SortType = SortType.NAME
+    var sortOrder: SortOrder = SortOrder.ASC
 }
