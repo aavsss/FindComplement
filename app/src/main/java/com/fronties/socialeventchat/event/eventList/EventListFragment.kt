@@ -12,6 +12,7 @@ import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentEventListBinding
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
+import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible

@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="eventViewModel"
+            type="com.fronties.socialeventchat.event.EventViewModel" />
+
+        <import type="com.fronties.socialeventchat.databinding.scope.BindingUtils"/>
 
     </data>
 
@@ -11,47 +16,85 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/sort_name"
+            android:id="@+id/sort_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="Sort Type"
             android:textSize="25sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <RadioGroup
+            android:id="@+id/sort_type_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sort_type"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RadioButton
+                android:id="@+id/rb_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:paddingStart="15dp"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rb_hostname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Host Name"
+                android:paddingStart="15dp"/>
+
+            <RadioButton
+                android:id="@+id/rb_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:paddingStart="15dp"/>
+
+
+        </RadioGroup>
+
         <TextView
-            android:id="@+id/sort_hostname"
+            android:id="@+id/sort_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HostName"
+            android:text="Sort Order"
             android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/sort_name"
+            app:layout_constraintTop_toBottomOf="@id/sort_type_rg"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/sort_asc"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/sort_order_rg"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ascending"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/sort_hostname"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/sort_order"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/sort_dsc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descending"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@id/sort_asc"
-            app:layout_constraintStart_toStartOf="parent"/>
+            <RadioButton
+                android:id="@+id/rb_asc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ascending"
+                android:paddingStart="15dp"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rb_dsc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descending"
+                android:paddingStart="15dp"/>
+
+        </RadioGroup>
 
         <Button
             android:id="@+id/btn_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set"
-            app:layout_constraintTop_toBottomOf="@id/sort_dsc"
+            app:layout_constraintTop_toBottomOf="@id/sort_order_rg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

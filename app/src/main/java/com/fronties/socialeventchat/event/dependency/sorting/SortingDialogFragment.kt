@@ -1,9 +1,11 @@
 package com.fronties.socialeventchat.event.dependency.sorting
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentSortBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -29,25 +31,16 @@ class SortingDialogFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // region temporary to see if it is working 
-        binding.sortName.setOnClickListener {
-            sortType = SortType.NAME
-        }
-
-        binding.sortHostname.setOnClickListener {
-            sortType = SortType.HOSTNAME
-        }
-
-        binding.sortAsc.setOnClickListener {
-            sortOrder = SortOrder.ASC
-        }
-
-        binding.sortDsc.setOnClickListener {
-            sortOrder = SortOrder.DESC
-        }
-        // endregion
-
         binding.btnSet.setOnClickListener {
+            when (binding.sortTypeRg.checkedRadioButtonId) {
+                R.id.rb_name -> sortType = SortType.NAME
+                R.id.rb_hostname -> sortType = SortType.HOSTNAME
+                R.id.rb_location -> sortType = SortType.LOCATION
+            }
+            when (binding.sortOrderRg.checkedRadioButtonId) {
+                R.id.rb_asc -> sortOrder = SortOrder.ASC
+                R.id.rb_dsc -> sortOrder = SortOrder.DESC
+            }
             sortCallback(sortType, sortOrder)
             dismiss()
         }
