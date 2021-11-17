@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:background="@color/primary_color"
+            android:onClick="@{() -> viewModel.showSort()}"
             app:layout_constraintStart_toEndOf="@id/sv_search_view"
             app:layout_constraintTop_toBottomOf="@id/tv_slogan"
             app:layout_constraintEnd_toEndOf="parent"

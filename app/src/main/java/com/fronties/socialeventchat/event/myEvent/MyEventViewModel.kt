@@ -7,6 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.session.AuthException
+import com.fronties.socialeventchat.event.EventViewModel
+import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
+import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
@@ -21,7 +24,7 @@ import javax.inject.Inject
 class MyEventViewModel @Inject constructor(
     private val eventRepo: EventRepo,
     private val profileRepo: ProfileRepo
-) : ViewModel() {
+) : EventViewModel() {
 
     private val _eventList = MutableLiveData<Resource<List<SocialEvents>>>()
     val eventList: LiveData<Resource<List<SocialEvents>>>
@@ -33,6 +36,10 @@ class MyEventViewModel @Inject constructor(
     private val _profilePic = MutableLiveData<Event<Uri?>>()
     val profilePic: LiveData<Event<Uri?>>
         get() = _profilePic
+
+    private val _listenerForSort = MutableLiveData<Event<Unit>>()
+    val listenerForSort: LiveData<Event<Unit>>
+        get() = _listenerForSort
 
     fun getMyEventList() {
         viewModelScope.launch {
@@ -48,6 +55,22 @@ class MyEventViewModel @Inject constructor(
                 return@launch
             }
             _eventList.value = Resource.success(eventsList)
+        }
+    }
+
+    fun showSort() {
+        _listenerForSort.value = Event(Unit)
+    }
+
+    fun sortEvents(sortType: SortType, sortOrder: SortOrder) {
+        viewModelScope.launch {
+            try {
+                val sortedEvents = eventRepo.sortEvents(sortType = sortType, sortOrder = sortOrder)
+                _eventList.value = Resource.success(sortedEvents)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
         }
     }
 

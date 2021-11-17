@@ -3,7 +3,10 @@ package com.fronties.socialeventchat.databinding
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseMethod
 import com.bumptech.glide.RequestManager
+import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
 import com.fronties.socialeventchat.helperClasses.dateTime.DateTimeUtils
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fronties.socialeventchat.event.EventViewModel
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
 import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.model.SocialEvents
@@ -23,7 +24,7 @@ import kotlin.Exception
 class EventListViewModel @Inject constructor(
     private val eventRepo: EventRepo,
     private val profileRepo: ProfileRepo
-) : ViewModel() {
+) : EventViewModel() {
 
     private val _eventList = MutableLiveData<Resource<List<SocialEvents>>>()
     val eventList = _eventList
