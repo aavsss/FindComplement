@@ -54,6 +54,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toTopOf="@id/img_event"
                             app:layout_constraintStart_toStartOf="@id/img_event"
+                            android:onClick="@{() -> viewmodel.goBack()}"
                             android:src="@drawable/ic_frame_back_button"
                             android:background="@color/primary_color"
                             android:layout_marginTop="16dp"

@@ -31,6 +31,9 @@ class EventDetailViewModel @Inject constructor(
     private val _navToChat = MutableLiveData<Event<Int>>()
     val navToChat: LiveData<Event<Int>> = _navToChat
 
+    private val _navBack = MutableLiveData<Event<Unit>>()
+    val navBack: LiveData<Event<Unit>> = _navBack
+
     private var eid: Int = -1
 
     fun getEventDetails(eventID: Int) {
@@ -61,6 +64,10 @@ class EventDetailViewModel @Inject constructor(
             }
             _attendSuccess.value = Resource.success(isAttendingEvent)
         }
+    }
+
+    fun goBack() {
+        _navBack.value = Event(Unit)
     }
 
     fun goToChat() {
