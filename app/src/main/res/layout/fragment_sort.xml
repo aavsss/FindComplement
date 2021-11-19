@@ -22,6 +22,9 @@
             android:layout_height="wrap_content"
             android:text="Sort Type"
             android:textSize="25sp"
+            android:textColor="@color/orange"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -31,6 +34,7 @@
             android:layout_height="wrap_content"
             android:checkedButton="@={BindingUtils.INSTANCE.transformSortTypeToButtonId(eventViewModel.sortType)}"
             app:layout_constraintTop_toBottomOf="@id/sort_type"
+            android:paddingStart="16dp"
             app:layout_constraintStart_toStartOf="parent">
 
             <RadioButton
@@ -39,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:paddingStart="15dp"
+                android:buttonTint="@color/primary_color"
                 android:checked="true"/>
 
             <RadioButton
@@ -46,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Host Name"
+                android:buttonTint="@color/primary_color"
                 android:paddingStart="15dp"/>
 
             <RadioButton
@@ -53,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location"
+                android:buttonTint="@color/primary_color"
                 android:paddingStart="15dp"/>
 
 
@@ -63,6 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sort Order"
+            android:textColor="@color/orange"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             android:textSize="25sp"
             app:layout_constraintTop_toBottomOf="@id/sort_type_rg"
             app:layout_constraintStart_toStartOf="parent" />
@@ -73,6 +83,7 @@
             android:layout_height="wrap_content"
             android:checkedButton="@={BindingUtils.INSTANCE.transformSortOrderToButtonId(eventViewModel.sortOrder)}"
             app:layout_constraintTop_toBottomOf="@id/sort_order"
+            android:paddingStart="16dp"
             app:layout_constraintStart_toStartOf="parent">
 
             <RadioButton
@@ -80,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ascending"
+                android:buttonTint="@color/primary_color"
                 android:paddingStart="15dp"
                 android:checked="true"/>
 
@@ -88,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Descending"
+                android:buttonTint="@color/primary_color"
                 android:paddingStart="15dp"/>
 
         </RadioGroup>
