@@ -131,7 +131,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
                     "eventId" to eid
                 )
                 findNavController().navigate(
-                    R.id.action_eventDetailFragment_to_addEventFragment,
+                    R.id.action_eventDetailFragment_to_editEventFragment,
                     bundle
                 )
             }
