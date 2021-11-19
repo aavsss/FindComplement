@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -42,7 +43,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
         val eventId = args.eventId
         val isAttending = args.isAttending
-        val isHost = args.isHost
+        val isHost = true
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.setIsHostTo(isHost)
@@ -59,6 +60,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         subscribeToAttendEvent()
         subscribeToNavBack()
         subscribeToShowEdit()
+        subscribeToNavToEditEvent()
     }
 
     private fun subscribeToErrorView() {
@@ -118,6 +120,20 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
                 binding.btnEditEvent.visible()
             } else {
                 binding.btnEditEvent.gone()
+            }
+        }
+    }
+
+    private fun subscribeToNavToEditEvent() {
+        eventDetailViewModel.navToEditEvent.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { eid ->
+                val bundle = bundleOf(
+                    "eventId" to eid
+                )
+                findNavController().navigate(
+                    R.id.action_eventDetailFragment_to_addEventFragment,
+                    bundle
+                )
             }
         }
     }

@@ -37,6 +37,9 @@ class EventDetailViewModel @Inject constructor(
     private val _isHost = MutableLiveData<Boolean>()
     val isHost: LiveData<Boolean> = _isHost
 
+    private val _navToEditEvent = MutableLiveData<Event<Int>>()
+    val navToEditEvent: LiveData<Event<Int>> = _navToEditEvent
+
     private var eid: Int = -1
 
     fun getEventDetails(eventID: Int) {
@@ -79,5 +82,9 @@ class EventDetailViewModel @Inject constructor(
 
     fun setIsHostTo(isHost: Boolean) {
         _isHost.value = isHost
+    }
+
+    fun goToEditEvent() {
+        _navToEditEvent.value = Event(eid)
     }
 }

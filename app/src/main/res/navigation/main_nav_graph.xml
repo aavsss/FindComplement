@@ -33,6 +33,9 @@
             android:name="isHost"
             app:argType="boolean"
             android:defaultValue="false"/>
+        <action
+            android:id="@+id/action_eventDetailFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment"/>
     </fragment>
 
     <fragment

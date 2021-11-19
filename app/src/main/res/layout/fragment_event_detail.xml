@@ -56,6 +56,7 @@
                             app:layout_constraintBottom_toBottomOf="@id/img_event"
                             android:visibility="@{viewmodel.host? View.VISIBLE : View.GONE}"
                             android:background="@drawable/round_corners"
+                            android:onClick="@{() -> viewmodel.goToEditEvent()}"
                             android:text="Edit"
                             app:layout_constraintEnd_toEndOf="@id/img_event"/>
 
