@@ -43,7 +43,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
         val eventId = args.eventId
         val isAttending = args.isAttending
-        val isHost = true
+        val isHost = args.isHost
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
         eventDetailViewModel.setIsHostTo(isHost)
