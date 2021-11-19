@@ -42,8 +42,10 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
         val eventId = args.eventId
         val isAttending = args.isAttending
+        val isHost = args.isHost
         eventDetailViewModel = ViewModelProvider(requireActivity())
             .get(EventDetailViewModel::class.java)
+        eventDetailViewModel.setIsHostTo(isHost)
         eventDetailViewModel.getEventDetails(eventId)
 
         binding.btnAttendEvent.setOnClickListener {
@@ -56,6 +58,7 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         subscribeToErrorView()
         subscribeToAttendEvent()
         subscribeToNavBack()
+        subscribeToShowEdit()
     }
 
     private fun subscribeToErrorView() {
@@ -105,6 +108,16 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
         eventDetailViewModel.navBack.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun subscribeToShowEdit() {
+        eventDetailViewModel.isHost.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.btnEditEvent.visible()
+            } else {
+                binding.btnEditEvent.gone()
             }
         }
     }

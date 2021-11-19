@@ -34,6 +34,9 @@ class EventDetailViewModel @Inject constructor(
     private val _navBack = MutableLiveData<Event<Unit>>()
     val navBack: LiveData<Event<Unit>> = _navBack
 
+    private val _isHost = MutableLiveData<Boolean>()
+    val isHost: LiveData<Boolean> = _isHost
+
     private var eid: Int = -1
 
     fun getEventDetails(eventID: Int) {
@@ -72,5 +75,9 @@ class EventDetailViewModel @Inject constructor(
 
     fun goToChat() {
         _navToChat.value = Event(eid)
+    }
+
+    fun setIsHostTo(isHost: Boolean) {
+        _isHost.value = isHost
     }
 }

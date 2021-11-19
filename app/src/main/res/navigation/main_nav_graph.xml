@@ -29,6 +29,10 @@
             android:name="isAttending"
             app:argType="integer"
             android:defaultValue="-1"/>
+        <argument
+            android:name="isHost"
+            app:argType="boolean"
+            android:defaultValue="false"/>
     </fragment>
 
     <fragment
@@ -60,6 +64,9 @@
         android:id="@+id/myEventFragment"
         android:name="com.fronties.socialeventchat.event.myEvent.MyEventFragment"
         android:label="MyEventFragment">
+        <action
+            android:id="@+id/action_myEventFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
 
     </fragment>
     <fragment

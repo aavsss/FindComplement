@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.ItemEventListBinding
-import com.fronties.socialeventchat.event.eventList.EventListFragmentDirections
 import com.fronties.socialeventchat.event.eventList.EventListViewModel
+import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.event.model.SocialEvents
 import java.util.*
 import kotlin.collections.ArrayList
@@ -75,16 +77,20 @@ class EventListAdapter() :
 
     class ViewHolder(
         private val binding: ItemEventListBinding,
-        private val eventListViewModel: EventListViewModel?
+        private val eventListViewModel: EventListViewModel?,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: SocialEvents) {
             binding.event = event
             binding.root.setOnClickListener {
-                val action = EventListFragmentDirections
-                    .actionEventListFragmentToEventDetailFragment(event.eid!!)
-                it.findNavController().navigate(action)
+                val bundle = bundleOf(
+                    "eventId" to event.eid!!,
+                )
+                it.findNavController().navigate(
+                    R.id.action_eventListFragment_to_eventDetailFragment,
+                    bundle
+                )
             }
 
             eventListViewModel?.let { eventListViewModel ->
