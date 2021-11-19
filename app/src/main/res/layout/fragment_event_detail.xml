@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="viewmodel"
             type="com.fronties.socialeventchat.event.eventDetail.EventDetailViewModel" />
@@ -47,6 +48,17 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <Button
+                            android:id="@+id/btn_edit_event"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            app:layout_constraintBottom_toBottomOf="@id/img_event"
+                            android:visibility="@{viewmodel.host? View.VISIBLE : View.GONE}"
+                            android:background="@drawable/round_corners"
+                            android:onClick="@{() -> viewmodel.goToEditEvent()}"
+                            android:text="Edit"
+                            app:layout_constraintEnd_toEndOf="@id/img_event"/>
 
                         <ImageButton
                             android:id="@+id/btn_back"

@@ -14,6 +14,7 @@ import com.fronties.socialeventchat.event.adapter.EventListAdapter
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
 import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
+import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import com.fronties.socialeventchat.helperClasses.Status
@@ -38,7 +39,7 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
             .get(EventListViewModel::class.java)
 
         val adapter = EventListAdapter(
-            viewModel
+            viewModel,
         )
         viewModel.getEventList() // setup event list in viewModel
         viewModel.loadProfilePic()

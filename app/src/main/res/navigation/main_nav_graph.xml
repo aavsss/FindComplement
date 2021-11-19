@@ -29,6 +29,13 @@
             android:name="isAttending"
             app:argType="integer"
             android:defaultValue="-1"/>
+        <argument
+            android:name="isHost"
+            app:argType="boolean"
+            android:defaultValue="false"/>
+        <action
+            android:id="@+id/action_eventDetailFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment"/>
     </fragment>
 
     <fragment
@@ -60,6 +67,9 @@
         android:id="@+id/myEventFragment"
         android:name="com.fronties.socialeventchat.event.myEvent.MyEventFragment"
         android:label="MyEventFragment">
+        <action
+            android:id="@+id/action_myEventFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
 
     </fragment>
     <fragment
@@ -69,6 +79,16 @@
         <action
             android:id="@+id/action_settingsFragment_to_viewProfileFragment"
             app:destination="@id/viewProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="com.fronties.socialeventchat.event.editEvent.EditEventFragment"
+        android:label="EditEventFragment">
+        <argument
+            android:name="eventId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
 </navigation>
