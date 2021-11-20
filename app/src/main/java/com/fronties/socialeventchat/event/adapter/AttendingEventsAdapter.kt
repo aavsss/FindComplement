@@ -91,9 +91,10 @@ class AttendingEventsAdapter(
                         )
                     }
                     EventType.MY_EVENTS -> {
-                        bundle.putBoolean("isHost", true)
+//                        bundle.putBoolean("isHost", true)
+                        bundle.putInt("eid", event.eid)
                         it.findNavController().navigate(
-                            R.id.action_myEventFragment_to_eventDetailFragment,
+                            R.id.action_myEventFragment_to_editEventFragment,
                             bundle
                         )
                     }

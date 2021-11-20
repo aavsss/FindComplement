@@ -28,6 +28,9 @@ class EditEventViewModel @Inject constructor(
     val eventContactNumber = MutableLiveData<String>()
     val eventHost = MutableLiveData<String>()
 
+    // want this to hold value of our eid
+    private var eid = 0
+
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
     private val _listenerForStartDatePicker = MutableLiveData<Event<Unit>>()
@@ -54,9 +57,8 @@ class EditEventViewModel @Inject constructor(
     val listenerForError: LiveData<Event<String>>
         get() = _listenerForError
 
-    fun initialSetup() {
-//        eventStartDate.value = Date().toString()
-//        eventEndDate.value = Date().toString()
+    fun initialSetup(eid: Int) {
+        this.eid = eid
     }
 
     fun setStartDate(year: Int, month: Int, day: Int) {
