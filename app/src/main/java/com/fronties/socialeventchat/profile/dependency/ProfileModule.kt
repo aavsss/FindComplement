@@ -26,8 +26,4 @@ object ProfileModule {
         .client(authInterceptor.getOkHttpClientWithInterceptor())
         .build()
         .create(ProfileApi::class.java)
-
-    @Singleton
-    @Provides
-    fun provideGson() = Gson()
 }

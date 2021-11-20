@@ -19,11 +19,15 @@ import kotlin.Exception
 class ChatRepoIOImpl @Inject constructor(
     private val sessionManager: SessionManager,
     private val eventApi: EventApi,
-    private val chatApi: ChatApi
+    private val chatApi: ChatApi,
+    private val gson: Gson
 ) : ChatRepo {
 
     private var socket: Socket? = null
-    private val gson = Gson()
+    // TODO:
+    //      Put up a username attribute in MessageRequest 
+    //          and MessageResponse to show who is writing the message
+    //      Accurately show who is sending the message
 
     @Synchronized
     override fun establishWebSocketConnection() {
