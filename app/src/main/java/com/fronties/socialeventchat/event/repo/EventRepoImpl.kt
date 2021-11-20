@@ -125,7 +125,7 @@ class EventRepoImpl @Inject constructor(
                 eventApi.joinEvent(
                     eventId,
                     AttendEventRequestBody(
-                        sessionManager.fetchUid(),
+                        1, //TODO use sessionManager.fetchUid
                         eventId
                     )
                 )
