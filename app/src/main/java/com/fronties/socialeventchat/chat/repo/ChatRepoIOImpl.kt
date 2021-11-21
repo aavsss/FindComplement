@@ -26,10 +26,6 @@ class ChatRepoIOImpl @Inject constructor(
 ) : ChatRepo {
 
     private var socket: Socket? = null
-    // TODO:
-    //      Put up a username attribute in MessageRequest
-    //          and MessageResponse to show who is writing the message
-    //      Accurately show who is sending the message
 
     @Synchronized
     override fun establishWebSocketConnection() {
@@ -49,7 +45,7 @@ class ChatRepoIOImpl @Inject constructor(
     @Synchronized
     override fun joinRoom(eid: Int) {
         val joinRoom = JoinRoom(
-            uid = sessionManager.fetchUid(),
+            uid = sessionManager.fetchUid(), // TODO - change ID
             eid = eid
         )
         println(gson.toJson(joinRoom))
