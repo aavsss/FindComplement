@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fronties.socialeventchat.application.session.SessionManager
-import com.fronties.socialeventchat.chat.model.MessageResponse
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.databinding.ActivityChatBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,7 +16,7 @@ class ChatActivity : AppCompatActivity() {
     lateinit var chatViewModel: ChatViewModel
 
     @Inject
-    lateinit var sessionManager: SessionManager
+    lateinit var sessionManagerImpl: SessionManagerImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +32,7 @@ class ChatActivity : AppCompatActivity() {
         chatViewModel.establishWebSocketConnection()
 
         val messageListAdapter = MessageListAdapter(
-            sessionManager.fetchUid()
+            sessionManagerImpl.fetchUid()
         )
 
         chatViewModel.getChat(eid)

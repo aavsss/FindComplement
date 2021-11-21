@@ -1,14 +1,14 @@
 package com.fronties.socialeventchat.splashscreen.repo
 
 import com.auth0.android.jwt.JWT
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import javax.inject.Inject
 
 class SplashRepoImpl @Inject constructor(
-    private val sessionManager: SessionManager
+    private val sessionManagerImpl: SessionManagerImpl
 ) : SplashRepo {
     override fun isUserLoggedIn(): Boolean {
-        val authToken = sessionManager.fetchAuthToken()
+        val authToken = sessionManagerImpl.fetchAuthToken()
         authToken?.let { token ->
             val jwt = JWT(token)
             if (jwt.isNotExpired()) {

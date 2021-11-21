@@ -1,5 +1,7 @@
 package com.fronties.socialeventchat.application.dependency
 
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.helperClasses.dateTime.DateTimeUtils
 import com.fronties.socialeventchat.helperClasses.dateTime.DateTimeUtilsImpl
 import com.fronties.socialeventchat.helperClasses.file.FileHandler
@@ -25,4 +27,10 @@ abstract class ApplicationBindingModule {
     abstract fun bindFileHandler(
         fileHandlerImpl: FileHandlerImpl
     ): FileHandler
+
+    @Singleton
+    @Binds
+    abstract fun bindSessionManager(
+        sessionManagerImpl: SessionManagerImpl
+    ): SessionManager
 }

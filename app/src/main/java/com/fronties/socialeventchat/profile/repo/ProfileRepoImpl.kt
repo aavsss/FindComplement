@@ -2,7 +2,7 @@ package com.fronties.socialeventchat.profile.repo
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.helperClasses.Resource
 import com.fronties.socialeventchat.helperClasses.file.FileHandler
 import com.fronties.socialeventchat.helperClasses.file.FileType
@@ -23,7 +23,7 @@ class ProfileRepoImpl @Inject constructor(
     private val profileDao: ProfileDao,
     private val profileApi: ProfileApi,
     private val gson: Gson,
-    private val sessionManager: SessionManager,
+    private val sessionManagerImpl: SessionManagerImpl,
     private val fileHandler: FileHandler,
     private val profileInfoValidator: ProfileInfoValidator
 ) : ProfileRepo {
@@ -33,14 +33,14 @@ class ProfileRepoImpl @Inject constructor(
         lastName: String?,
         phoneNumber: String?,
         profilePic: Uri?
-    ) : Boolean {
-        return if(
+    ): Boolean {
+        return if (
             profileInfoValidator.checkIfEntered(firstName) &&
             profileInfoValidator.checkIfEntered(lastName)
-        ){
+        ) {
             profileDao.insertProfile(
                 ProfileEntity(
-                    sessionManager.fetchUid(),
+                    sessionManagerImpl.fetchUid(),
                     firstName!!,
                     lastName!!,
                     phoneNumber,
@@ -51,7 +51,6 @@ class ProfileRepoImpl @Inject constructor(
         } else {
             false
         }
-
     }
 
     override fun loadAllProfile(): LiveData<List<ProfileEntity>> {
@@ -59,13 +58,13 @@ class ProfileRepoImpl @Inject constructor(
     }
 
     override fun loadById(): LiveData<ProfileEntity?>? {
-        return profileDao.loadProfileById(sessionManager.fetchUid())
+        return profileDao.loadProfileById(sessionManagerImpl.fetchUid())
     }
 
     override fun createImageFile(imageUri: Uri?): File? {
         return fileHandler.createFile(
             imageUri,
-            sessionManager.fetchUid().toString(),
+            sessionManagerImpl.fetchUid().toString(),
             FileType.USER
         )
     }
@@ -100,7 +99,7 @@ class ProfileRepoImpl @Inject constructor(
     override fun getImageFile(): File? {
         return fileHandler.getFile(
             FileType.USER,
-            sessionManager.fetchUid().toString()
+            sessionManagerImpl.fetchUid().toString()
         )
     }
 }
