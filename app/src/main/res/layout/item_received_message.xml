@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:hint= "John Grady Cole"
-            android:text="@{Integer.toString(message.uid)}"
+            android:text="@{message.name}"
             android:textSize="16sp"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toEndOf="@+id/image_gchat_profile_other"

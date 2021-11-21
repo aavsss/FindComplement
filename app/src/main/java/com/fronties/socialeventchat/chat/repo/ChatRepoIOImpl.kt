@@ -1,7 +1,8 @@
 package com.fronties.socialeventchat.chat.repo
 
 import com.fronties.socialeventchat.application.session.AuthException
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.chat.model.JoinRoom
 import com.fronties.socialeventchat.chat.model.JoinRoomResponse
@@ -9,6 +10,7 @@ import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.helperClasses.Constants.WS_URL
 import com.fronties.socialeventchat.helperClasses.Resource
+import com.fronties.socialeventchat.profile.room.ProfileDao
 import com.google.gson.Gson
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -25,7 +27,7 @@ class ChatRepoIOImpl @Inject constructor(
 
     private var socket: Socket? = null
     // TODO:
-    //      Put up a username attribute in MessageRequest 
+    //      Put up a username attribute in MessageRequest
     //          and MessageResponse to show who is writing the message
     //      Accurately show who is sending the message
 
