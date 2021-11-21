@@ -2,7 +2,8 @@ package com.fronties.socialeventchat.event.repo
 
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.application.session.AuthException
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
@@ -12,7 +13,6 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.model.SortRequestBody
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.Exception

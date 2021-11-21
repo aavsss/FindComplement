@@ -3,7 +3,6 @@ package com.fronties.socialeventchat.profile.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
-
 @Dao
 interface ProfileDao {
     @Query("SELECT * FROM profile")

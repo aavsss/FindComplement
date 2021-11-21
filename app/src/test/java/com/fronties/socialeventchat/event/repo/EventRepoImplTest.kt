@@ -1,57 +1,67 @@
 package com.fronties.socialeventchat.event.repo
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.fronties.socialeventchat.MainCoroutineRule
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.api.EventApi
-import com.fronties.socialeventchat.event.model.SocialEvents
-import junit.framework.TestResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import retrofit2.Response
-import java.io.IOException
 
+@ExperimentalCoroutinesApi
 class EventRepoImplTest {
 
     private val mockEventApi = mock(EventApi::class.java)
     private val mockEventTransformer = mock(EventTransformer::class.java)
     private val mockPhoneNumberValidator = mock(PhoneNumberValidator::class.java)
     private val mockSessionManager = mock(SessionManager::class.java)
-    private lateinit var eventRepoImpl: EventRepo
+    lateinit var eventRepoImpl: EventRepoImpl
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
     @Before
-    fun setUp() {
-//        eventRepoImpl = EventRepoImpl(
-//            mockEventApi,
-//            mockEventTransformer,
-//            mockPhoneNumberValidator,
-//            mockSessionManager
-//        )
+    fun setup() {
+        eventRepoImpl = EventRepoImpl(
+            mockEventApi,
+            mockEventTransformer,
+            mockPhoneNumberValidator,
+            mockSessionManager
+        )
     }
 
     @After
-    fun tearDown() {
+    fun teardown() {
     }
 
     @Test
-    suspend fun `getEventDetails throws IOException`() {
-//        val mockEventId = 1
-//        val mockException = mock(IOException::class.java)
-//        Mockito.`when`(mockEventApi.getEventDetails(mockEventId)).thenThrow(mockException)
+    fun `sample test`() {
+        assertEquals(4, 2 + 2)
+    }
+
+//    @Test
+//    fun `get event details successfully gets response`() = runBlocking {
+//        val mockEventId = 99
+//        `when`(mockEventApi.getEventDetails(eq(mockEventId))).thenReturn(Response.success(SocialEvents()))
 //        eventRepoImpl.getEventDetails(mockEventId)
-//        assert(true)
-        assertEquals(4, 2+2)
+//        assertEquals(4, 2 + 2)
+//    }
+
+    @Test
+    fun `get event list successfully gets response`() = runBlocking {
+        `when`(mockEventApi.getEventsList()).thenReturn(Response.success(emptyList()))
+        val temp = eventRepoImpl.getEventsList()
     }
 }

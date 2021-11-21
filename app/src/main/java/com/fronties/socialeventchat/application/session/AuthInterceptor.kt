@@ -1,17 +1,18 @@
 package com.fronties.socialeventchat.application.session
 
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import okhttp3.*
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor() : Interceptor {
 
     @Inject
-    lateinit var sessionManager: SessionManager
+    lateinit var sessionManagerImpl: SessionManagerImpl
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
 
         // if token has been saved, add it to the request
-        sessionManager.fetchAuthToken()?.let {
+        sessionManagerImpl.fetchAuthToken()?.let {
             requestBuilder.addHeader("Authorization", "Bearer $it")
         }
 

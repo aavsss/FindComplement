@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.session.AuthException
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.chat.model.*
 import com.fronties.socialeventchat.chat.repo.ChatRepo
 import com.google.gson.Gson
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val chatRepo: ChatRepo,
-    private val sessionManager: SessionManager
+    private val sessionManagerImpl: SessionManagerImpl
 ) : ViewModel() {
 
     val textToSend = MutableLiveData<String>()
@@ -60,7 +60,7 @@ class ChatViewModel @Inject constructor(
         textToSend.value?.let { text ->
             val messageRequest = MessageRequest(
                 eid = eid,
-                uid = sessionManager.fetchUid(),
+                uid = sessionManagerImpl.fetchUid(),
                 text = text
             )
             chatRepo.getSocketIO()?.emit("chatMessage", gson.toJson(messageRequest))

@@ -1,7 +1,8 @@
 package com.fronties.socialeventchat.chat.repo
 
 import com.fronties.socialeventchat.application.session.AuthException
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.chat.api.ChatApi
 import com.fronties.socialeventchat.chat.model.JoinRoom
 import com.fronties.socialeventchat.chat.model.JoinRoomResponse
@@ -9,6 +10,7 @@ import com.fronties.socialeventchat.chat.model.MessageResponse
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.helperClasses.Constants.WS_URL
 import com.fronties.socialeventchat.helperClasses.Resource
+import com.fronties.socialeventchat.profile.room.ProfileDao
 import com.google.gson.Gson
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -19,7 +21,8 @@ import kotlin.Exception
 class ChatRepoIOImpl @Inject constructor(
     private val sessionManager: SessionManager,
     private val eventApi: EventApi,
-    private val chatApi: ChatApi
+    private val chatApi: ChatApi,
+    private val profileDao: ProfileDao
 ) : ChatRepo {
 
     private var socket: Socket? = null
@@ -44,7 +47,7 @@ class ChatRepoIOImpl @Inject constructor(
     override fun joinRoom(eid: Int) {
         val joinRoom = JoinRoom(
             uid = sessionManager.fetchUid(),
-            eid = eid
+            eid = eid,
         )
         println(gson.toJson(joinRoom))
         socket?.emit("joinRoom", gson.toJson(joinRoom))

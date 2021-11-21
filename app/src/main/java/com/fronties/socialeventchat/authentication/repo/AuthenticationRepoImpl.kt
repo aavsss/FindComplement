@@ -1,7 +1,8 @@
 package com.fronties.socialeventchat.authentication.repo
 
 import com.auth0.android.jwt.JWT
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.authentication.api.AuthApi
 import com.fronties.socialeventchat.authentication.model.AuthRequest
 import com.fronties.socialeventchat.helperClasses.Resource
