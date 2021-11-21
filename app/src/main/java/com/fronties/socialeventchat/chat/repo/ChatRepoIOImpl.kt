@@ -63,6 +63,15 @@ class ChatRepoIOImpl @Inject constructor(
     }
 
     @Synchronized
+    override fun onReceivingPrevChats(callback: (Array<MessageResponse>) -> Unit): Emitter.Listener {
+        val onReceivingPrevChats = Emitter.Listener {
+            val messagesResponse = gson.fromJson(it[0].toString(), Array<MessageResponse>::class.java)
+            callback(messagesResponse)
+        }
+        return onReceivingPrevChats
+    }
+
+    @Synchronized
     override fun onUpdateChat(callback: ((message: MessageResponse) -> Unit)): Emitter.Listener {
         val onUpdateChat = Emitter.Listener {
             val messageResponse = gson.fromJson(it[0].toString(), MessageResponse::class.java)
