@@ -8,6 +8,7 @@ import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.chat.model.*
 import com.fronties.socialeventchat.chat.repo.ChatRepo
+import com.fronties.socialeventchat.helperClasses.Event
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.socket.client.Socket
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val chatRepo: ChatRepo,
-    private val sessionManagerImpl: SessionManagerImpl
+    private val sessionManagerImpl: SessionManagerImpl,
+    private val gson: Gson
 ) : ViewModel() {
 
     val textToSend = MutableLiveData<String>()
@@ -25,8 +27,11 @@ class ChatViewModel @Inject constructor(
     val messageList: LiveData<MutableList<MessageResponse>?>
         get() = _messageList
 
+    private val _listenerForTextSend = MutableLiveData<Event<Unit>>()
+    val listenerForTextSend: LiveData<Event<Unit>>
+        get() = _listenerForTextSend
+
     var eid = -1
-    private val gson = Gson()
 
     private val onConnect = { joinRoomResponse: JoinRoomResponse? ->
         if (joinRoomResponse != null) {
@@ -75,6 +80,7 @@ class ChatViewModel @Inject constructor(
                 "chatMessage",
                 gson.toJson(messageRequest)
             )
+            _listenerForTextSend.value = Event(Unit)
         }
     }
 

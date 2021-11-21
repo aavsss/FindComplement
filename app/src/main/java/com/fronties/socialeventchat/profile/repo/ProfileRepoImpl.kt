@@ -2,6 +2,7 @@ package com.fronties.socialeventchat.profile.repo
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
 import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.helperClasses.Resource
 import com.fronties.socialeventchat.helperClasses.file.FileHandler
@@ -23,7 +24,7 @@ class ProfileRepoImpl @Inject constructor(
     private val profileDao: ProfileDao,
     private val profileApi: ProfileApi,
     private val gson: Gson,
-    private val sessionManagerImpl: SessionManagerImpl,
+    private val sessionManager: SessionManager,
     private val fileHandler: FileHandler,
     private val profileInfoValidator: ProfileInfoValidator
 ) : ProfileRepo {
@@ -40,7 +41,7 @@ class ProfileRepoImpl @Inject constructor(
         ) {
             profileDao.insertProfile(
                 ProfileEntity(
-                    sessionManagerImpl.fetchUid(),
+                    sessionManager.fetchUid(),
                     firstName!!,
                     lastName!!,
                     phoneNumber,
@@ -58,13 +59,13 @@ class ProfileRepoImpl @Inject constructor(
     }
 
     override fun loadById(): LiveData<ProfileEntity?>? {
-        return profileDao.loadProfileById(sessionManagerImpl.fetchUid())
+        return profileDao.loadProfileById(sessionManager.fetchUid())
     }
 
     override fun createImageFile(imageUri: Uri?): File? {
         return fileHandler.createFile(
             imageUri,
-            sessionManagerImpl.fetchUid().toString(),
+            sessionManager.fetchUid().toString(),
             FileType.USER
         )
     }
@@ -99,7 +100,7 @@ class ProfileRepoImpl @Inject constructor(
     override fun getImageFile(): File? {
         return fileHandler.getFile(
             FileType.USER,
-            sessionManagerImpl.fetchUid().toString()
+            sessionManager.fetchUid().toString()
         )
     }
 }

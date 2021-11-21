@@ -26,7 +26,7 @@ class MessageListAdapter(
         }
 
         override fun areContentsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem == newItem
         }
     }
 
