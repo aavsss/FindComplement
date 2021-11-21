@@ -22,7 +22,6 @@ class ChatRepoIOImpl @Inject constructor(
     private val sessionManager: SessionManager,
     private val eventApi: EventApi,
     private val chatApi: ChatApi,
-    private val profileDao: ProfileDao
 ) : ChatRepo {
 
     private var socket: Socket? = null

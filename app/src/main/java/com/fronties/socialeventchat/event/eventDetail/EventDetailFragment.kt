@@ -100,8 +100,8 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
     }
 
     private fun showChatButtonIfAttending(isAttending: Int) {
-//        if (isAttending == EventType.ATTENDED.value) {
-        if (true) {
+        if (isAttending == EventType.ATTENDED.value) {
+//        if (true) {
             binding.btnChat.visible()
             binding.btnAttendEvent.gone()
         }
