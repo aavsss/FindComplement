@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.profile.room.ProfileDatabase
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,4 +61,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideYourDao(db: ProfileDatabase) = db.profileDao()
+
+    @Singleton
+    @Provides
+    fun provideGson() = Gson()
 }

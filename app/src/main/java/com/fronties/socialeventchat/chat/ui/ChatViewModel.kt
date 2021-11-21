@@ -63,7 +63,10 @@ class ChatViewModel @Inject constructor(
                 uid = sessionManagerImpl.fetchUid(),
                 text = text
             )
-            chatRepo.getSocketIO()?.emit("chatMessage", gson.toJson(messageRequest))
+            chatRepo.getSocketIO()?.emit(
+                "chatMessage",
+                gson.toJson(messageRequest)
+            )
         }
     }
 

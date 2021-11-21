@@ -22,8 +22,8 @@ class EventDetailViewModel @Inject constructor(
     private val _eventDetail = MutableLiveData<Resource<SocialEvents>>()
     val eventDetail: LiveData<Resource<SocialEvents>> = _eventDetail
 
-    private val _attendSuccess = MutableLiveData<Resource<Boolean>>()
-    val attendSuccess: LiveData<Resource<Boolean>> = _attendSuccess
+    private val _attendSuccess = MutableLiveData<Event<Resource<Boolean>>>()
+    val attendSuccess: LiveData<Event<Resource<Boolean>>> = _attendSuccess
 
     private val _errorViewListener = MutableLiveData<Event<Unit>>()
     val errorViewListener: LiveData<Event<Unit>> = _errorViewListener
@@ -68,7 +68,7 @@ class EventDetailViewModel @Inject constructor(
                 _errorViewListener.value = Event(Unit)
                 return@launch
             }
-            _attendSuccess.value = Resource.success(isAttendingEvent)
+            _attendSuccess.value = Event(Resource.success(isAttendingEvent))
         }
     }
 
