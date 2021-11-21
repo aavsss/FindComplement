@@ -90,11 +90,12 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
                 SearchView.OnQueryTextListener,
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.filterEvents(query)
                     return false
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    adapter.filter.filter(newText)
+//                    adapter.filter.filter(newText)
                     return false
                 }
             })

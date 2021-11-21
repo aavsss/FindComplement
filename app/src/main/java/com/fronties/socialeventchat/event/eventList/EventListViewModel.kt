@@ -91,4 +91,16 @@ class EventListViewModel @Inject constructor(
     fun navigateToAddEvent() {
         _navToAddEvent.value = Event(Unit)
     }
+
+    fun filterEvents(query: String?) {
+        viewModelScope.launch {
+            try {
+                val filteredEvents = eventRepo.filterEvent(query)
+                _eventList.value = Resource.success(filteredEvents)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
+        }
+    }
 }

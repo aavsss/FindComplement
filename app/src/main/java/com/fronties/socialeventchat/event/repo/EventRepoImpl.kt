@@ -8,6 +8,7 @@ import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
 import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.model.AttendEventRequestBody
+import com.fronties.socialeventchat.event.model.FilterEvent
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.model.SortRequestBody
 import com.fronties.socialeventchat.helperClasses.Resource
@@ -151,5 +152,20 @@ class EventRepoImpl @Inject constructor(
             Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
         }
         return emptyList()
+    }
+
+    override suspend fun filterEvent(filterWord: String?): List<SocialEvents> {
+        try {
+            val filterEvent = FilterEvent(filterWord?.lowercase())
+            val filterEventResponse = eventApi.filterEvent(filterEvent)
+            println(filterEventResponse.body())
+            if (filterEventResponse.isSuccessful && filterEventResponse.body() != null) {
+                return filterEventResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error", null)
+            throw e
+        }
     }
 }
