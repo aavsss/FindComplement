@@ -51,6 +51,7 @@ class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
 
     override fun getChatTimeString(isoDate: String): String {
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        format.timeZone = TimeZone.getTimeZone("UTC")
         return try {
             val date = format.parse(isoDate)
             val calendar = Calendar.getInstance()

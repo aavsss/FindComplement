@@ -49,4 +49,11 @@ class BindingProperties @Inject constructor(
             view.text = dateTimeUtils.getChatTimeString(isoDate)
         }
     }
+
+    @BindingAdapter("app:displayInitial")
+    fun displayInitial(view: TextView, name: String?) {
+        name?.let {
+            view.text = name[0].toString()
+        }
+    }
 }
