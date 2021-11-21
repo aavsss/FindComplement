@@ -4,6 +4,6 @@ data class MessageResponse(
     val eid: Int,
     val uid: Int,
     val text: String,
-    val time: String,
+    val created_at: String,
     val name: String
 )

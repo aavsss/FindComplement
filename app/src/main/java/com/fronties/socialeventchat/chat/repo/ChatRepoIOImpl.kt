@@ -45,7 +45,7 @@ class ChatRepoIOImpl @Inject constructor(
     @Synchronized
     override fun joinRoom(eid: Int) {
         val joinRoom = JoinRoom(
-            uid = sessionManager.fetchUid(), // TODO - change ID
+            uid = 1, // TODO - change ID
             eid = eid
         )
         println(gson.toJson(joinRoom))
