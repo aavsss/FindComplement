@@ -11,10 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.FragmentEventListBinding
 import com.fronties.socialeventchat.event.adapter.EventListAdapter
-import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
-import com.fronties.socialeventchat.event.dependency.sorting.SortType
 import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
-import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import com.fronties.socialeventchat.helperClasses.Status
@@ -80,7 +77,7 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         viewModel.listenerForSort.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 val sortDialog = SortingDialogFragment(viewModel) { sortType, sortOrder ->
-                    viewModel.sortEvents(sortType, sortOrder)
+                    viewModel.sortUnattendedEvents(sortType, sortOrder)
                 }
                 sortDialog.show(childFragmentManager, "sortDialog")
             }

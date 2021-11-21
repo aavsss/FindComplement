@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.event.EventViewModel
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
@@ -13,7 +12,6 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.repo.EventRepo
 import com.fronties.socialeventchat.helperClasses.Event
 import com.fronties.socialeventchat.helperClasses.Resource
-import com.fronties.socialeventchat.helperClasses.Status
 import com.fronties.socialeventchat.profile.repo.ProfileRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -72,10 +70,13 @@ class EventListViewModel @Inject constructor(
         _listenerForSort.value = Event(Unit)
     }
 
-    fun sortEvents(sortType: SortType, sortOrder: SortOrder) {
+    fun sortUnattendedEvents(sortType: SortType, sortOrder: SortOrder) {
         viewModelScope.launch {
             try {
-                val sortedEvents = eventRepo.sortEvents(sortType = sortType, sortOrder = sortOrder)
+                val sortedEvents = eventRepo.sortUnattendedEvents(
+                    sortType = sortType,
+                    sortOrder = sortOrder
+                )
                 _eventList.value = Resource.success(sortedEvents)
             } catch (e: Exception) {
                 _errorViewListener.value = Event(Unit)

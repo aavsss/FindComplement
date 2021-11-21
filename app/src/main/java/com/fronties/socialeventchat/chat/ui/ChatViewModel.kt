@@ -44,6 +44,10 @@ class ChatViewModel @Inject constructor(
         _messageList.postValue(tempList)
     }
 
+    private val onReceivingPrevChats = { messages: Array<MessageResponse> ->
+        _messageList.postValue(messages.toMutableList())
+    }
+
     init {
         chatRepo.establishWebSocketConnection()
         chatRepo.getSocketIO()?.on(
@@ -53,6 +57,10 @@ class ChatViewModel @Inject constructor(
         chatRepo.getSocketIO()?.on(
             "message",
             chatRepo.onUpdateChat(onUpdateChat)
+        )
+        chatRepo.getSocketIO()?.on(
+            "lastMessages",
+            chatRepo.onReceivingPrevChats(onReceivingPrevChats)
         )
     }
 

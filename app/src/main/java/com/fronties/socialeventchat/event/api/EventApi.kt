@@ -55,8 +55,18 @@ interface EventApi {
         @Path("uid") uid: Int
     ): Response<List<SocialEvents>>
 
-    @POST("/api/events/sort")
-    suspend fun sortEvents(
+    @POST("/api/events/new/sort")
+    suspend fun sortUnattendedEvents(
+        @Body sortRequestBody: SortRequestBody
+    ): Response<List<SocialEvents>>
+
+    @POST("/api/events/myevents/sort")
+    suspend fun sortMyEvents(
+        @Body sortRequestBody: SortRequestBody
+    ): Response<List<SocialEvents>>
+
+    @POST("/api/events/attendingevents/sort")
+    suspend fun sortAttendingEvents(
         @Body sortRequestBody: SortRequestBody
     ): Response<List<SocialEvents>>
 }

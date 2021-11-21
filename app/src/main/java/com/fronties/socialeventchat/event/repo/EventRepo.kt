@@ -22,5 +22,7 @@ interface EventRepo {
     suspend fun attendEvent(eventId: Int): Boolean
     suspend fun getGoingEvents(): List<SocialEvents>
     suspend fun getMyEvents(): List<SocialEvents>
-    suspend fun sortEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents>
+    suspend fun sortUnattendedEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents>
+    suspend fun sortMyEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents>
+    suspend fun sortAttendedEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents>
 }

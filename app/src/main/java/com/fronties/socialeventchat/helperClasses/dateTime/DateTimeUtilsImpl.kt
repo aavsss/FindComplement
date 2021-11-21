@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
 
-
     override fun getDateString(isoDate: String): String {
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
         return try {
