@@ -49,6 +49,33 @@ class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
         }
     }
 
+    override fun getChatTimeString(isoDate: String): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        return try {
+            val date = format.parse(isoDate)
+            val calendar = Calendar.getInstance()
+            calendar.time = date!!
+            val hour = calendar.get(Calendar.HOUR)
+            val minute = calendar.get(Calendar.MINUTE)
+            val isAm = calendar.get(Calendar.AM_PM)
+            if (isAm == 0) {
+                if (minute < 10) {
+                    "$hour:${minute}0 AM"
+                } else {
+                    "$hour:$minute AM"
+                }
+            } else {
+                if (minute < 10) {
+                    "$hour:${minute}0 PM"
+                } else {
+                    "$hour:$minute PM"
+                }
+            }
+        } catch (e: Exception) {
+            "Unknown time"
+        }
+    }
+
     override fun getDateAndTimeString(isoDate: String): String {
         return try {
             val dateString = getDateString(isoDate)
