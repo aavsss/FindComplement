@@ -123,6 +123,16 @@ class EditEventViewModel @Inject constructor(
         }
     }
 
+    fun updateEvent() {
+        viewModelScope.launch {
+            try {
+                eventRepo.updateEvent(
+                    existingEvent =
+                )
+            }
+        }
+    }
+
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
         callbacks.add(callback)
     }

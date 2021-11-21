@@ -87,6 +87,26 @@ class EventRepoImpl @Inject constructor(
         }
     }
 
+    override suspend fun updateEvent(
+        name: String?,
+        description: String?,
+        eventType: String?,
+        contactNumber: String?,
+        startDate: Triple<Int, Int, Int>?,
+        startTime: Pair<Int, Int>?,
+        endDate: Triple<Int, Int, Int>?,
+        endTime: Pair<Int, Int>?,
+        hostName: String?,
+        eid: Int?
+    ): Boolean {
+        try {
+            val existingEventR = eid?.let { eventApi.getEventDetails(it) }
+            if (existingEventR!!.isSuccessful && existingEventR.body() != null) {
+                Log.d("TESTHIGH", existingEventR.body())
+            }
+        }
+    }
+
     override suspend fun getGoingEvents(): List<SocialEvents> {
         try {
             val eventListResponse = eventApi.getAttendedEvents(sessionManager.fetchUid())

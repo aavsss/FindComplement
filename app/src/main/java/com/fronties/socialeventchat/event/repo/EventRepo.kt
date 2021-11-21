@@ -19,6 +19,17 @@ interface EventRepo {
         endTime: Pair<Int, Int>?,
         hostName: String?
     ): Boolean
+    suspend fun updateEvent (
+        name: String?,
+        description: String?,
+        eventType: String?,
+        contactNumber: String?,
+        startDate: Triple<Int, Int, Int>?,
+        startTime: Pair<Int, Int>?,
+        endDate: Triple<Int, Int, Int>?,
+        endTime: Pair<Int, Int>?,
+        hostName: String?
+    ): Boolean
     suspend fun attendEvent(eventId: Int): Boolean
     suspend fun getGoingEvents(): List<SocialEvents>
     suspend fun getMyEvents(): List<SocialEvents>
