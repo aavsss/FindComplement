@@ -11,5 +11,6 @@ data class SocialEvents(
     val hostname: String? = "Host",
     val location: String? = "Location",
     val imageurl: String? = "imageurl",
-    val uid: Int? = 1
+    val uid: Int? = 1,
+    val participants: Int? = 0
 )

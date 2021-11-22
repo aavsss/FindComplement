@@ -40,6 +40,10 @@ class GoingEventViewModel @Inject constructor(
     val listenerForSort: LiveData<Event<Unit>>
         get() = _listenerForSort
 
+    private val _listenerForNavToChat = MutableLiveData<Event<Int>>()
+    val listenerForNavToChat: LiveData<Event<Int>>
+        get() = _listenerForNavToChat
+
     fun getGoingEventList() {
         viewModelScope.launch {
             _eventList.value = Resource.loading(emptyList())
@@ -78,5 +82,9 @@ class GoingEventViewModel @Inject constructor(
 
     fun loadProfilePic() {
         _profilePic.value = Event(profileRepo.getImageFile()?.toUri())
+    }
+
+    fun navToChat(eid: Int) {
+        _listenerForNavToChat.value = Event(eid)
     }
 }
