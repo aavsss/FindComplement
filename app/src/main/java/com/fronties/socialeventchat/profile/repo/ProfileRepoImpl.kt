@@ -83,7 +83,11 @@ class ProfileRepoImpl @Inject constructor(
 
             val userPart = MultipartBody.Part.createFormData("user", gson.toJson(user))
 
-            val eventResponse = profileApi.updateProfile(1, filePart, userPart)
+            val eventResponse = profileApi.updateProfile(
+                sessionManager.fetchUid(),
+                filePart,
+                userPart
+            )
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
                 return eventResponse.body()
             }

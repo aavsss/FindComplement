@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.databinding.ActivityChatBinding
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +46,7 @@ class ChatActivity : AppCompatActivity() {
         )
 
         binding.recyclerGchat.addOnLayoutChangeListener {
-                _, _, _, _, bottom, _, _, _, oldBottom ->
+            _, _, _, _, bottom, _, _, _, oldBottom ->
             if (bottom < oldBottom) {
                 binding.recyclerGchat.scrollBy(0, oldBottom - bottom)
             }

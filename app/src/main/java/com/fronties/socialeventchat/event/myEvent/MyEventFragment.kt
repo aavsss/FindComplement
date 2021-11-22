@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.myEvent
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.chat.ui.ChatActivity
 import com.fronties.socialeventchat.databinding.FragmentMyEventBinding
-import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
+import com.fronties.socialeventchat.event.adapter.MyEventAdapter
 import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
-import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import com.fronties.socialeventchat.helperClasses.Status
@@ -37,7 +38,7 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
             .get(MyEventViewModel::class.java)
         viewModel.loadProfilePic()
 
-        val adapter = AttendingEventsAdapter(EventType.MY_EVENTS)
+        val adapter = MyEventAdapter(viewModel)
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter
@@ -75,5 +76,13 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
         }
 
         viewModel.getMyEventList()
+
+        viewModel.listenerForNavToChat.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { eid ->
+                val intent = Intent(activity, ChatActivity::class.java)
+                intent.putExtra("eid", eid)
+                startActivity(intent)
+            }
+        }
     }
 }

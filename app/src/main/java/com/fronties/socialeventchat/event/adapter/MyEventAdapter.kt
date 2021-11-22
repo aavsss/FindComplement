@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.ItemEventListBinding
-import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.event.model.SocialEvents
+import com.fronties.socialeventchat.event.myEvent.MyEventViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AttendingEventsAdapter(
-    val eventType: EventType
-) :
-    ListAdapter<SocialEvents, AttendingEventsAdapter.ViewHolder>(EventListDiffCallBack()), Filterable {
+class MyEventAdapter(
+    private val myEventViewModel: MyEventViewModel
+) : ListAdapter<SocialEvents, MyEventAdapter.ViewHolder>(EventListDiffCallBack()),
+    Filterable {
 
     var eventFilterList: MutableList<SocialEvents>? = this.currentList
     var allEventList: MutableList<SocialEvents> = this.currentList
@@ -35,7 +35,7 @@ class AttendingEventsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemEventListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, eventType)
+        return ViewHolder(binding, myEventViewModel)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -71,9 +71,8 @@ class AttendingEventsAdapter(
 
     class ViewHolder(
         private val binding: ItemEventListBinding,
-        private val eventType: EventType
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+        private val myEventViewModel: MyEventViewModel
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: SocialEvents) {
             binding.event = event
@@ -81,23 +80,15 @@ class AttendingEventsAdapter(
             binding.root.setOnClickListener {
                 val bundle = bundleOf(
                     "eventId" to event.eid!!,
+                    "isHost" to true
                 )
-                when (eventType) {
-                    EventType.ATTENDED -> {
-                        bundle.putInt("isAttending", EventType.ATTENDED.value)
-                        it.findNavController().navigate(
-                            R.id.action_goingEventFragment_to_eventDetailFragment,
-                            bundle
-                        )
-                    }
-                    EventType.MY_EVENTS -> {
-                        bundle.putBoolean("isHost", true)
-                        it.findNavController().navigate(
-                            R.id.action_myEventFragment_to_eventDetailFragment,
-                            bundle
-                        )
-                    }
-                }
+                it.findNavController().navigate(
+                    R.id.action_myEventFragment_to_eventDetailFragment,
+                    bundle
+                )
+            }
+            binding.btnJoin.setOnClickListener {
+                myEventViewModel.navToChat(event.eid!!)
             }
         }
     }
