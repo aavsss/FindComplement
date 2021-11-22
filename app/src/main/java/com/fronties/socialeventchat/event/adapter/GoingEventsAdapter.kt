@@ -72,8 +72,7 @@ class GoingEventsAdapter(
     class ViewHolder(
         private val binding: ItemEventListBinding,
         private val goingEventViewModel: GoingEventViewModel
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: SocialEvents) {
             binding.event = event

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.databinding.ItemEventListBinding
-import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.myEvent.MyEventViewModel
 import java.util.*
@@ -73,8 +72,7 @@ class MyEventAdapter(
     class ViewHolder(
         private val binding: ItemEventListBinding,
         private val myEventViewModel: MyEventViewModel
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: SocialEvents) {
             binding.event = event
@@ -92,7 +90,6 @@ class MyEventAdapter(
             binding.btnJoin.setOnClickListener {
                 myEventViewModel.navToChat(event.eid!!)
             }
-
         }
     }
 
