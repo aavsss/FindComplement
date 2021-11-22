@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.repo
 
+import android.util.Log
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
