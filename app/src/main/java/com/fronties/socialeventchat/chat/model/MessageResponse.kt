@@ -5,5 +5,5 @@ data class MessageResponse(
     val uid: Int,
     val text: String,
     val created_at: String,
-    val name: String
+    val firstname: String
 )

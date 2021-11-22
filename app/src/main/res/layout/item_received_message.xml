@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             tools:text= "John Grady Cole"
-            android:text="@{message.name}"
+            android:text="@{message.firstname}"
             android:textSize="16sp"
             android:textColor="@color/dark_gray"
             app:layout_constraintStart_toEndOf="@+id/image_gchat_profile_other"
@@ -44,7 +44,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 tools:text="A"
-                app:displayInitial="@{message.name}"
+                app:displayInitial="@{message.firstname}"
                 android:gravity="center"
                 android:textSize="32sp"
                 android:background="@drawable/round_corners" />
