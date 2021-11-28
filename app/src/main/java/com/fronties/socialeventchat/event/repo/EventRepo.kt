@@ -24,4 +24,6 @@ interface EventRepo {
     suspend fun getMyEvents(): List<SocialEvents>
     suspend fun sortEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents>
     suspend fun filterEvent(filterWord: String?): List<SocialEvents>
+    suspend fun filterGoingEvent(filterWord: String?): List<SocialEvents>
+    suspend fun filterMyEvent(filterWord: String?): List<SocialEvents>
 }

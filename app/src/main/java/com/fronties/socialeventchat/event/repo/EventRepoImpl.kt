@@ -156,9 +156,36 @@ class EventRepoImpl @Inject constructor(
 
     override suspend fun filterEvent(filterWord: String?): List<SocialEvents> {
         try {
-            val filterEvent = FilterEvent(filterWord?.lowercase())
-            val filterEventResponse = eventApi.filterEvent(filterEvent)
-            println(filterEventResponse.body())
+            val filterEvent = FilterEvent(filterWord,sessionManager.fetchUid().toString())
+            val filterEventResponse = eventApi.filterEvent(sessionManager.fetchUid(),filterEvent)
+            if (filterEventResponse.isSuccessful && filterEventResponse.body() != null) {
+                return filterEventResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error", null)
+            throw e
+        }
+    }
+
+    override suspend fun filterGoingEvent(filterWord: String?): List<SocialEvents> {
+        try {
+            val filterEvent = FilterEvent(filterWord,sessionManager.fetchUid().toString())
+            val filterEventResponse = eventApi.filterGoingEvent(sessionManager.fetchUid(),filterEvent)
+            if (filterEventResponse.isSuccessful && filterEventResponse.body() != null) {
+                return filterEventResponse.body()!!
+            }
+            return emptyList()
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error", null)
+            throw e
+        }
+    }
+
+    override suspend fun filterMyEvent(filterWord: String?): List<SocialEvents> {
+        try {
+            val filterEvent = FilterEvent(filterWord,sessionManager.fetchUid().toString())
+            val filterEventResponse = eventApi.filterMyEvent(sessionManager.fetchUid(),filterEvent)
             if (filterEventResponse.isSuccessful && filterEventResponse.body() != null) {
                 return filterEventResponse.body()!!
             }

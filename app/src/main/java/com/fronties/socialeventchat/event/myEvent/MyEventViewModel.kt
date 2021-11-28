@@ -77,4 +77,16 @@ class MyEventViewModel @Inject constructor(
     fun loadProfilePic() {
         _profilePic.value = Event(profileRepo.getImageFile()?.toUri())
     }
+
+    fun filterEvents(query: String?) {
+        viewModelScope.launch {
+            try {
+                val filteredEvents = eventRepo.filterMyEvent(query)
+                _eventList.value = Resource.success(filteredEvents)
+            } catch (e: Exception) {
+                _errorViewListener.value = Event(Unit)
+                return@launch
+            }
+        }
+    }
 }

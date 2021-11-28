@@ -89,16 +89,16 @@ class EventListFragment : Fragment(R.layout.fragment_event_detail) {
         binding.svSearchView.setOnQueryTextListener(object :
                 SearchView.OnQueryTextListener,
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    viewModel.filterEvents(query)
-                    return false
-                }
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        viewModel.filterEvents(query)
+                        return false
+                    }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-//                    adapter.filter.filter(newText)
-                    return false
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return false
+                    }
                 }
-            })
+        )
 
         subscribeToErrorView()
     }

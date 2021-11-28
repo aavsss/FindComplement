@@ -57,8 +57,22 @@ interface EventApi {
         @Body sortRequestBody: SortRequestBody
     ): Response<List<SocialEvents>>
 
-    @POST("/api/events/filter")
+    @POST("/api/events/new/{uid}/filter")
     suspend fun filterEvent(
+        @Path("uid") uid: Int,
         @Body value: FilterEvent
     ): Response<List<SocialEvents>>
+
+    @POST("/api/goingevents/new/{uid}/filter")
+    suspend fun filterGoingEvent(
+        @Path("uid") uid: Int,
+        @Body value: FilterEvent
+    ): Response<List<SocialEvents>>
+
+    @POST("/api/myevents/new/{uid}/filter")
+    suspend fun filterMyEvent(
+        @Path("uid") uid: Int,
+        @Body value: FilterEvent
+    ): Response<List<SocialEvents>>
+
 }

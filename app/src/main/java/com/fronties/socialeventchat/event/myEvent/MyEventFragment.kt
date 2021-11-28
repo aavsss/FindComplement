@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
@@ -76,5 +77,21 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
         }
 
         viewModel.getMyEventList()
+
+        binding.svSearchView.setOnQueryTextListener(object:
+            SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                viewModel.filterEvents(p0)
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        }
+        )
+
+
     }
 }
