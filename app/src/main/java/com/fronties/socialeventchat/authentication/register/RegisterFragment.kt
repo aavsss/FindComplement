@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fronties.socialeventchat.R
@@ -55,6 +56,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 dialog.show(
                     childFragmentManager, "customDialogFragment"
                 )
+            }
+        }
+
+        registerViewModel.listenerForConfirmPasswordError.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(context, "Passwords don't match!", Toast.LENGTH_SHORT).show()
             }
         }
     }

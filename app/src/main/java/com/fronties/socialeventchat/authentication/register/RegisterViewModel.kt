@@ -36,15 +36,22 @@ class RegisterViewModel @Inject constructor(
     val usernameRegisterEtContent = MutableLiveData<String>()
 
     private val _usernameForRegister = MutableLiveData<String>()
-    val usernameForRegister: LiveData<String>
+    private val usernameForRegister: LiveData<String>
         get() = _usernameForRegister
 
     @Bindable
     val passwordRegisterEtContent = MutableLiveData<String>()
 
     private val _passwordForRegister = MutableLiveData<String>()
-    val passwordForRegister: LiveData<String>
+    private val passwordForRegister: LiveData<String>
         get() = _passwordForRegister
+
+    @Bindable
+    val passwordRegister2EtContent = MutableLiveData<String>()
+
+    private val _passwordForRegister2 = MutableLiveData<String>()
+    private val passwordForRegister2: LiveData<String>
+        get() = _passwordForRegister2
 
     private val _listenerForNavToProfileSection = MutableLiveData<Event<Unit>>()
     val listenerForNavToProfileSection: LiveData<Event<Unit>>
@@ -58,30 +65,44 @@ class RegisterViewModel @Inject constructor(
     val listenerForLoginTv: LiveData<Event<Unit>>
         get() = _listenerForLoginTv
 
+    private val _listenerForConfirmPasswordError = MutableLiveData<Event<Unit>>()
+    val listenerForConfirmPasswordError: LiveData<Event<Unit>> = _listenerForConfirmPasswordError
+
     fun registerButtonClicked() {
         _usernameForRegister.value = usernameRegisterEtContent.value
         _passwordForRegister.value = passwordRegisterEtContent.value
-        _usernameForRegister.value?.let { email ->
-            if (emailValidator.validatePatriotsEmail(email)) {
-                viewModelScope.launch {
-                    try {
-                        if (authenticationRepo.registerUser(email, "password")) { // TODO for testing - remove later
-                            _listenerForNavToProfileSection.value = Event(Unit)
-                        }else{
-                            _listenerForRegisterError.value = Event("register")
+        _passwordForRegister2.value = passwordRegister2EtContent.value
+
+        if (passwordForRegister.value.toString() == passwordForRegister2.value.toString()){
+            usernameForRegister.value?.let { email ->
+                if (emailValidator.validatePatriotsEmail(email)) {
+                    viewModelScope.launch {
+                        try {
+                            if (authenticationRepo.registerUser(
+                                    email,
+                                    "password"
+                                )) { // TODO for testing - remove later
+                                _listenerForNavToProfileSection.value = Event(Unit)
+                            }else{
+                                _listenerForRegisterError.value = Event("register")
+                            }
+                        } catch (e: IOException) {
+                            // TODO show some error screen
+                            _listenerForRegisterError.value = Event(e.localizedMessage)
+                            return@launch
+                        } catch (e: HttpException) {
+                            // TODO show some error screen
+                            _listenerForRegisterError.value = Event(e.localizedMessage)
+                            return@launch
                         }
-                    } catch (e: IOException) {
-                        // TODO show some error screen
-                        _listenerForRegisterError.value = Event(e.localizedMessage)
-                        return@launch
-                    } catch (e: HttpException) {
-                        // TODO show some error screen
-                        _listenerForRegisterError.value = Event(e.localizedMessage)
-                        return@launch
                     }
                 }
             }
+        } else {
+           _listenerForConfirmPasswordError.value = Event(Unit)
         }
+
+
     }
 
     fun loginTvClicked() {

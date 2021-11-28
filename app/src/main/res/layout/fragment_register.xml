@@ -78,6 +78,26 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_password2_et_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password ..."
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="#00ffffff"
+                android:layout_marginTop="16dp"
+                >
+
+                <EditText
+                    android:id="@+id/register_password2_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="@={registerViewModel.passwordRegister2EtContent}"
+                    android:background="@drawable/round_corners"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
