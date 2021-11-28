@@ -68,7 +68,7 @@
                             app:layout_constraintStart_toStartOf="@id/img_event"
                             android:onClick="@{() -> viewmodel.goBack()}"
                             android:src="@drawable/ic_frame_back_button"
-                            android:background="@color/primary_color"
+                            android:background="@drawable/rounded_image_button"
                             android:layout_marginTop="16dp"
                             android:padding="3dp"
                             android:layout_marginStart="16dp"/>
@@ -79,11 +79,11 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@id/img_event"
                             android:text="@{viewmodel.eventDetail.data.name}"
-                            android:layout_marginStart="17dp"
                             android:layout_marginTop="17dp"
+                            android:layout_marginHorizontal="22dp"
                             android:textSize="32sp"
                             android:textColor="@color/orange"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent" />
 
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -115,10 +115,9 @@
                             android:id="@+id/img_date"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
-                            android:padding="5dp"
                             android:layout_marginHorizontal="16dp"
                             android:src="@drawable/ic_frame_calendar"
-                            app:layout_constraintBottom_toTopOf="@id/img_host"
+                            app:layout_constraintBottom_toTopOf="@id/img_contact_number"
                             app:layout_constraintEnd_toStartOf="@id/date"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/img_location"
@@ -166,12 +165,12 @@
 
                         <ImageView
                             android:id="@+id/img_num_participants"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
                             app:layout_constraintTop_toTopOf="@id/img_date"
                             app:layout_constraintBottom_toBottomOf="@id/img_date"
                             app:layout_constraintStart_toEndOf="@id/type"
-                            android:src="@drawable/ic_person_24_24"
+                            android:src="@drawable/ic_frame_participants"
                             android:layout_marginHorizontal="16dp"/>
 
                         <TextView
@@ -181,43 +180,18 @@
                             app:layout_constraintTop_toTopOf="@id/img_date"
                             app:layout_constraintBottom_toBottomOf="@id/img_date"
                             app:layout_constraintStart_toEndOf="@id/img_num_participants"
-                            android:text="25"
+                            android:text="@{Integer.toString(viewmodel.eventDetail.data.participants)}"
+                            tools:text="0"
                             android:layout_marginHorizontal="16dp"/>
-
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img_host"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/ic_person_24_24"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/img_type"
-                            app:layout_constraintBottom_toTopOf="@id/contact_number"
-                            app:layout_constraintEnd_toStartOf="@id/host"
-                            app:layout_constraintStart_toStartOf="parent"/>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/host"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Body1"
-                            android:text="@{viewmodel.eventDetail.data.hostname}"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="16dp"
-                            tools:text="Yapey"
-                            app:layout_constraintTop_toTopOf="@id/img_host"
-                            app:layout_constraintBottom_toBottomOf="@id/img_host"
-                            app:layout_constraintStart_toEndOf="@id/img_host" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_contact_number"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
                             android:src="@drawable/ic_baseline_contact_phone_24"
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginVertical="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/img_host"
+                            app:layout_constraintTop_toBottomOf="@id/img_type"
                             app:layout_constraintEnd_toStartOf="@id/contact_number"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -241,7 +215,9 @@
                             app:layout_constraintStart_toStartOf="parent"
                             android:text="Hosts"
                             android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="19dp"
                             android:textSize="24dp"
+                            android:textColor="@color/black"
                             android:textStyle="bold"/>
 
                         <TextView
@@ -250,7 +226,9 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@id/title_host"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:text="Alpha gaasd"
+                            android:text="@{viewmodel.eventDetail.data.hostname}"
+                            android:layout_marginTop="5dp"
+                            tools:text="Alpha gaasd"
                             android:layout_marginHorizontal="16dp"/>
 
                         <TextView
@@ -258,8 +236,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
-                            android:text="Description"
+                            android:layout_marginTop="14dp"
+                            android:text="About Event"
                             android:textSize="24sp"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_host_name" />
@@ -270,6 +250,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:text="@{viewmodel.eventDetail.data.description}"
+                            android:layout_marginTop="5dp"
                             tools:text="@string/large_text"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/title_description"/>
