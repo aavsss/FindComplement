@@ -63,7 +63,7 @@ interface EventApi {
         @Body value: FilterEvent
     ): Response<List<SocialEvents>>
 
-    @POST("/api/goingevents/new/{uid}/filter")
+    @POST("/api/events/attendingevents/{uid}/filter")
     suspend fun filterGoingEvent(
         @Path("uid") uid: Int,
         @Body value: FilterEvent

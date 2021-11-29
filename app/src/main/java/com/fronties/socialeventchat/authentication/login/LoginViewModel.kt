@@ -73,7 +73,7 @@ class LoginViewModel @Inject constructor(
                     try {
                         if (authenticationRepo.loginUser(
                                 email,
-                                "password"
+                                _passwordForLogin.value.toString()
                             )
                         ) {// TODO for testing = remove later
                             _listenerForNavToEventFeed.value = Event(Unit)

@@ -80,7 +80,7 @@ class RegisterViewModel @Inject constructor(
                         try {
                             if (authenticationRepo.registerUser(
                                     email,
-                                    "password"
+                                    _passwordForRegister.value.toString()
                                 )) { // TODO for testing - remove later
                                 _listenerForNavToProfileSection.value = Event(Unit)
                             }else{
