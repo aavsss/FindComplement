@@ -126,18 +126,35 @@ class EditEventViewModel @Inject constructor(
     fun updateEvent() {
         viewModelScope.launch {
             try {
-                eventRepo.updateEvent(
-                    existingEvent =
-                )
-            }
+                if (eventRepo.updateEvent(
+                        eid,
+                        eventName.value,
+                        eventDescription.value,
+                        eventType.value,
+                        eventContactNumber.value,
+                        eventStartDate.value,
+                        eventStartTime.value,
+                        eventEndDate.value,
+                        eventEndTime.value,
+                        eventHost.value
+                    )
+                ) {
+                    _listenerForAddedEvent.value = Event(Unit)
+                } else {
+                    _listenerForError.value = Event("Sorry! Error occured updating event")
+                }
+            } catch (e: AuthException) {
+                // TODO: Perhaps clean this up a bit
+                return@launch
         }
     }
+}
 
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.add(callback)
-    }
+override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+    callbacks.add(callback)
+}
 
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.remove(callback)
-    }
+override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+    callbacks.remove(callback)
+}
 }

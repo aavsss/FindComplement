@@ -88,6 +88,7 @@ class EventRepoImpl @Inject constructor(
     }
 
     override suspend fun updateEvent(
+        eventId: Int,
         name: String?,
         description: String?,
         eventType: String?,
@@ -96,14 +97,28 @@ class EventRepoImpl @Inject constructor(
         startTime: Pair<Int, Int>?,
         endDate: Triple<Int, Int, Int>?,
         endTime: Pair<Int, Int>?,
-        hostName: String?,
-        eid: Int?
+        hostName: String?
     ): Boolean {
         try {
-            val existingEventR = eid?.let { eventApi.getEventDetails(it) }
-            if (existingEventR!!.isSuccessful && existingEventR.body() != null) {
-                Log.d("TESTHIGH", existingEventR.body())
+            val socialEvents = SocialEvents(
+                name = name,
+                description = description,
+                eventtype = eventType,
+                contactnumber = contactNumber,
+                starttime = eventTransformer.transformDateToUTC(startDate, startTime),
+                endtime = eventTransformer.transformDateToUTC(endDate, endTime),
+                hostname = hostName
+            )
+            eventTransformer.checkRequiredItems(socialEvents)
+            phoneNumberValidator.validatePhoneNumber(contactNumber)
+            val eventResponse = eventApi.addEvent(socialEvents)
+            if (eventResponse.isSuccessful && eventResponse.body() != null) {
+                return true
             }
+            return false
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error", null)
+            throw e
         }
     }
 

@@ -39,6 +39,7 @@ class MyEventFragment : Fragment(R.layout.fragment_my_event) {
         viewModel.loadProfilePic()
 
         val adapter = AttendingEventsAdapter(EventType.MY_EVENTS)
+        viewModel.getMyEventList()
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter

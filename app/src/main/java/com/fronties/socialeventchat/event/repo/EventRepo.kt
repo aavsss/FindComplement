@@ -20,6 +20,7 @@ interface EventRepo {
         hostName: String?
     ): Boolean
     suspend fun updateEvent (
+        eventId: Int,
         name: String?,
         description: String?,
         eventType: String?,
