@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.fronties.socialeventchat.R
 import com.fronties.socialeventchat.application.dialogs.CustomDialog
 import com.fronties.socialeventchat.application.dialogs.DatePickerFragment
@@ -21,6 +22,7 @@ class EditEventFragment : Fragment(R.layout.fragment_edit_event) {
 
     private lateinit var binding: FragmentEditEventBinding
     private lateinit var viewModel: EditEventViewModel
+    private val args: EditEventFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +36,7 @@ class EditEventFragment : Fragment(R.layout.fragment_edit_event) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(EditEventViewModel::class.java)
-        viewModel.initialSetup()
+        viewModel.initialSetup(args.eventId)
         binding.viewModel = viewModel
         viewModel.listenerForStartDatePictureStyle.observe(viewLifecycleOwner) {
             // Show Date Picker

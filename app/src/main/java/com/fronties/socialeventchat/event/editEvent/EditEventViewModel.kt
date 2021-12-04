@@ -28,6 +28,9 @@ class EditEventViewModel @Inject constructor(
     val eventContactNumber = MutableLiveData<String>()
     val eventHost = MutableLiveData<String>()
 
+    // want this to hold value of our eid
+    private var eid = 0
+
     private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
     private val _listenerForStartDatePicker = MutableLiveData<Event<Unit>>()
@@ -54,9 +57,8 @@ class EditEventViewModel @Inject constructor(
     val listenerForError: LiveData<Event<String>>
         get() = _listenerForError
 
-    fun initialSetup() {
-//        eventStartDate.value = Date().toString()
-//        eventEndDate.value = Date().toString()
+    fun initialSetup(eid: Int) {
+        this.eid = eid
     }
 
     fun setStartDate(year: Int, month: Int, day: Int) {
@@ -121,11 +123,38 @@ class EditEventViewModel @Inject constructor(
         }
     }
 
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.add(callback)
+    fun updateEvent() {
+        viewModelScope.launch {
+            try {
+                if (eventRepo.updateEvent(
+                        eid,
+                        eventName.value,
+                        eventDescription.value,
+                        eventType.value,
+                        eventContactNumber.value,
+                        eventStartDate.value,
+                        eventStartTime.value,
+                        eventEndDate.value,
+                        eventEndTime.value,
+                        eventHost.value
+                    )
+                ) {
+                    _listenerForAddedEvent.value = Event(Unit)
+                } else {
+                    _listenerForError.value = Event("Sorry! Error occured updating event")
+                }
+            } catch (e: AuthException) {
+                // TODO: Perhaps clean this up a bit
+                return@launch
+        }
     }
+}
 
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callbacks.remove(callback)
-    }
+override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+    callbacks.add(callback)
+}
+
+override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
+    callbacks.remove(callback)
+}
 }

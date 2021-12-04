@@ -263,6 +263,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdateEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:onClick="@{() -> viewModel.updateEvent()}"
+                app:layout_constraintTop_toBottomOf="@id/eventHostLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
