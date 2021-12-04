@@ -1,5 +1,6 @@
 package com.fronties.socialeventchat.event.goingEvent
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fronties.socialeventchat.R
+import com.fronties.socialeventchat.chat.ui.ChatActivity
 import com.fronties.socialeventchat.databinding.FragmentGoingEventBinding
-import com.fronties.socialeventchat.event.adapter.AttendingEventsAdapter
-import com.fronties.socialeventchat.event.adapter.EventListAdapter
+import com.fronties.socialeventchat.event.adapter.GoingEventsAdapter
 import com.fronties.socialeventchat.event.dependency.sorting.SortingDialogFragment
-import com.fronties.socialeventchat.event.model.EventType
 import com.fronties.socialeventchat.helperClasses.Extensions.gone
 import com.fronties.socialeventchat.helperClasses.Extensions.visible
 import com.fronties.socialeventchat.helperClasses.Status
@@ -36,7 +36,7 @@ class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
             .get(GoingEventViewModel::class.java)
         viewModel.loadProfilePic()
 
-        val adapter = AttendingEventsAdapter(EventType.ATTENDED)
+        val adapter = GoingEventsAdapter(viewModel)
 
         binding.viewModel = viewModel
         binding.rvEventList.adapter = adapter
@@ -61,7 +61,7 @@ class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
         viewModel.listenerForSort.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
                 val sortDialog = SortingDialogFragment(viewModel) { sortType, sortOrder ->
-                    viewModel.sortEvents(sortType, sortOrder)
+                    viewModel.sortAttendedEvents(sortType, sortOrder)
                 }
                 sortDialog.show(childFragmentManager, "sortDialog")
             }
@@ -74,5 +74,13 @@ class GoingEventFragment : Fragment(R.layout.fragment_going_event) {
         }
 
         viewModel.getGoingEventList()
+
+        viewModel.listenerForNavToChat.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { eid ->
+                val intent = Intent(activity, ChatActivity::class.java)
+                intent.putExtra("eid", eid)
+                startActivity(intent)
+            }
+        }
     }
 }

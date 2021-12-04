@@ -1,13 +1,13 @@
-package com.fronties.socialeventchat.application.session
+package com.fronties.socialeventchat.application.session.sessionManager
 
 import android.content.SharedPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SessionManager @Inject constructor(
+class SessionManagerImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
-) {
+) : SessionManager {
 
     companion object {
         const val USER_TOKEN = "user_token"
@@ -15,43 +15,43 @@ class SessionManager @Inject constructor(
         const val USER_NAME = "user_name"
     }
 
-    fun saveAuthToken(token: String) {
+    override fun saveAuthToken(token: String) {
         val editor = sharedPreferences.edit()
         editor.putString(USER_TOKEN, token)
         editor.apply()
     }
 
-    fun fetchAuthToken(): String? {
+    override fun fetchAuthToken(): String? {
         return sharedPreferences.getString(USER_TOKEN, null)
     }
 
-    fun saveUid(uid: Int) {
+    override fun saveUid(uid: Int) {
         val editor = sharedPreferences.edit()
         editor.putInt(USER_ID, uid)
         editor.apply()
     }
 
-    fun fetchUid(): Int {
+    override fun fetchUid(): Int {
         return sharedPreferences.getInt(USER_ID, -1)
     }
 
-    fun saveUName(name: String) {
+    override fun saveUName(name: String) {
         val editor = sharedPreferences.edit()
         editor.putString(USER_NAME, name)
         editor.apply()
     }
 
-    fun fetchUName(): String {
+    override fun fetchUName(): String {
         return sharedPreferences.getString(USER_NAME, "Unknown")!!
     }
 
-    fun removeAuthToken() {
+    override fun removeAuthToken() {
         val editor = sharedPreferences.edit()
         editor.remove(USER_TOKEN)
         editor.apply()
     }
 
-    fun removeUid() {
+    override fun removeUid() {
         val editor = sharedPreferences.edit()
         editor.remove(USER_ID)
         editor.apply()

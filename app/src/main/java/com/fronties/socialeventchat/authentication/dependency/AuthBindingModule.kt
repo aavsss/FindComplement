@@ -2,7 +2,6 @@ package com.fronties.socialeventchat.authentication.dependency
 
 import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
 import com.fronties.socialeventchat.authentication.repo.AuthenticationRepoImpl
-import com.fronties.socialeventchat.authentication.repo.DummyAuthenticationRepo
 import com.fronties.socialeventchat.authentication.validator.EmailValidator
 import com.fronties.socialeventchat.authentication.validator.EmailValidatorImpl
 import dagger.Binds

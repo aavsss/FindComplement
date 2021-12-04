@@ -1,5 +1,7 @@
 package com.fronties.socialeventchat.application.session
 
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import okhttp3.*
 import javax.inject.Inject
 

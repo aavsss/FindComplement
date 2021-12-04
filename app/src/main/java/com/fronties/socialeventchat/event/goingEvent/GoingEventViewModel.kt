@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.session.AuthException
 import com.fronties.socialeventchat.event.EventViewModel
@@ -41,6 +40,10 @@ class GoingEventViewModel @Inject constructor(
     val listenerForSort: LiveData<Event<Unit>>
         get() = _listenerForSort
 
+    private val _listenerForNavToChat = MutableLiveData<Event<Int>>()
+    val listenerForNavToChat: LiveData<Event<Int>>
+        get() = _listenerForNavToChat
+
     fun getGoingEventList() {
         viewModelScope.launch {
             _eventList.value = Resource.loading(emptyList())
@@ -62,10 +65,13 @@ class GoingEventViewModel @Inject constructor(
         _listenerForSort.value = Event(Unit)
     }
 
-    fun sortEvents(sortType: SortType, sortOrder: SortOrder) {
+    fun sortAttendedEvents(sortType: SortType, sortOrder: SortOrder) {
         viewModelScope.launch {
             try {
-                val sortedEvents = eventRepo.sortEvents(sortType = sortType, sortOrder = sortOrder)
+                val sortedEvents = eventRepo.sortAttendedEvents(
+                    sortType = sortType,
+                    sortOrder = sortOrder
+                )
                 _eventList.value = Resource.success(sortedEvents)
             } catch (e: Exception) {
                 _errorViewListener.value = Event(Unit)
@@ -76,5 +82,9 @@ class GoingEventViewModel @Inject constructor(
 
     fun loadProfilePic() {
         _profilePic.value = Event(profileRepo.getImageFile()?.toUri())
+    }
+
+    fun navToChat(eid: Int) {
+        _listenerForNavToChat.value = Event(eid)
     }
 }

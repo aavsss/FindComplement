@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fronties.socialeventchat.application.session.AuthException
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.chat.model.*
 import com.fronties.socialeventchat.chat.repo.ChatRepo
+import com.fronties.socialeventchat.helperClasses.Event
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.socket.client.Socket
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val chatRepo: ChatRepo,
-    private val sessionManager: SessionManager
+    private val sessionManagerImpl: SessionManagerImpl,
+    private val gson: Gson
 ) : ViewModel() {
 
     val textToSend = MutableLiveData<String>()
@@ -25,8 +27,11 @@ class ChatViewModel @Inject constructor(
     val messageList: LiveData<MutableList<MessageResponse>?>
         get() = _messageList
 
+    private val _listenerForTextSend = MutableLiveData<Event<Unit>>()
+    val listenerForTextSend: LiveData<Event<Unit>>
+        get() = _listenerForTextSend
+
     var eid = -1
-    private val gson = Gson()
 
     private val onConnect = { joinRoomResponse: JoinRoomResponse? ->
         if (joinRoomResponse != null) {
@@ -44,6 +49,10 @@ class ChatViewModel @Inject constructor(
         _messageList.postValue(tempList)
     }
 
+    private val onReceivingPrevChats = { messages: Array<MessageResponse> ->
+        _messageList.postValue(messages.toMutableList())
+    }
+
     init {
         chatRepo.establishWebSocketConnection()
         chatRepo.getSocketIO()?.on(
@@ -54,16 +63,24 @@ class ChatViewModel @Inject constructor(
             "message",
             chatRepo.onUpdateChat(onUpdateChat)
         )
+        chatRepo.getSocketIO()?.on(
+            "lastMessages",
+            chatRepo.onReceivingPrevChats(onReceivingPrevChats)
+        )
     }
 
     fun sendText() {
         textToSend.value?.let { text ->
             val messageRequest = MessageRequest(
                 eid = eid,
-                uid = sessionManager.fetchUid(),
+                uid = sessionManagerImpl.fetchUid(),
                 text = text
             )
-            chatRepo.getSocketIO()?.emit("chatMessage", gson.toJson(messageRequest))
+            chatRepo.getSocketIO()?.emit(
+                "chatMessage",
+                gson.toJson(messageRequest)
+            )
+            _listenerForTextSend.value = Event(Unit)
         }
     }
 

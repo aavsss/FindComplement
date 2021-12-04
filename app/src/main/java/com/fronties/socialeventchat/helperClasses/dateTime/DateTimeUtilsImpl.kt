@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
 
-
     override fun getDateString(isoDate: String): String {
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
         return try {
@@ -25,6 +24,34 @@ class DateTimeUtilsImpl @Inject constructor() : DateTimeUtils {
 
     override fun getTimeString(isoDate: String): String {
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
+        return try {
+            val date = format.parse(isoDate)
+            val calendar = Calendar.getInstance()
+            calendar.time = date!!
+            val hour = calendar.get(Calendar.HOUR)
+            val minute = calendar.get(Calendar.MINUTE)
+            val isAm = calendar.get(Calendar.AM_PM)
+            if (isAm == 0) {
+                if (minute < 10) {
+                    "$hour:${minute}0 AM"
+                } else {
+                    "$hour:$minute AM"
+                }
+            } else {
+                if (minute < 10) {
+                    "$hour:${minute}0 PM"
+                } else {
+                    "$hour:$minute PM"
+                }
+            }
+        } catch (e: Exception) {
+            "Unknown time"
+        }
+    }
+
+    override fun getChatTimeString(isoDate: String): String {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        format.timeZone = TimeZone.getTimeZone("UTC")
         return try {
             val date = format.parse(isoDate)
             val calendar = Calendar.getInstance()

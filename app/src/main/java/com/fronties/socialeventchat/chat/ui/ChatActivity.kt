@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fronties.socialeventchat.application.session.SessionManager
-import com.fronties.socialeventchat.chat.model.MessageResponse
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.databinding.ActivityChatBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,7 +16,7 @@ class ChatActivity : AppCompatActivity() {
     lateinit var chatViewModel: ChatViewModel
 
     @Inject
-    lateinit var sessionManager: SessionManager
+    lateinit var sessionManagerImpl: SessionManagerImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,31 +32,25 @@ class ChatActivity : AppCompatActivity() {
         chatViewModel.establishWebSocketConnection()
 
         val messageListAdapter = MessageListAdapter(
-            sessionManager.fetchUid()
+            sessionManagerImpl.fetchUid()
         )
 
         chatViewModel.getChat(eid)
         binding.chatViewModel = chatViewModel
         binding.recyclerGchat.adapter = messageListAdapter
-//        messageListAdapter.chats = mutableListOf(
-//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-//            MessageResponse(1, 5, 1, "Amir", "Hello again", "Now"),
-//            MessageResponse(1, 1, 1, "Asim", "Now", "Yesterday"),
-//
-//        )
 
-        ScrollToBottomObserver(
+        val scrollToBottomObserver = ScrollToBottomObserver(
             binding.recyclerGchat,
             messageListAdapter,
             LinearLayoutManager(this)
         )
+
+        binding.recyclerGchat.addOnLayoutChangeListener {
+            _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom < oldBottom) {
+                binding.recyclerGchat.scrollBy(0, oldBottom - bottom)
+            }
+        }
 
         chatViewModel.messageList.observe(this) { list ->
             list?.let {
@@ -65,6 +58,12 @@ class ChatActivity : AppCompatActivity() {
                 // TODO - find a better way to notify adapter - I hate this
                 messageListAdapter.notifyItemChanged(messageListAdapter.chats.lastIndex)
                 messageListAdapter.notifyItemRangeInserted(messageListAdapter.chats.lastIndex, 1)
+            }
+        }
+
+        chatViewModel.listenerForTextSend.observe(this) {
+            it.getContentIfNotHandled()?.let {
+                binding.editGchatMessage.text.clear()
             }
         }
     }

@@ -1,8 +1,9 @@
 package com.fronties.socialeventchat.event.repo
 
+import android.util.Log
 import com.fronties.socialeventchat.application.phoneValidator.PhoneNumberValidator
 import com.fronties.socialeventchat.application.session.AuthException
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.api.EventApi
 import com.fronties.socialeventchat.event.dependency.sorting.SortOrder
@@ -12,7 +13,6 @@ import com.fronties.socialeventchat.event.model.SocialEvents
 import com.fronties.socialeventchat.event.model.SortRequestBody
 import com.fronties.socialeventchat.helperClasses.Resource
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.Exception
@@ -160,7 +160,7 @@ class EventRepoImpl @Inject constructor(
                 eventApi.joinEvent(
                     eventId,
                     AttendEventRequestBody(
-                        sessionManager.fetchUid(),
+                        sessionManager.fetchUid(), // TODO remove if hardcoded
                         eventId
                     )
                 )
@@ -174,9 +174,46 @@ class EventRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun sortEvents(sortType: SortType, sortOrder: SortOrder): List<SocialEvents> {
+    override suspend fun sortUnattendedEvents(
+        sortType: SortType,
+        sortOrder: SortOrder
+    ): List<SocialEvents> {
         try {
-            val sortEventResponse = eventApi.sortEvents(
+            val sortEventResponse = eventApi.sortUnattendedEvents(
+                SortRequestBody(sortType, sortOrder)
+            )
+            if (sortEventResponse.isSuccessful && sortEventResponse.body() != null) {
+                return sortEventResponse.body()!!
+            }
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
+        }
+        return emptyList()
+    }
+
+    override suspend fun sortAttendedEvents(
+        sortType: SortType,
+        sortOrder: SortOrder
+    ): List<SocialEvents> {
+        try {
+            val sortEventResponse = eventApi.sortAttendingEvents(
+                SortRequestBody(sortType, sortOrder)
+            )
+            if (sortEventResponse.isSuccessful && sortEventResponse.body() != null) {
+                return sortEventResponse.body()!!
+            }
+        } catch (e: Exception) {
+            Resource.error(e.localizedMessage ?: "Unknown error occurred", null)
+        }
+        return emptyList()
+    }
+
+    override suspend fun sortMyEvents(
+        sortType: SortType,
+        sortOrder: SortOrder
+    ): List<SocialEvents> {
+        try {
+            val sortEventResponse = eventApi.sortMyEvents(
                 SortRequestBody(sortType, sortOrder)
             )
             if (sortEventResponse.isSuccessful && sortEventResponse.body() != null) {

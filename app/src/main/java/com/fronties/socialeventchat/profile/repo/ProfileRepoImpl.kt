@@ -2,7 +2,8 @@ package com.fronties.socialeventchat.profile.repo
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
-import com.fronties.socialeventchat.application.session.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManager
+import com.fronties.socialeventchat.application.session.sessionManager.SessionManagerImpl
 import com.fronties.socialeventchat.helperClasses.Resource
 import com.fronties.socialeventchat.helperClasses.file.FileHandler
 import com.fronties.socialeventchat.helperClasses.file.FileType
@@ -33,11 +34,11 @@ class ProfileRepoImpl @Inject constructor(
         lastName: String?,
         phoneNumber: String?,
         profilePic: Uri?
-    ) : Boolean {
-        return if(
+    ): Boolean {
+        return if (
             profileInfoValidator.checkIfEntered(firstName) &&
             profileInfoValidator.checkIfEntered(lastName)
-        ){
+        ) {
             profileDao.insertProfile(
                 ProfileEntity(
                     sessionManager.fetchUid(),
@@ -51,7 +52,6 @@ class ProfileRepoImpl @Inject constructor(
         } else {
             false
         }
-
     }
 
     override fun loadAllProfile(): LiveData<List<ProfileEntity>> {
@@ -83,7 +83,11 @@ class ProfileRepoImpl @Inject constructor(
 
             val userPart = MultipartBody.Part.createFormData("user", gson.toJson(user))
 
-            val eventResponse = profileApi.updateProfile(1, filePart, userPart)
+            val eventResponse = profileApi.updateProfile(
+                sessionManager.fetchUid(),
+                filePart,
+                userPart
+            )
             if (eventResponse.isSuccessful && eventResponse.body() != null) {
                 return eventResponse.body()
             }

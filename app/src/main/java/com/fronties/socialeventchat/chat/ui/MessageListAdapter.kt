@@ -21,12 +21,12 @@ class MessageListAdapter(
     private val messageDiffCallback = object : DiffUtil.ItemCallback<MessageResponse>() {
         override fun areItemsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
             return oldItem.uid == newItem.uid &&
-                oldItem.timestamp == newItem.timestamp &&
-                oldItem.text == newItem.timestamp
+                oldItem.created_at == newItem.created_at &&
+                oldItem.text == newItem.text
         }
 
         override fun areContentsTheSame(oldItem: MessageResponse, newItem: MessageResponse): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem == newItem
         }
     }
 

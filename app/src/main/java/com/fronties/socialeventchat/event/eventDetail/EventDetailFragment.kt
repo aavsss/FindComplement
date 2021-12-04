@@ -91,19 +91,33 @@ class EventDetailFragment : Fragment(R.layout.fragment_event_detail) {
 
     private fun subscribeToAttendEvent() {
         eventDetailViewModel.attendSuccess.observe(viewLifecycleOwner) {
-            if (it.data == true) {
-                Toast.makeText(context, "Attending event!", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(context, "Not attending event :(", Toast.LENGTH_LONG).show()
+            it.getContentIfNotHandled()?.let { resource ->
+                if (resource.data == true) {
+                    showChat()
+                    Toast.makeText(context, "Attending event!", Toast.LENGTH_LONG).show()
+                } else {
+                    showAttendingButton()
+                    Toast.makeText(context, "Not attending event :(", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
 
     private fun showChatButtonIfAttending(isAttending: Int) {
         if (isAttending == EventType.ATTENDED.value) {
-            binding.btnChat.visible()
-            binding.btnAttendEvent.gone()
+//        if (true) { // FOR TESTING
+            showChat()
         }
+    }
+
+    private fun showChat() {
+        binding.btnChat.visible()
+        binding.btnAttendEvent.gone()
+    }
+
+    private fun showAttendingButton() {
+        binding.btnChat.gone()
+        binding.btnAttendEvent.visible()
     }
 
     private fun subscribeToNavBack() {
