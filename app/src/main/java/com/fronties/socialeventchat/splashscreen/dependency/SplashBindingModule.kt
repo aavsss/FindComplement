@@ -1,9 +1,7 @@
 package com.fronties.socialeventchat.splashscreen.dependency
 
-import com.fronties.socialeventchat.authentication.repo.AuthenticationRepo
-import com.fronties.socialeventchat.authentication.repo.AuthenticationRepoImpl
-import com.fronties.socialeventchat.authentication.validator.EmailValidator
-import com.fronties.socialeventchat.authentication.validator.EmailValidatorImpl
+import com.fronties.socialeventchat.splashscreen.dependency.jwt.JWTTransformer
+import com.fronties.socialeventchat.splashscreen.dependency.jwt.JWTTransformerImpl
 import com.fronties.socialeventchat.splashscreen.repo.SplashRepo
 import com.fronties.socialeventchat.splashscreen.repo.SplashRepoImpl
 import dagger.Binds
@@ -21,4 +19,10 @@ abstract class SplashBindingModule {
     abstract fun bindSplashRepo(
         splashRepo: SplashRepoImpl
     ): SplashRepo
+
+    @Singleton
+    @Binds
+    abstract fun bindJWTTransformer(
+        jwtTransformerImpl: JWTTransformerImpl
+    ): JWTTransformer
 }
