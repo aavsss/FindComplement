@@ -7,9 +7,8 @@ import com.fronties.socialeventchat.application.session.sessionManager.SessionMa
 import com.fronties.socialeventchat.event.addEvent.EventTransformer
 import com.fronties.socialeventchat.event.api.EventApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -24,7 +23,7 @@ class EventRepoImplTest {
     private val mockEventTransformer = mock(EventTransformer::class.java)
     private val mockPhoneNumberValidator = mock(PhoneNumberValidator::class.java)
     private val mockSessionManager = mock(SessionManager::class.java)
-    lateinit var eventRepoImpl: EventRepoImpl
+    private var eventRepoImpl: EventRepoImpl? = null
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -47,21 +46,7 @@ class EventRepoImplTest {
     }
 
     @Test
-    fun `sample test`() {
-        assertEquals(4, 2 + 2)
-    }
-
-//    @Test
-//    fun `get event details successfully gets response`() = runBlocking {
-//        val mockEventId = 99
-//        `when`(mockEventApi.getEventDetails(eq(mockEventId))).thenReturn(Response.success(SocialEvents()))
-//        eventRepoImpl.getEventDetails(mockEventId)
-//        assertEquals(4, 2 + 2)
-//    }
-
-    @Test
-    fun `get event list successfully gets response`() = runBlocking {
-        `when`(mockEventApi.getEventsList()).thenReturn(Response.success(emptyList()))
-        val temp = eventRepoImpl.getEventsList()
+    fun `test event repo setup`() {
+        assert(eventRepoImpl != null)
     }
 }
