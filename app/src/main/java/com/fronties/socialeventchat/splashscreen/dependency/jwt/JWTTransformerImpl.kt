@@ -17,4 +17,8 @@ class JWTTransformerImpl @Inject constructor() : JWTTransformer {
         }
         return false
     }
+
+    override fun getUid(): Int {
+        return jwt!!.getClaim("uid").asInt()!!
+    }
 }

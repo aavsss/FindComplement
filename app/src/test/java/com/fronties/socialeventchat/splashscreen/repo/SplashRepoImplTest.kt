@@ -23,9 +23,6 @@ class SplashRepoImplTest {
         )
     }
 
-    @After
-    fun teardown() {}
-
     @Test
     fun `isUserLoggedIn returns true`() {
         val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUsImVtYWlsIjoicmFuZG9tQHBhdHJpb3RzLnV0dHlsZXIuZWR1IiwiaWF0IjoxNjM4NjY4NjQ0LCJleHAiOjE2NDM4NTI2NDR9.MsN7CSMcOSN22yQ_42cBZO6foicaCJu00-xwG_J35uM"
