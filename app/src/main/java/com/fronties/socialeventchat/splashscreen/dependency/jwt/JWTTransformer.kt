@@ -6,4 +6,5 @@ interface JWTTransformer {
     var jwt: JWT?
     fun initializeToken(token: String)
     fun isNotExpired(): Boolean
+    fun getUid(): Int
 }
